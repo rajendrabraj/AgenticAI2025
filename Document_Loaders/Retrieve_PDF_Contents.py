@@ -1,4 +1,6 @@
-### text loader
+## This Python Program is to read the contents of the PDF File and Query them
+
+## RB  , 31.05.2025 , PDF file Contents reviewer ...
 
 import os
 
