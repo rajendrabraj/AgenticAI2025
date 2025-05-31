@@ -90,10 +90,10 @@ from langchain.document_loaders import TextLoader
 print("-"*100)
 
 print("\n")
-print("START : Query the document from  FAISS ")
+print("START : Query #1 FAISS ")
 
 #Page #
-db=FAISS.from_documents(documents[:30],OpenAIEmbeddings())
+db=FAISS.from_documents(documents[:34],OpenAIEmbeddings())
 query="Introduction to Vector databases "
 result=db.similarity_search(query)
 page_contents = result[0].page_content
@@ -101,7 +101,7 @@ print(page_contents)
 print("-"*100)
 
 print("\n")
-print("END :  Query the document from  FAISS ")
+print("Completed... : Query #1 FAISS ")
 
 print("-"*100)
 
@@ -112,6 +112,24 @@ print("\n")
 
 
 
+print("-"*100)
 
+print("\n")
+print("START : Query #2 FAISS ")
+
+#Page #
+db=FAISS.from_documents(documents[:34],OpenAIEmbeddings())
+query="NoSQL databases with MongoDB"
+result=db.similarity_search(query)
+page_contents = result[0].page_content
+print(page_contents)
+print("-"*100)
+
+print("\n")
+print("End : Query #2 FAISS ")
+
+print("-"*100)
+
+print("\n")
 
 	
