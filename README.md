@@ -8,9 +8,21 @@ Programs pertaining for Langchain and Assignments
 Large Language Models (LLMs) like GPT-4 are incredibly powerful — but they have limitations. They don’t “know” your private data, they can hallucinate, and their training data is static. That’s where Retrieval-Augmented Generation (RAG) steps in.
 
 LLMs can’t help unless they’ve seen that document before. But with RAG, you can fetch relevant content (your own data!) and feed it to the model on-the-fly — like giving it a custom memory.
-
+Deep learning models:
+  LLMs are a specific type of deep learning model, which are neural networks that learn by analyzing large datasets to recognize complex patterns.
+Transformer-based:
+  Many LLMs use the transformer architecture (a type of neural network) with self-attention mechanisms. This allows the model to understand the relationships between words and phrases in a sequence of text.
+Self-supervised learning:
+LLMs learn by being trained on massive amounts of text, where they predict the next word or phrase in a sequence without explicit labeling. 
+What LLMs can do:
+  Text generation: LLMs can generate human-like text, including articles, stories, poems, and even code. 
+  Translation: They can translate text from one language to another. 
+  Summarization: LLMs can condense large amounts of text into shorter summaries. 
+  Question answering: They can answer questions based on a given text or knowledge base. 
+  Code generation: LLMs can be used to assist in writing code. 
+  Other applications: LLMs are also used in areas like sentiment analysis, chatbot development, and content creation. 
+  
 RAG helps you:
-
 Inject up-to-date, domain-specific knowledge
 avoid hallucinations from model guesswork
 Keep models lightweight while enabling deeper knowledHow LLMs + Context = Better Answers
