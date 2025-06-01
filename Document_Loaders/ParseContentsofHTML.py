@@ -1,102 +1,82 @@
+## RB - 31.05.2025 , This program processes the contents of HTML e.g Cricbuzz.com
+#  RB - this program make use of BeautifulSoup and checks the embedded URLS within the website.
+#  RB - this makes use of BeautifulSoup 
+
+
 from bs4 import BeautifulSoup,SoupStrainer 
 import requests 
-
-
-URL = "https://en.wikipedia.org/wiki/Agentic_AI"
-
-HEADERS = ({'User-Agent': 
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
-        (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36',
-            'Accept-Language': 'en-US, en;q=0.5'}) 
-
-webpage = requests.get(URL, headers= HEADERS) 
-soup = BeautifulSoup(webpage.content, "lxml", 
-                     parse_only = SoupStrainer(
-                       'span', class_ = 'mw-headline'))
-
-print(soup.prettify())
-
 import requests
 from bs4 import BeautifulSoup
 import pandas
  
-
-print("Start : Parse the Contents of the URL") 
-
-
-url = 'https://en.wikipedia.org/wiki/Agentic_AI'
-response = requests.get(url)
-soup = BeautifulSoup(response.content, features="html.parser")
-for tag in soup.find_all('h2'):
-    print(tag.text.strip())
-
-print("End : Parse the Contents of the URL") 
-
-
-print("Start : Show contents of Headers ...") 
-
-#https://www.espncricinfo.com/
-
-
-url = 'https://www.espncricinfo.com/'
-r = requests.get(url)
-soup = BeautifulSoup(r.text, features="lxml")
-body_find = soup.find('body')
-
-print("H1:")
-for heading in body_find.find_all('H1'):
-    print(heading.text)
-
-
-
-print("h2:")
-for heading in body_find.find_all('h2'):
-    print(heading.text)
- 
-print("\nh3:")    
-for heading in body_find.find_all('h3'):
-    print(heading.text)
-
-
-print("End : Show contents of Headers ...") 
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 
 
 
-print("\n")
 
-print("-"*100)
+## This function extracts the data inside the URL 
+def scrape_site(start_url):
+# start_url = "https://en.wikipedia.org/wiki/Agentic_AI"
+    current_url = start_url
 
-print("Start : Show contents of Headers ...") 
+    while current_url:
+        print(f"Processing: {current_url}")
+        response = requests.get(current_url)
+        soup = BeautifulSoup(response.content, 'html.parser')
 
-for headings in soup.find_all(['h2', 'h3']):
-    if str(headings).startswith("<h2"):
-        print(f"H2, {headings.text.strip()}")
-    else:
-        print(f"H3, {headings.text.strip()}")
+#  Example: Get article titles
+        articles = soup.find_all('h2') # Adjust the tag as needed
+        # articles = soup.find_all(string=["h2", "h3", "h1"]) # Adjust the tag as needed  
+        print("Processing contents of H2")    
+        print("-"*100)
 
-print("Start : Show contents of Headers ...") 
+        for article in articles:
+            print("\n")
+            print("-"*100)
+            print("-", article.get_text(strip=True))
 
-print("\n")
-
-print("-"*100)
-
-url = 'https://www.espncricinfo.com/'
-r = requests.get(url)
-soup = BeautifulSoup(r.text, features="lxml")
-body_find = soup.find('body')
-  
-print("h2:")
-for heading in body_find.find_all('h2'):
-    print(heading.text)
- 
-print("\nh3:")    
-for heading in body_find.find_all('h3'):
-    print(heading.text)
-
-print("\n")
-
-print("-"*100)
+        articles = soup.find_all('h3') # Adjust the tag as needed
+        print("Processing contents of h3")    
+        print("-"*100)
+        # articles = soup.find_all(string=["h2", "h3", "h1"]) # Adjust the tag as needed      
+        for article in articles:
+            print("\n")
+            print("-"*100)
+            print("-", article.get_text(strip=True))
+            
+        articles = soup.find_all('h4') # Adjust the tag as needed
+        print("Processing contents of h4")    
+        print("-"*100)
+        # articles = soup.find_all(string=["h2", "h3", "h1"]) # Adjust the tag as needed      
+        for article in articles:
+            print("\n")
+            print("-"*100)
+            print("-", article.get_text(strip=True))
 
 
+# Pagination and process the pages
+        print("-"*100)
+        print("\n")
+        next_link = soup.find('a', string='Next') # Adjust if "Next" is a symbol or image 
+        if next_link:
+            current_url = urljoin(current_url, next_link['href'])
+            #print(f"New URL is :  {current_url}:")
+        else:
+            break
+
+
+
+
+
+
+# Replace this with your actual starting URL
+# start_url = 'https://en.wikipedia.org/wiki/Agentic_AI'
+# start_url="https://www.cricbuzz.com/"
+
+start_url="https://www.cricbuzz.com/cricket-team/papua-new-guinea/287"
+
+scrape_site(start_url)
 
