@@ -46,9 +46,20 @@ RAG helps you:
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
-##**Assignment One** 
+##**Initial Setup** 
 
 Used VSS (Visual Studio with Python 3.13.2
+requirements.txt - used for installing all the packages as required.
+Streamlit used for running apps on web.  Link :   https://streamlit.io/
+
+Project Structure 
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
+
+##**Assignment One** 
+
+
+
+![image](https://github.com/user-attachments/assets/7b3fad73-e161-43c4-993a-b7646a43eb28)
 
 
 Programs and assignment are here :
