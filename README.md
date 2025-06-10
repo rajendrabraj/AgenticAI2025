@@ -46,7 +46,7 @@ RAG helps you:
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
-##**Initial Setup** 
+##  **Initial Setup** 
 
 Used VSS (Visual Studio with Python 3.13.2
 requirements.txt - used for installing all the packages as required.
@@ -55,7 +55,7 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 Project Structure 
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
 
-##**Assignment One** 
+##  **Assignment One** 
 
 
 
@@ -64,19 +64,19 @@ https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_S
 
 Programs and assignment are here :
 
-##**Assignment One** 
+##  **Assignment One** 
 
 These are the JSON related Programs
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
 
-##**Document Loaders (Programs)**
+##  **Document Loaders (Programs)**
 
 These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFParsers, Text Loaders and Text Parsers.
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
-##**LangChain , Langgraph Assignments  (Programs)**
+##  **LangChain , Langgraph Assignments  (Programs)**
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
