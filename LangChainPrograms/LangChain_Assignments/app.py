@@ -27,6 +27,9 @@ from langchain_core.runnables import RunnableConfig
 from langchain_community.vectorstores import Chroma
 
 
+DEBUG_MODE = True
+
+
 # Load environment variables
 load_dotenv()
 
@@ -103,8 +106,6 @@ def get_retriever():
     return db.as_retriever(search_kwargs={"k": 3})
 
 
-print("Passed the get_retriever Execution function..........")
-print("\n")
 
 # class AgentState(TypedDict):
 #     messages: Annotated[Sequence[BaseMessage], operator.add]
@@ -114,7 +115,7 @@ class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
     next_action: str
     generation: str
-
+    validation_passed: bool
 
 
 # # Define agent state
@@ -162,21 +163,31 @@ current_file_directory = os.path.dirname(current_file_path)
 # RAG Function
 def rag_node(state:AgentState):
     print("-> RAG Call ->")
-    st.info("Inside RAG Node")
+    st.write("Inside RAG Node")
     # data_file_path = current_file_directory + "\data2"
 
     loader=DirectoryLoader(data_file_path,glob="./*.txt",loader_cls=TextLoader)
     docs=loader.load()
     embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-small-en")
+    st.write("RAG Docs Loaded element....") 
 
     text_splitter=RecursiveCharacterTextSplitter(
         chunk_size=200,
         chunk_overlap=50
     )
+    st.write("Text Splitting completed....") 
 
     new_docs=text_splitter.split_documents(documents=docs)
     db=Chroma.from_documents(new_docs,embeddings)
     retriever=db.as_retriever(search_kwargs={"k": 10})
+
+    question = state["messages"][-1].content
+    # retriever = get_retriever()
+
+    docs = retriever.invoke(question)
+    rag_content = "\n".join([doc.page_content for doc in docs])
+
+    st.write("Accessing Chroma DB....") 
 
     # Initialize LLM
 
@@ -185,24 +196,26 @@ def rag_node(state:AgentState):
 
     question = state["messages"][0]
     
+    st.write("LLM of RAG now ....") 
+
     prompt=PromptTemplate(
         template="""You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.\nQuestion: {question} \nContext: {context} \nAnswer:""",
-        
         input_variables=['context', 'question']
     )
     
-    rag_chain = (
-        {"context": retriever | format_docs, "question": RunnablePassthrough()}
-        | prompt
-        | model
-        | StrOutputParser()
-    )
-    result = rag_chain.invoke(question)  
-    print("-> RAG Call Completed ->")  
-    #print("Function 2 : RAG Chain Ouput .. :", result)   
-    print("-> End Call ->")
-    st.info("Exited RAG Node")
-    return  {"messages": [result]}
+    st.write("LLM of Prompt Completed ....") 
+    chain = prompt | model
+
+    # rag_chain = (
+    #     {"context": retriever |  "question": RunnablePassthrough()}
+    #     | prompt
+    #     | model
+    #     | StrOutputParser()
+    # )
+    st.write("LLM of Invoking response Completed ....") 
+    response = chain.invoke({"context": rag_content, "question": question})
+    return {"messages": [response], "generation": response.content}
+
 
 
 
@@ -263,15 +276,20 @@ def validation_node(state: AgentState):
 print("Passed the Function.. : validation_node..........")
 print("\n")
 
-
+import re 
+import json
 
 def supervisor_node(state: AgentState):
     """A node that supervises the conversation and decides which node to call next."""
     st.info("Calling Supervisor Node")
     print("Inside Supervisor Node")
     
+    
     context = "\n".join([msg.pretty_repr() for msg in state["messages"][-3:]])
-    print(context)
+    last_message=state["messages"][-1]
+      
+    # print(last_message)
+    # print(context)
 
 
     prompt = f"""You are a supervisor in a multi-agent system. Your job is to decide the next action based on the conversation history.
@@ -287,14 +305,42 @@ def supervisor_node(state: AgentState):
 
     Based on the history, what is the best next action? Respond with only one of the following: 'llm', 'rag', 'web_search'.
     """
-    model = get_llm()
-    response = model.invoke(prompt)
-    st.write(context)      
-    st.write(response.content)
-    next_action = response.content.strip().lower()
-    st.write(f"Supervisor decided to call: {next_action}")
-    st.write(next_action)
-    return {"next_action": next_action}
+    st.write("Showing Context....") 
+    st.write(context)    
+
+    st.write("Showing the Global input given....") 
+    st.write(input_question) 
+
+    last_message=state["messages"][-1]          
+    st.write(last_message)   
+
+    mylist = list(input_question)
+    first_element = mylist[0]
+
+    st.write("Extracted element....") 
+    st.write(first_element) 
+
+    #make everything lower for comparison
+    first_element = first_element.lower()
+
+    pattern = r"usa"
+    match = re.findall( pattern , first_element)     
+
+    
+    if match:
+        st.write("Matched USA")  
+        ## call the RAG function to check and load the documents
+        return {"next_action": "rag"}
+    else:
+        st.write("Did not Match USA")    
+        ## Call Web Serach or LLM functions.
+        model = get_llm()
+        response = model.invoke(prompt)      
+        st.write(response.content)
+        next_action = response.content.strip().lower()
+        st.write(f"Supervisor decided to call: {next_action}")
+        st.write(next_action)
+        return {"next_action": next_action}
             
 
 print("Passed the Function.. : supervisor_node..........")
@@ -331,6 +377,7 @@ def create_workflow():
     workflow.add_node("llm", llm_node)
     workflow.add_node("rag", rag_node)
     workflow.add_node("web_search", web_search_node)
+
     #workflow.add_node("validation", validation_node)
 
     # workflow.add_node("Supervisor",function_1)
@@ -352,11 +399,13 @@ def create_workflow():
     # workflow.add_edge("llm", "validation")   
     # workflow.add_edge("rag", "validation")
     # workflow.add_edge("web_search", "validation")
+    # workflow.add_edge("rag", "validation")
 
     workflow.add_edge("llm", END)   
-    workflow.add_edge("rag", END)
+    workflow.add_edge("rag", END)    
     workflow.add_edge("web_search", END)
-    
+    #workflow.add_edge("validation", END)
+
 
     print("Edges added to the  workflow..")
 
@@ -397,6 +446,12 @@ def main():
     
     # User input
     query = st.text_input("Ask a question:", "Tell me about iPhone 13")
+
+    global input_question 
+    input_question = {query}
+    
+    st.write(input_question)
+
     
     if st.button("Submit"):
         with st.spinner("Processing your question..."):
@@ -437,4 +492,5 @@ if __name__ == "__main__":
 
 print("Passed the Function.. : main()..........")
 print("\n")
+
 
