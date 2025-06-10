@@ -15,24 +15,24 @@ My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/
 ---
 
 
-**Agentic AI 2.0-Introduction.**
+**🧠 Agentic AI 2.0-Introduction.**
 
 ---
 
 
 
-**What is Agentic AI**
+**🤖 What is Agentic AI**
 
 
 
 Agentic AI refers to a type of artificial intelligence that can make decisions, take actions, and learn autonomously without constant human oversight. It's like a virtual assistant that can think, reason, and adapt to changing circumstances. Unlike traditional AI that is often narrowly focused on specific tasks, agentic AI has a broader understanding of context and objectives, allowing it to dynamically solve problems and take action in the real world. 
 In essence, agentic AI combines the flexibility of large language models (LLMs) with the structured, deterministic features of traditional programming, allowing agents to "think" and "do" in a more human-like fashion. 
 
-**What is a AI Agent**
+**🤖 What is a AI Agent**
 
 An AI agent is a software system that uses artificial intelligence to interact with its environment, gather information, and autonomously perform tasks to achieve specific goals set by humans. These agents can reason, plan, and make decisions based on the data they collect, and they can learn and adapt their behavior over time. 
 
-**What is Agentic RAG**
+**🤖 What is Agentic RAG**
 
 
 ![image](https://github.com/user-attachments/assets/dc413044-ad08-481d-a0a5-692f640125d5)
@@ -41,7 +41,7 @@ An AI agent is a software system that uses artificial intelligence to interact w
 
 ---
 
-**What is LLM**
+**🤖 What is LLM**
 
 Large Language Models (LLMs) like GPT-4 are incredibly powerful — but they have limitations. They don’t “know” your private data, they can hallucinate, and their training data is static. That’s where Retrieval-Augmented Generation (RAG) steps in.
 
@@ -57,7 +57,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 ---
 
 
-**What LLMs can do:**
+** 🤖 What LLMs can do:**
 
 •	Text generation: LLMs can generate human-like text, including articles, stories, poems, and even code. 
 
@@ -74,7 +74,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 ---
   
-**RAG helps you:**
+** 🤖 RAG helps you:**
 
 •	Inject up-to-date, domain-specific knowledge
 
@@ -86,7 +86,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 ---
 
-**RAG Architecture**
+**🤖 RAG Architecture**
 
 ![image](https://github.com/user-attachments/assets/165196d4-3ecb-4ea2-8ee2-8276a8501d42)
 
@@ -95,7 +95,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 ---
 
-**How goes RAG Work**
+**🤖 How goes RAG Work**
 
 1-Query: The question in text format is sent to the RAG flow through any virtual assistant or interface.
 
@@ -115,11 +115,11 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 ---
 
-##  **Initial Setup** 
+##  ** 🤖 Initial Setup** 
 
 Used VSS (**Visual Studio** with Python 3.13.2 can be downloaded for Windows from Google.
 
-**Install Packages  :**    requirements.txt - used for installing all the packages as required.
+** 🤖 Install Packages  :**    requirements.txt - used for installing all the packages as required.
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/requirements.txt
 
 Streamlit used for running apps on web.  Link :   https://streamlit.io/
@@ -132,7 +132,7 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 ---
 
-**Vector Datbaase and what is Vector database**
+** 🤖 Vector Datbaase and what is Vector database**
 
 A vector database is a specialized type of database that stores, manages, and searches high-dimensional vector data. It's designed to handle data represented as vectors, which are numerical representations of information like text, images, or audio. These databases excel at finding similar data points based on their proximity in a multi-dimensional space, making them ideal for applications like recommendation systems, semantic search, and AI models. 
 
@@ -193,7 +193,7 @@ PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
 ---
 
-**Assignments Repository and KnowledgeBase**
+**🧑‍💻 Assignments Repository and KnowledgeBase**
 
 ---
 
@@ -207,7 +207,7 @@ PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
 Programs and assignment are here :
 
-##  **Assignment One** 
+##  *🧑‍💻*Assignment One** 
 
 These are the JSON related Programs
 
@@ -215,7 +215,7 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
 
 ---
 
-##  **Document Loaders (Programs)**
+##  **🧑‍💻 Document Loaders (Programs)**
 
 These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFParsers, Text Loaders and Text Parsers.
 
@@ -223,19 +223,19 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
 ---
 
-##  **LangChain , Langgraph Assignments  (Programs)**
+##  **🧑‍💻 LangChain , Langgraph Assignments  (Programs)**
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
 ---
 
-**Know About me**
+**🤝Know About me**
 
 Seasoned Leader/Manager with 24+ years of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
 Banking Financial Services , Corporate Finance, and AgriTech industries. Proven track record in end to end program execution, aligning technology with business strategy to drive operational efficiency, customer experience, and compliance adherence.  I have passion for new technologies like Agentic AI , Generative AI and much more.
 
 
-My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
+🤝 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
 **BY : Rajendra Bichu**
 
