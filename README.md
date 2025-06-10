@@ -28,4 +28,25 @@ avoid hallucinations from model guesswork
 Keep models lightweight while enabling deeper knowledHow LLMs + Context = Better Answers
 RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
+Programs and assignment are here :
+
+##**Assignment One** 
+
+These are the JSON related Programs
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
+
+##**Document Loaders (Programs)**
+
+These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFParsers, Text Loaders and Text Parsers.
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
+
+
+
+
+
+
+
+
 BY : Rajendra B
