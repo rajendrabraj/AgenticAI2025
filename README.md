@@ -1,17 +1,45 @@
 # AgenticAI2025
 
-======================================================================================================================================
-Agentic Programs
+**AI , Generative AI and Agentic Repository and Github**
 
-**Date : May-Sept2025 
-**
+========================================================
+
+
+Creation Date : 2025
+
 
 **This is my GitHub repository for Agentic AI , RAG , LLM and programs specfic towards it. **
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
-Programs pertaining for Langchain and Assignments
-======================================================================================================================================
+==============================================================
+
+
+**Agentic AI 2.0-Introduction.**
+
+==============================================================
+
+
+
+**What is Agentic AI**
+
+
+
+Agentic AI refers to a type of artificial intelligence that can make decisions, take actions, and learn autonomously without constant human oversight. It's like a virtual assistant that can think, reason, and adapt to changing circumstances. Unlike traditional AI that is often narrowly focused on specific tasks, agentic AI has a broader understanding of context and objectives, allowing it to dynamically solve problems and take action in the real world. 
+In essence, agentic AI combines the flexibility of large language models (LLMs) with the structured, deterministic features of traditional programming, allowing agents to "think" and "do" in a more human-like fashion. 
+
+**What is a AI Agent**
+
+An AI agent is a software system that uses artificial intelligence to interact with its environment, gather information, and autonomously perform tasks to achieve specific goals set by humans. These agents can reason, plan, and make decisions based on the data they collect, and they can learn and adapt their behavior over time. 
+
+**What is Agentic RAG**
+
+
+![image](https://github.com/user-attachments/assets/dc413044-ad08-481d-a0a5-692f640125d5)
+
+**Source is google and credits to respective creators of the diagrams.
+
+**What is LLM**
 
 Large Language Models (LLMs) like GPT-4 are incredibly powerful — but they have limitations. They don’t “know” your private data, they can hallucinate, and their training data is static. That’s where Retrieval-Augmented Generation (RAG) steps in.
 
@@ -39,7 +67,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 •	Other applications: LLMs are also used in areas like sentiment analysis, chatbot development, and content creation.
 
 
-
+===================================================================================================
   
 **RAG helps you:**
 
@@ -51,13 +79,39 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
+===================================================================================================
+
+**RAG Architecture**
+
+![image](https://github.com/user-attachments/assets/165196d4-3ecb-4ea2-8ee2-8276a8501d42)
+**Source is google and credits to respective creators of the diagrams.
+
+===================================================================================================
+
+**How goes RAG Work**
+
+1-Query: The question in text format is sent to the RAG flow through any virtual assistant or interface.
+
+2-(Retrieval) Document Search: The model performs a search step to collect relevant information from external sources. These sources may include a database, a set of documents, or even search engine results. The search process aims to find text fragments or documents containing information relevant to the given input or request.
+
+3-Augmentation: The information obtained during the search phase is then combined with the original input or prompt and enriched by creating a prompt engineering draft that the model can use to create the output. The model is brought to the format expected by the large language model by including external information in this draft created through prompt engineering.
+
+4-Generation: Finally, the model produces the answer by taking into account the received information and the original input. Here, the first form of the question posed to the system, the document obtained from the vector database and other arguments are evaluated together to ensure that the large language model produces the most accurate output text.
+
+5-Answering: New content created by the large language model is transferred to the user.
+
+![image](https://github.com/user-attachments/assets/6f5079d6-83e7-4452-aae2-13a62427e2ba)
+**Source is google and credits to respective creators of the diagrams.
+
+
+===================================================================================================
+
 ##  **Initial Setup** 
 
 Used VSS (**Visual Studio** with Python 3.13.2 can be downloaded for Windows from Google.
 
 **Install Packages  :**    requirements.txt - used for installing all the packages as required.
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/requirements.txt
-
 
 Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
@@ -67,23 +121,33 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 **LangChain** is a framework for developing applications powered by large language models (LLMs). LangChain simplifies every stage of the LLM application lifecycle : Link : https://python.langchain.com/docs/introduction/
 
+===================================================================================================
+
+**Vector Datbaase and what is Vector database**
+
+A vector database is a specialized type of database that stores, manages, and searches high-dimensional vector data. It's designed to handle data represented as vectors, which are numerical representations of information like text, images, or audio. These databases excel at finding similar data points based on their proximity in a multi-dimensional space, making them ideal for applications like recommendation systems, semantic search, and AI models. 
+
+![image](https://github.com/user-attachments/assets/1981acb1-b4e2-436a-803a-66765cb5866b)
+
+**Source is google and credits to respective creators of the diagrams.
 
 
-Project Structure 
+===================================================================================================
+**Project Structure**
+
+
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
 
-##  **Envinronmental Variables and Keys** 
+
+===================================================================================================
+**Environmental Variables and Keys (Required)** 
 
 PHI_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
 GROQ_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
-
 OPENAI_API_KEY"XXXXXXXXXXXXXXXXXXXXXXX”
-
 folder_path= <Folder_Name>
-
 HUGGING_FACE_TOKEN=    "XXXXXXXXXXXXXXXXXXXXXXX”
 LANGCHAIN_KEY=   "XXXXXXXXXXXXXXXXXXXXXXX”
-
 LANGCHAIN_PROJECT=   "Agentic2.0"
 LANGCHAIN_TRACING_V2=   "true"
 LANGCHAIN_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
@@ -96,8 +160,10 @@ LANGCHAIN_TRACING_V2=   "true"
 TAVILY_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
+===================================================================================================
 
-
+**Assignments Repository and KnowledgeBase**
+===================================================================================================
 
 ##  **Assignment One** 
 
@@ -114,16 +180,32 @@ These are the JSON related Programs
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
 
+===================================================================================================
+
 ##  **Document Loaders (Programs)**
 
 These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFParsers, Text Loaders and Text Parsers.
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
+===================================================================================================
+
 ##  **LangChain , Langgraph Assignments  (Programs)**
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
+===================================================================================================
+
+**Know me**
+
+Seasoned Leader/Manager with 24+ years of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
+Banking Financial Services , Corporate Finance, and AgriTech industries. Proven track record in end to end program execution, aligning technology with business strategy to drive operational efficiency, customer experience, and compliance adherence.  I have passion for new technologies like Agentic AI , Generative AI and much more.
+
+
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
 BY : Rajendra B
+
+#artificialintelligence #ai #machinelearning #aiart #digitalart #technology #datascience #generativeart #innovation #tech #deeplearning #python
+#generativeai #chatgpt #machinelearning  #aiarchitecture #openai #aigenerated #architecture #generativearchitecture 
+
