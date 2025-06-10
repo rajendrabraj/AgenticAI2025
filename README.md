@@ -2,7 +2,7 @@
 
 **AI , Generative AI and Agentic Repository and Github**
 
-========================================================
+---
 
 
 Creation Date : 2025
@@ -12,12 +12,12 @@ Creation Date : 2025
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
-==============================================================
+---
 
 
 **Agentic AI 2.0-Introduction.**
 
-==============================================================
+---
 
 
 
@@ -39,7 +39,7 @@ An AI agent is a software system that uses artificial intelligence to interact w
 
 **Source is google and credits to respective creators of the diagrams.
 
-========================================================
+---
 
 **What is LLM**
 
@@ -54,7 +54,7 @@ Transformer-based:
 Self-supervised learning:
 LLMs learn by being trained on massive amounts of text, where they predict the next word or phrase in a sequence without explicit labeling. 
 
-========================================================
+---
 
 
 **What LLMs can do:**
@@ -72,7 +72,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 •	Other applications: LLMs are also used in areas like sentiment analysis, chatbot development, and content creation.
 
 
-========================================================
+---
   
 **RAG helps you:**
 
@@ -84,7 +84,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
-========================================================
+---
 
 **RAG Architecture**
 
@@ -93,7 +93,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 **Source is google and credits to respective creators of the diagrams.
 
-========================================================
+---
 
 **How goes RAG Work**
 
@@ -113,7 +113,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 **Source is google and credits to respective creators of the diagrams.
 
 
-========================================================
+---
 
 ##  **Initial Setup** 
 
@@ -130,7 +130,7 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 **LangChain** is a framework for developing applications powered by large language models (LLMs). LangChain simplifies every stage of the LLM application lifecycle : Link : https://python.langchain.com/docs/introduction/
 
-========================================================
+---
 
 **Vector Datbaase and what is Vector database**
 
@@ -144,7 +144,7 @@ A vector database is a specialized type of database that stores, manages, and se
 
 
 
-====================================
+---
 
 
 **Project Structure**
@@ -155,7 +155,7 @@ It is necessary to define the folders, files, env, programs in a well defined fo
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
 
 
-=================================
+---
 
 
 **Environmental Variables and Keys (Required)** 
@@ -191,10 +191,12 @@ TAVILY_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
 PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
-========================================================
+---
 
 **Assignments Repository and KnowledgeBase**
-===================================================================================================
+
+---
+
 
 ##  **Assignment One** 
 
@@ -211,7 +213,7 @@ These are the JSON related Programs
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
 
-========================================================
+---
 
 ##  **Document Loaders (Programs)**
 
@@ -219,13 +221,13 @@ These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFP
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
-========================================================
+---
 
 ##  **LangChain , Langgraph Assignments  (Programs)**
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
-========================================================
+---
 
 **Know About me**
 
