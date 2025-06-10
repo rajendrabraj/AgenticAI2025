@@ -46,7 +46,9 @@ RAG helps you:
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
+##**Assignment One** 
 
+Used VSS (Visual Studio with Python 3.13.2
 
 
 Programs and assignment are here :
@@ -65,7 +67,7 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
 ##**LangChain , Langgraph Assignments  (Programs)**
 
-https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
