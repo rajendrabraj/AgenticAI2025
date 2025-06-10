@@ -8,7 +8,7 @@
 Creation Date : 2025
 
 
-**This is my GitHub repository for Agentic AI , RAG , LLM and programs specfic towards it. **
+**This is my GitHub repository for Agentic AI , RAG , LLM and programs in python in order to implement the concepts in a practical world.  **
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
@@ -39,6 +39,8 @@ An AI agent is a software system that uses artificial intelligence to interact w
 
 **Source is google and credits to respective creators of the diagrams.
 
+========================================================
+
 **What is LLM**
 
 Large Language Models (LLMs) like GPT-4 are incredibly powerful — but they have limitations. They don’t “know” your private data, they can hallucinate, and their training data is static. That’s where Retrieval-Augmented Generation (RAG) steps in.
@@ -51,6 +53,9 @@ Transformer-based:
   Many LLMs use the transformer architecture (a type of neural network) with self-attention mechanisms. This allows the model to understand the relationships between words and phrases in a sequence of text.
 Self-supervised learning:
 LLMs learn by being trained on massive amounts of text, where they predict the next word or phrase in a sequence without explicit labeling. 
+
+========================================================
+
 
 **What LLMs can do:**
 
@@ -67,7 +72,7 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 •	Other applications: LLMs are also used in areas like sentiment analysis, chatbot development, and content creation.
 
 
-===================================================================================================
+========================================================
   
 **RAG helps you:**
 
@@ -79,14 +84,16 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 
 •	RAG is the backbone of many AI-powered apps — from PDF Q&A bots and internal search tools to legal assistants and chatbots over private data.
 
-===================================================================================================
+========================================================
 
 **RAG Architecture**
 
 ![image](https://github.com/user-attachments/assets/165196d4-3ecb-4ea2-8ee2-8276a8501d42)
+
+
 **Source is google and credits to respective creators of the diagrams.
 
-===================================================================================================
+========================================================
 
 **How goes RAG Work**
 
@@ -101,10 +108,12 @@ LLMs learn by being trained on massive amounts of text, where they predict the n
 5-Answering: New content created by the large language model is transferred to the user.
 
 ![image](https://github.com/user-attachments/assets/6f5079d6-83e7-4452-aae2-13a62427e2ba)
+
+
 **Source is google and credits to respective creators of the diagrams.
 
 
-===================================================================================================
+========================================================
 
 ##  **Initial Setup** 
 
@@ -121,7 +130,7 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 **LangChain** is a framework for developing applications powered by large language models (LLMs). LangChain simplifies every stage of the LLM application lifecycle : Link : https://python.langchain.com/docs/introduction/
 
-===================================================================================================
+========================================================
 
 **Vector Datbaase and what is Vector database**
 
@@ -129,38 +138,60 @@ A vector database is a specialized type of database that stores, manages, and se
 
 ![image](https://github.com/user-attachments/assets/1981acb1-b4e2-436a-803a-66765cb5866b)
 
+
+
 **Source is google and credits to respective creators of the diagrams.
 
 
-===================================================================================================
+
+====================================
+
+
 **Project Structure**
+
+It is necessary to define the folders, files, env, programs in a well defined format, hence refer to the project structure as below.
 
 
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
 
 
-===================================================================================================
+=================================
+
+
 **Environmental Variables and Keys (Required)** 
 
 PHI_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
+
 GROQ_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
+
 OPENAI_API_KEY"XXXXXXXXXXXXXXXXXXXXXXX”
+
 folder_path= <Folder_Name>
+
 HUGGING_FACE_TOKEN=    "XXXXXXXXXXXXXXXXXXXXXXX”
+
 LANGCHAIN_KEY=   "XXXXXXXXXXXXXXXXXXXXXXX”
+
 LANGCHAIN_PROJECT=   "Agentic2.0"
+
 LANGCHAIN_TRACING_V2=   "true"
+
 LANGCHAIN_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
-LANGCHAIN_PROJECT=   "Agentic2.0"
+
+
+
 LANGCHAIN_TRACING_V2=   "true"
+
 HUGGING_FACE_TOKEN=    "XXXXXXXXXXXXXXXXXXXXXXX”
+
 LANGCHAIN_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
-LANGCHAIN_PROJECT=   "Agentic2.0"
-LANGCHAIN_TRACING_V2=   "true"
+
+
 TAVILY_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
+
 PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
-===================================================================================================
+========================================================
 
 **Assignments Repository and KnowledgeBase**
 ===================================================================================================
@@ -180,7 +211,7 @@ These are the JSON related Programs
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
 
-===================================================================================================
+========================================================
 
 ##  **Document Loaders (Programs)**
 
@@ -188,15 +219,15 @@ These are the PDF and Document Parsers i.e Wikipedia , HTML based parsers , PDFP
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
 
-===================================================================================================
+========================================================
 
 ##  **LangChain , Langgraph Assignments  (Programs)**
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangChain_Assignments
 
-===================================================================================================
+========================================================
 
-**Know me**
+**Know About me**
 
 Seasoned Leader/Manager with 24+ years of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
 Banking Financial Services , Corporate Finance, and AgriTech industries. Proven track record in end to end program execution, aligning technology with business strategy to drive operational efficiency, customer experience, and compliance adherence.  I have passion for new technologies like Agentic AI , Generative AI and much more.
@@ -204,7 +235,7 @@ Banking Financial Services , Corporate Finance, and AgriTech industries. Proven 
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
-BY : Rajendra B
+**BY : Rajendra Bichu**
 
 #artificialintelligence #ai #machinelearning #aiart #digitalart #technology #datascience #generativeart #innovation #tech #deeplearning #python
 #generativeai #chatgpt #machinelearning  #aiarchitecture #openai #aigenerated #architecture #generativearchitecture 
