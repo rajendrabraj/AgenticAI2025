@@ -1,5 +1,6 @@
 # AgenticAI2025
 
+======================================================================================================================================
 Agentic Programs
 
 **Date : May-Sept2025 
@@ -7,11 +8,15 @@ Agentic Programs
 
 **This is my GitHub repository for Agentic AI , RAG , LLM and programs specfic towards it. **
 
+My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
+
 Programs pertaining for Langchain and Assignments
+======================================================================================================================================
 
 Large Language Models (LLMs) like GPT-4 are incredibly powerful — but they have limitations. They don’t “know” your private data, they can hallucinate, and their training data is static. That’s where Retrieval-Augmented Generation (RAG) steps in.
 
 LLMs can’t help unless they’ve seen that document before. But with RAG, you can fetch relevant content (your own data!) and feed it to the model on-the-fly — like giving it a custom memory.
+
 Deep learning models:
   LLMs are a specific type of deep learning model, which are neural networks that learn by analyzing large datasets to recognize complex patterns.
 Transformer-based:
@@ -19,7 +24,7 @@ Transformer-based:
 Self-supervised learning:
 LLMs learn by being trained on massive amounts of text, where they predict the next word or phrase in a sequence without explicit labeling. 
 
-What LLMs can do:
+**What LLMs can do:**
 
 •	Text generation: LLMs can generate human-like text, including articles, stories, poems, and even code. 
 
@@ -36,7 +41,7 @@ What LLMs can do:
 
 
   
-RAG helps you:
+**RAG helps you:**
 
 •	Inject up-to-date, domain-specific knowledge
 
@@ -48,12 +53,51 @@ RAG helps you:
 
 ##  **Initial Setup** 
 
-Used VSS (Visual Studio with Python 3.13.2
-requirements.txt - used for installing all the packages as required.
+Used VSS (**Visual Studio** with Python 3.13.2 can be downloaded for Windows from Google.
+
+**Install Packages  :**    requirements.txt - used for installing all the packages as required.
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/requirements.txt
+
+
 Streamlit used for running apps on web.  Link :   https://streamlit.io/
+
+**Tavily** is a search engine tailored for AI agents, delivering real-time, accurate results, intelligent query suggestions, and in-depth research capabilities. https://tavily.com/ 
+
+**Pinecone** is the leading vector database for building accurate and performant AI applications at scale in production. Link :  https://docs.pinecone.io/guides/projects/manage-api-keys
+
+**LangChain** is a framework for developing applications powered by large language models (LLMs). LangChain simplifies every stage of the LLM application lifecycle : Link : https://python.langchain.com/docs/introduction/
+
+
 
 Project Structure 
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_Struture.png
+
+##  **Envinronmental Variables and Keys** 
+
+PHI_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
+GROQ_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
+
+OPENAI_API_KEY"XXXXXXXXXXXXXXXXXXXXXXX”
+
+folder_path= <Folder_Name>
+
+HUGGING_FACE_TOKEN=    "XXXXXXXXXXXXXXXXXXXXXXX”
+LANGCHAIN_KEY=   "XXXXXXXXXXXXXXXXXXXXXXX”
+
+LANGCHAIN_PROJECT=   "Agentic2.0"
+LANGCHAIN_TRACING_V2=   "true"
+LANGCHAIN_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
+LANGCHAIN_PROJECT=   "Agentic2.0"
+LANGCHAIN_TRACING_V2=   "true"
+HUGGING_FACE_TOKEN=    "XXXXXXXXXXXXXXXXXXXXXXX”
+LANGCHAIN_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
+LANGCHAIN_PROJECT=   "Agentic2.0"
+LANGCHAIN_TRACING_V2=   "true"
+TAVILY_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
+PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
+
+
+
 
 ##  **Assignment One** 
 
