@@ -13,31 +13,15 @@ Creation Date : May/June'2025
 ---
 ##  **📝LangChain , Langgraph Assignments  (Programs)**
 
-**All Document loaders Assignments which are pertaining to the following :**
-
-•	Extract the links from Website - Cricket Info
-
-•	Parsing the contents of the HTML
-
-•	Processing Website Data 
-
-•	Reading from Wikipedia contents
-
-•	Reading using Web loaders
-
-•	Retrieving the PDF Contents
+**Programs pertaining to JSON , String and Output Parsers are as below**
 
 **Main Folder and Programs are here
 
-https://github.com/rajendrabraj/AgenticAI2025/tree/main/Document_Loaders
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Extract_All_Links.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/ParseContentsofHTML.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Process_WebSite_Data.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Read_FromWikipedia.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Read_Using_WebbasedLoader.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Retrieve_PDF_Contents.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Read_Using_WebbasedLoader.py
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/Document_Loaders/Retrieve_WebDocs.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/LangChainStrOutputParser.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Product_JSON_OutputParser.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Products_StringOutputParser.py
+
+
 
 
 
