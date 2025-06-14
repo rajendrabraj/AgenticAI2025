@@ -11,7 +11,7 @@ Creation Date : May/June'2025
 **This is my GitHub repository for Agentic AI , RAG , LLM and programs in python in order to implement the concepts in a practical world.  **
 
 ---
-##  **📝LangChain , Langgraph Assignments  (Programs)**
+##  **📝Document Parser Programs/Assignments  (Programs)**
 
 **Programs pertaining to JSON , String and Output Parsers are as below**
 
