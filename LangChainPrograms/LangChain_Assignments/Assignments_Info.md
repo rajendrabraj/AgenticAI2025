@@ -17,6 +17,11 @@ https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangCh
 
 **Other Programs to implemente the learned concepts and previous assignments**
 
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/LangChainStrOutputParser.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/LangChainQueryWeb.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Product_JSON_OutputParser.py
+https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Products_StringOutputParser.py
+
 
 
 ---
