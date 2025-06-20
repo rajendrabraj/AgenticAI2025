@@ -88,43 +88,6 @@ def get_weather_data(city):
         st.success("Status Code Failed!")
         return None
 
-## 5 days forecast data ..
-
-
-
-
-# st.title("Weather Dashboard ")
-
-#city_name = st.text_input("Enter City Name:")
-
-# Pass the City Name
-
-# city_name = from_city
-# if st.button("Get Weather"):
-#     if city_name:
-#         city_name = from_city
-#         st.write(f"Inside get_weather function :  {city_name}")
-#         weather_data = get_weather_data(city_name)
-#         if weather_data:
-#             st.success("Showing Weather Data...!")
-#             main_data = weather_data['main']
-#             weather_desc = weather_data['weather'][0]['description']
-#             wind_speed = weather_data['wind']['speed']
-            
-#             st.subheader(f"Weather in {city_name.capitalize()}")
-#             st.write(f"**Temperature:** {main_data['temp']}°C")
-#             st.write(f"**Feels Like:** {main_data['feels_like']}°C")
-#             st.write(f"**Humidity:** {main_data['humidity']}%")
-#             st.write(f"**Conditions:** {weather_desc.capitalize()}")
-#             st.write(f"**Wind Speed:** {wind_speed} m/s")
-
-#             st.write("===============.")                       
-#         else:
-#             st.error("Could not retrieve weather data. Please check the city name or API key.")
-#     else:
-#         st.warning("Please enter a city name.")
-
-#===========================================================================
 
 
 #=================================================================
@@ -156,6 +119,12 @@ def get_places(location, radius, keyword):
     """
     try:
         gmaps = googlemaps.Client(key=google_cloud_apikey)
+        st.write(f"Places City : {location}")
+        st.write(f"Places Keyword : {keyword}")
+        st.write(f"Radius : {radius}")
+
+        places_data = None
+        places_result = None
         places_result = gmaps.places(query=keyword, location=location, radius=radius)
 
         if places_result and places_result['results']:
@@ -180,6 +149,36 @@ def get_places(location, radius, keyword):
         st.error(f"An error occurred: {e}")
         return None
 
+
+#=================================================================
+## Show the Hotel Details.
+def Search_Hotels(input_city):
+    try:
+        # Get all the Hotel Details in a particular Area...
+        radius = 1500
+        input_city_name = input_city
+        google_cloud_apikey = os.getenv("google_cloud_api_key")
+        api_key = google_cloud_apikey        
+        gmaps = googlemaps.Client(key=api_key)
+        st.info("Executing Hotel Search....")
+        places_result = gmaps.places(query=f"TOP five hotels in {input_city_name} with rate per night", radius=radius, type='lodging')
+        if places_result['results']:
+            st.subheader("Found Hotels:")
+            for place in places_result['results']:
+                st.write(f"**{place.get('name')}**")
+                st.write(f"Address: {place.get('formatted_address')}")
+                st.write(f"Rating: {place.get('rating', 'N/A')}")
+                st.write(f"Price  : {place.get('price_level', 'N/A')}")
+                st.write(f"Serves Breakfast : {place.get('serves_breakfast', 'N/A')}")
+                st.write(f"Serves Brunch : {place.get('serves_brunch', 'N/A')}")
+                st.write(f"User Ratings : {place.get('user_ratings_total', 'N/A')}")
+                st.write(f"Opening Hours : {place.get('opening_hours', 'N/A')}")
+                st.write(f"Booking URL : {place.get('url', 'N/A')}")
+                st.markdown("---")
+        else:
+            st.info("No hotels found for this location and radius.")
+    except Exception as e:
+            st.error(f"An error occurred Executing Hotel Search : {e}")
 
 #=================================================================
 
@@ -210,6 +209,7 @@ if st.button("Show Iternary  "):
                 weather_desc = weather_data['weather'][0]['description']
                 wind_speed = weather_data['wind']['speed']
                 
+                st.markdown("---")  
                 st.subheader(f"Weather in {city_name.capitalize()}")
                 st.write(f"**Temperature:** {main_data['temp']}°C")
                 st.write(f"**Feels Like:** {main_data['feels_like']}°C")
@@ -217,7 +217,8 @@ if st.button("Show Iternary  "):
                 st.write(f"**Conditions:** {weather_desc.capitalize()}")
                 st.write(f"**Wind Speed:** {wind_speed} m/s")
 
-                st.write("===============.")                       
+                   
+                st.markdown("---")                 
             else:
                 st.error("Could not retrieve weather data. Please check the city name or API key.")
 
@@ -231,16 +232,21 @@ if st.button("Show Iternary  "):
             keyword = "tourist attractions"
             location = city_name
             #st.write("Calling Tourist Attractions.")
-            df_places = get_places(location, radius, keyword)
+            st.write(f"Calling get_places City : {city_name}")
+            df_places = get_places(city_name, radius, keyword)
 
             if df_places is not None:
                 # st.subheader("Toursit Attractions (Places to VISIT) :")
                 st.subheader(f"Toursit Attractions (Places to VISIT) in :  {city_name.capitalize()}")
                 st.dataframe(df_places)   
+                st.markdown("---")
                 #st.write("Completed Showing Tourist Attractions.")
             else:
                 st.error("Could not retrieve the Places data ......")
 
+        #Show the Hotels in the Area..
+            city_name = from_city
+            Search_Hotels(city_name)
 
     else:
         st.warning("Both inputs must be provided to process.")
