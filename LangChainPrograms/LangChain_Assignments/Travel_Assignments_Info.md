@@ -16,12 +16,12 @@
 ---
 🧍 User Input
 
-Please Enter Destination Travel City
+✅Please Enter Destination Travel City
 
-Please Enter Number of Days
+✅Please Enter Number of Days of Travel
 
 ---
-**Output As Iternary
+**Output As Full Travel Iternary**
 
 📍 Search Attractions and Activities
 
