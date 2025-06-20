@@ -17,7 +17,9 @@
 🧍 User Input
 
 Please Enter Destination Travel City
+
 Please Enter Number of Days
+
 ---
 **Output As Iternary
 
