@@ -1,5 +1,5 @@
 # AgenticAI2025
-
+---
 ##  **Travel Assignment Objectives
 
 **Build an AI Travel Agent & Expense Planner that performs the following:
@@ -13,12 +13,12 @@
 •	✅ Total expense calculation
 •	✅ Summary generation of the complete trip
 
-
+---
 🧍 User Input
 
 Please Enter Destination Travel City
 Please Enter Number of Days
-
+---
 **Output As Iternary
 
 📍 Search Attractions and Activities
@@ -31,12 +31,12 @@ Please Enter Number of Days
 
 🗓️ Generate Itinerary
 
-
+---
 🗓️ Final Travel Assistant(Using Streamlit) as Below 
 
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Travel_Planner_Assitant.py
 
-
+---
 
 
 
