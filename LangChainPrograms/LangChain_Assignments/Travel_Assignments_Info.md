@@ -1,6 +1,6 @@
 # ✈️ AI Travel Agent Assistant
 ---
-##  🏨 **Travel Assignment Objectives
+##  🔗  **Travel Assignment Objectives
 
 **Build an AI Travel Agent & Expense Planner that performs the following:
 
@@ -51,7 +51,7 @@
 
 🧠 ** Powered by LLM and Streamlit
 
-https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Travel_Planner_Assitant.py
+🔗  https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Travel_Planner_Assitant.py
 
 ---
 
