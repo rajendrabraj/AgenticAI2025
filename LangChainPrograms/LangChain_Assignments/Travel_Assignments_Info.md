@@ -36,7 +36,7 @@
 
 ** The implementation of the Travel Assistant is done using the functions and my making use of 
 
-✅ Usage of Stremlit as Front End to provide the overall Output
+✅ Usage of Streamlit as Front End to provide the overall Output
 
 ✅ get_weather_data - Calling the Open Weather Map API
 
