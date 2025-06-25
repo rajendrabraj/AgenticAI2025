@@ -1,6 +1,6 @@
 # ✈️ AI Travel Agent Assistant
 ---
-##  **Travel Assignment Objectives
+##  🏨 **Travel Assignment Objectives
 
 **Build an AI Travel Agent & Expense Planner that performs the following:
 
@@ -19,7 +19,7 @@
 ✅Please Enter Number of Days of Travel
 
 ---
-**Output As Full Travel Iternary**
+** 🏨 Output As Full Travel Iternary**
 
 📍 Search Attractions and Activities
 
@@ -47,7 +47,9 @@
 ✅ Get_Hotels_and_AvgCosts - Calculate cost for Average Hotel Costs in INR(Indian Rupees) 
 
 
-✅ Final Travel Assitant Program
+✅ 🧠 Final Travel Assitant Program 
+
+🧠 ** Powered by LLM and Streamlit
 
 https://github.com/rajendrabraj/AgenticAI2025/blob/main/LangChainPrograms/LangChain_Assignments/Travel_Planner_Assitant.py
 
