@@ -1,4 +1,4 @@
-✈️ # AI Travel Agent Assistant
+# ✈️ AI Travel Agent Assistant
 ---
 ##  **Travel Assignment Objectives
 
