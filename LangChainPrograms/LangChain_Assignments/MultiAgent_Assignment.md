@@ -2,9 +2,10 @@
 ---
 ##  🔗  **Objectives
 
-**🧍Build Multi Agent who directs works to different teams and..
+**🧍Build Multi Agent who directs works to different teams..
 
-
+•	✅ Uses a Controller 
+•	✅ Queries using TaviliSearch
 •	✅ Show Pharma/ Medicine information
 •	✅ Shows Stocks information
 •	✅ Searches a General query information and provides a Summary
