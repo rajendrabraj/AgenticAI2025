@@ -231,7 +231,7 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/LangChainPrograms/LangCh
 
 ##  **🤝Know About me**
 
-Seasoned Leader/Manager with 24+ years of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
+Seasoned Leader with 24+ years of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
 Banking Financial Services , Corporate Finance, and AgriTech industries. Proven track record in end to end program execution, aligning technology with business strategy to drive operational efficiency, customer experience, and compliance adherence.  I have passion for new technologies like Agentic AI , Generative AI and much more.
 
 
