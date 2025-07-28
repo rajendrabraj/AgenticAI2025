@@ -119,7 +119,7 @@ agent_cricket_info = AssistantAgent(
     name = 'agent_cricket_info',
     model_client=model_client,
     description="A helpful assistant that provide cricket stats.",
-    system_message="Provide information about Virat Kohli and Give results in 100 words."
+    system_message="Provide incremental information and stats about Virat Kohli and Give results in 100 words."
 )
 
 
@@ -127,18 +127,25 @@ agent_Medicine_info = AssistantAgent(
     name = 'agent_Medicine_info',
     model_client=model_client,
     description="A helpful assistant that provides information about medicine.",
-    system_message="Provide information about Aravst 5 mg uses and side effects,and Give results in 100 words.."
+    system_message="Provide incremental information about Aravst 5 mg uses and side effects,and Give results in 100 words.."
 )
 
 agent_news_info = AssistantAgent(
     name = 'agent_news_info',
     model_client=model_client,
-    description="A helpful assistant that reads top 3 news of a newspaper.",
-    system_message="Provide me top 3 NEWS from Times of India newspaper Give results in 50 words."
+    description="A helpful assistant that reads top 3 news.",
+    system_message="Provide me top 5 NEWS from BBC and Give results in 50 words."
+)
+
+agent_extra_news = AssistantAgent(
+    name = 'agent_extra_news',
+    model_client=model_client,
+    description="A helpful assistant that reads more news of a newspaper.",
+    system_message="From previous RUN for news fetch more news from Times of India newspaper Give results in 50 words."
 )
 
 my_increment_team = RoundRobinGroupChat(participants=[add_1_agent_first,add_1_agent_second,add_1_agent_third],max_turns=6)
-my_increment_team2 = RoundRobinGroupChat(participants=[agent_cricket_info,agent_Medicine_info,agent_news_info],max_turns=2)
+my_increment_team2 = RoundRobinGroupChat(participants=[agent_cricket_info,agent_Medicine_info,agent_news_info,agent_extra_news],max_turns=6)
 
 # ##Resume a team
 async def test_team3():
