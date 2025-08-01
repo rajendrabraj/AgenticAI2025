@@ -1,6 +1,6 @@
 🧠  Autogen Assignment to implement SOM and Autogen concepts
 
-****Part A: Inner Team Integration (50 points)
+****Part A: Inner Team Integration 
 
 🧑‍💻  ****Inner Team Integration.
 
@@ -19,7 +19,7 @@
 
 ---
 
-****Part B: Outer Team Integration (50 points)
+****Part B: Outer Team Integration 
 🧑‍💻  ****Outer Team Integration.
 
 * 📚 This is more of Outer Team Integration by using Autogen calls multiple Inner Agent and UserProxy is used to ask a question with Human Input.
