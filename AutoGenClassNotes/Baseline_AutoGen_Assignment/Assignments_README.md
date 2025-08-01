@@ -4,7 +4,7 @@
 
 🧑‍💻  ****Inner Team Integration.
 
-**Program Code** :  🛠️ https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Autogen__InnerTeam.py
+
 
 * 📚 This is more of Inner Team Integration by using Autogen calls multiple Inner Agent and UserProxy is used to ask a question with Human Input.
 
@@ -15,6 +15,7 @@
 	✅ Provide additional context or constraints
 	✅ Override agent decisions when necessary
 
+**Program Code** :  🛠️ https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Autogen__InnerTeam.py
 ---
 
 ****Part B: Outer Team Integration (50 points)
