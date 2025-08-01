@@ -1,8 +1,8 @@
 🧠  Autogen Assignment to implement SOM and Autogen concepts
 
-Part A: Inner Team Integration (50 points)
+****Part A: Inner Team Integration (50 points)
 
-🧑‍💻  Inner Team Integration.
+🧑‍💻  ****Inner Team Integration.
 
 🛠️ https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Autogen__InnerTeam.py
 
@@ -16,8 +16,8 @@ Part A: Inner Team Integration (50 points)
 	✅ Override agent decisions when necessary
 
 
-Part B: Outer Team Integration (50 points)
-🧑‍💻  Outer Team Integration.
+****Part B: Outer Team Integration (50 points)
+🧑‍💻  ****Outer Team Integration.
 
 * 📚 This is more of Outer Team Integration by using Autogen calls multiple Inner Agent and UserProxy is used to ask a question with Human Input.
 
