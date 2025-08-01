@@ -1,0 +1,24 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data
+data = pd.read_csv('iris.csv')
+
+# Check the columns to find the one related to flower types
+flower_type_column = 'species'  # Assuming there is a column named 'species'
+
+# Count occurrences of each type of flower
+flower_counts = data[flower_type_column].value_counts()
+
+# Plot the counts as a bar graph
+flower_counts.plot(kind='bar')
+plt.title('Distribution of Flower Types')
+plt.xlabel('Type of Flower')
+plt.ylabel('Count')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Show the plot
+plt.show()
+
+print("Graph created successfully.")
