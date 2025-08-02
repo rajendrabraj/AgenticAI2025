@@ -31,7 +31,7 @@
 
 **Program Code** :   🛠️  https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Autogen_OuterTeam_Integration.py
 
-**Flow Chart** :  🛠️  https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Outer_Team_Integration.png.png
+**Flow Chart** :  🛠️  https://github.com/rajendrabraj/AgenticAI2025/blob/main/AutoGenClassNotes/Baseline_AutoGen_Assignment/Outer_Team_Integration_Final_Flow.png
 
 ---
 
