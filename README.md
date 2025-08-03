@@ -8,7 +8,7 @@
 Creation Date : 2025
 
 
-**This is my GitHub repository for Agentic AI , RAG , LLM and programs in python in order to implement the concepts in a practical world.  **
+**This is my GitHub repository for Agentic AI , RAG , LLM, Autogen, MCP and programs in python in order to implement the concepts in a practical world.  **
 
 My Linkedin address ( if you want to connect )  :    https://in.linkedin.com/in/rajendrabichu
 
