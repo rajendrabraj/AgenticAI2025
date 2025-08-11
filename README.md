@@ -136,12 +136,6 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 A vector database is a specialized type of database that stores, manages, and searches high-dimensional vector data. It's designed to handle data represented as vectors, which are numerical representations of information like text, images, or audio. These databases excel at finding similar data points based on their proximity in a multi-dimensional space, making them ideal for applications like recommendation systems, semantic search, and AI models. 
 
-![image](https://github.com/user-attachments/assets/1981acb1-b4e2-436a-803a-66765cb5866b)
-
-
-
-**Source is google and credits to respective creators of the diagrams.
-
 
 
 ---
