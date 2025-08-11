@@ -136,7 +136,17 @@ Streamlit used for running apps on web.  Link :   https://streamlit.io/
 
 A vector database is a specialized type of database that stores, manages, and searches high-dimensional vector data. It's designed to handle data represented as vectors, which are numerical representations of information like text, images, or audio. These databases excel at finding similar data points based on their proximity in a multi-dimensional space, making them ideal for applications like recommendation systems, semantic search, and AI models. 
 
+Milvus: An open-source vector database designed for handling massive-scale vector data with features like GPU acceleration and distributed querying. It is highly scalable and supports various indexing methods. Milvus is the world's most advanced open-source vector database.
 
+Chroma: An open-source embedding database focused on simplifying LLM application development by managing, querying, and filtering vector embeddings. It is known for its intuitive API. Chroma is the open-source embedding database.
+
+Pinecone: A fully managed, cloud-native vector database designed for high-performance, real-time AI applications. It handles scaling and infrastructure automatically. Pinecone.
+
+Qdrant: An open-source vector database and search engine written in Rust, known for its speed and reliability. It offers an API for storing, searching, and managing vector embeddings with additional payload data. Qdrant is an Open-Source Vector Database and Vector Search Engine written in Rust.
+
+Weaviate: A cloud-native, open-source vector database focused on speed and scalability. It supports both vector and object storage and provides a GraphQL API. Weaviate.
+
+Faiss (Facebook AI Similarity Search): An open-source library by Meta AI for high-performance similarity search and clustering. It provides control over indexing methods and supports GPU acceleration.
 
 ---
 
