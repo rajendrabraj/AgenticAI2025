@@ -8,7 +8,7 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -864,
+        -832,
         -400
       ],
       "id": "8c76120c-7861-4139-bf3b-f62bd485aea3",
@@ -127,6 +127,21 @@
           "name": "OpenAi account"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## Chain of Thoughts\nImplements the concept of Chain of Thoughts\nChat Input -- Researcher--Chat Model--> Taviliy\nTavily--Researcher-gives input to Writer-\nReviewer and Editor gives a Formatted nice output\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 640,
+        "width": 1984
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1232,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "0ccbc30f-e43a-4e71-aa0f-ad4dec0faec0",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -207,7 +222,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e59a9b07-a226-429b-adba-18f42cf530b0",
+  "versionId": "39516423-6b0f-45c1-97c6-a454126975c0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
