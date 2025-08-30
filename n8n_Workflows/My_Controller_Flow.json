@@ -1,0 +1,265 @@
+{
+  "name": "My_Controller_Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "credit card",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "b558e2f5-078b-493b-8e75-310388bfe418"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Credit card"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b412e3e6-cce2-42b7-8978-fbde2424aace",
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -272,
+        -336
+      ],
+      "id": "f728b509-9d68-473d-9e65-e3e0cce4b758",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -528,
+        -128
+      ],
+      "id": "49981957-1183-4184-b5bc-2f06e01f9add",
+      "name": "When chat message received",
+      "webhookId": "391a49b9-119a-49ff-9342-c8acafa922e9"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        128
+      ],
+      "id": "1f10f080-36d8-42c9-b171-4816478287e0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uRZm9yp7PCaAHbcf",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "aiwthraj@gmail.com;rajendrabraj@gmail.com",
+        "subject": "=Credit Card Notification",
+        "emailType": "text",
+        "message": "=This email is generated using the N8N Automation workflows\n\nCredit Card Notification \n\nEmailed Triggerred using TextClassifer - >  Workflow is developed by Rajendra Bichu : Aug 2025 \n\n\n==========================\nHello Customer Team\n\nI have issue with respect to my Credit Card, my query is as below, please look into this at the earliest. \n\nDetailed Query Submitted by the Customer as below :\n\n\n\n{{ $('When chat message received').item.json.chatInput }}\n\n\n\nYour Customer Name\nRajendra Bichu \n\n==========================\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        192,
+        -272
+      ],
+      "id": "43a57a6b-7213-474a-b2fd-511d33641bb0",
+      "name": "Credit(Card)-Notify",
+      "webhookId": "060dc035-67a5-45b5-94f7-bdc4f7487a36",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "aiwthraj@gmail.com;rajendrabraj@gmail.com",
+        "subject": "Home Loan Query",
+        "emailType": "text",
+        "message": "=Home Loan Query Notification \n\nEmailed Triggerred using TextClassifer - >  Workflow is developed by Rajendra Bichu : Aug 2025 \n\n\n\n\nHello Customer Team\n\nI have issue with respect to my Home Loan , my query is as below, please look into this at the earliest. \n\n\n\nDetailed Query Submitted by the Customer as below :\n\n\n{{ $('When chat message received').item.json.chatInput }}\n\n\n\n\nYour Customer Name\nRajendra Bichu \n\n\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        192,
+        -96
+      ],
+      "id": "f3d0a6a4-6ff9-492d-be66-86fcd785dcf5",
+      "name": "Home Loan Query",
+      "webhookId": "5b6e766e-c749-408d-99ab-b41b8b49a088",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "aiwthraj@gmail.com;rajendrabraj@gmail.com",
+        "subject": "General Query",
+        "emailType": "text",
+        "message": "=Emailed Triggerred using TextClassifer - >  Workflow is developed by Rajendra Bichu : Aug 2025 \n\n==========================\n\nHello Customer Team\n\nThis is a general query which is submitted by the customer.\n\nDetailed Query Submitted by the Customer as below :\n\n\n\n{{ $('When chat message received').item.json.chatInput }}\n\n\nYour Customer Name\nRajendra Bichu \n\nDear Customer please contact the Customer Support !!\n\n==========================\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        80
+      ],
+      "id": "53b27fd2-dcbe-434b-a839-af0c156bf608",
+      "name": "Send a message",
+      "webhookId": "6584a3fb-84d8-46ee-9fe3-c2dbfc742ba9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.chatInput }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Credit Card",
+              "description": "Issues related to credit card"
+            },
+            {
+              "category": "Loan Related",
+              "description": "Issues related to Home Loan"
+            },
+            {
+              "category": "General",
+              "description": "This can be general Query"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        -112
+      ],
+      "id": "d76d12c5-a657-4880-841b-dddc3d219b98",
+      "name": "Customer_ChatBOT"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Customer_ChatBOT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer_ChatBOT",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer_ChatBOT": {
+      "main": [
+        [
+          {
+            "node": "Credit(Card)-Notify",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Home Loan Query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9043a507-694d-4ee2-b05c-3cc7b3798546",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
+  },
+  "id": "8b4titnxR4Gc9IXc",
+  "tags": []
+}
