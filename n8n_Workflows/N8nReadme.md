@@ -6,7 +6,10 @@
 
 📚 Few of the N8n Workflow are added to the repository :  
 
-Repository Link :   
+Repository Link :    https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_Workflows
+
+----
+N8n Use cases Experimented :  
 
 ✅ N8n Workflow- Chatbot-Telegram-Twitter Workflow
 ✅ N8n Workflow-  Research - Reader and Writer Workflow 
