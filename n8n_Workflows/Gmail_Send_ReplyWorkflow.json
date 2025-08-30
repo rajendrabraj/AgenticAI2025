@@ -1,0 +1,115 @@
+{
+  "name": "Gmail_Send_ReplyWorkflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -160
+      ],
+      "id": "af078307-86b2-4682-8222-25ab39feac30",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $json.id }}",
+        "emailType": "text",
+        "message": "Reply using N8N Workflow is working",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        -160
+      ],
+      "id": "dae83dd7-3ae7-486a-8154-894b65eed6de",
+      "name": "Reply to a message",
+      "webhookId": "e1cd5fc4-4bc2-4da1-bf43-00d8a6e891c7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Automation\n",
+        "height": 256,
+        "width": 720
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "76240df6-9a18-41dc-8a7d-63731571788a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "aiwithraj@gmail.com",
+        "subject": "N8N Workflow Testing",
+        "emailType": "text",
+        "message": "N8N Workflow Testing",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -352,
+        -160
+      ],
+      "id": "ef95326a-2c9e-460a-b1d8-d6531cd81954",
+      "name": "Send a message",
+      "webhookId": "d30cd6cc-bbb5-4368-aec5-d67fe377561b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5ac65575-e32e-4906-9185-b45bae4ef121",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
+  },
+  "id": "ZPrSlEaBpUovSqIn",
+  "tags": []
+}

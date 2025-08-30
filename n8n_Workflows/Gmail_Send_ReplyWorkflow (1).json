@@ -1,0 +1,259 @@
+{
+  "name": "Gmail_Send_ReplyWorkflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -160
+      ],
+      "id": "af078307-86b2-4682-8222-25ab39feac30",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $json.id }}",
+        "emailType": "text",
+        "message": "Reply using N8N Workflow is working",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        -160
+      ],
+      "id": "dae83dd7-3ae7-486a-8154-894b65eed6de",
+      "name": "Reply to a message",
+      "webhookId": "e1cd5fc4-4bc2-4da1-bf43-00d8a6e891c7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Automation\n",
+        "height": 256,
+        "width": 720
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "76240df6-9a18-41dc-8a7d-63731571788a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "aiwithraj@gmail.com",
+        "subject": "N8N Workflow Testing",
+        "emailType": "text",
+        "message": "N8N Workflow Testing",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -352,
+        -160
+      ],
+      "id": "ef95326a-2c9e-460a-b1d8-d6531cd81954",
+      "name": "Send a message",
+      "webhookId": "d30cd6cc-bbb5-4368-aec5-d67fe377561b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Provide information about N8n in 200 words"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -176,
+        112
+      ],
+      "id": "86a7aaee-3d2e-4ac8-be0f-cadf890f9df6",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "oZ8dwbn9oYRia9Re",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -576,
+        112
+      ],
+      "id": "661bc69d-2b16-47a2-9f70-e1685d466caa",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Get many messages').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        112
+      ],
+      "id": "5d03c195-70cd-4bb3-b37e-779274f7c718",
+      "name": "Reply to a message1",
+      "webhookId": "e1cd5fc4-4bc2-4da1-bf43-00d8a6e891c7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## AI Automation Message a Model\n",
+        "height": 272,
+        "width": 1040,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "4c40e797-84f1-46b3-9192-dbd669e18aa3",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 5,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -352,
+        112
+      ],
+      "id": "d9936100-79f0-4124-a3f8-1960b9f55b22",
+      "name": "Get many messages",
+      "webhookId": "d30cd6cc-bbb5-4368-aec5-d67fe377561b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WGpNTvG6NAw7dILb",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2023abe1-5ee6-4fce-b28a-3e20cdf509ae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
+  },
+  "id": "ZPrSlEaBpUovSqIn",
+  "tags": []
+}

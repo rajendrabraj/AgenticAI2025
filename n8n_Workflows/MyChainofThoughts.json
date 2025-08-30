@@ -1,0 +1,217 @@
+{
+  "name": "MyChainofThoughts",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -864,
+        -400
+      ],
+      "id": "8c76120c-7861-4139-bf3b-f62bd485aea3",
+      "name": "When chat message received",
+      "webhookId": "8b5d17e6-9356-437e-a97a-4f4027e6451d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# Overview\nYou are an expert outline writer. Your job is to generate a structured outline for a blog post with section titles and key points."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -416,
+        -400
+      ],
+      "id": "dac0b9b9-a9be-48f9-8ef3-bdc6634050fb",
+      "name": "Researcher"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is the outline: \n\n{{ $json.output }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an expert blog evaluator. Revise this outline and ensure it covers the following key criteria: \n(1) Engaging Introduction \n(2) Clear Section Breakdown\n(3) Logical Flow\n(4) Conclusion with Key Takeaways\n\n## Output\nOnly output the revised outline."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -32,
+        -400
+      ],
+      "id": "88ebaf67-9d28-4fc0-8f37-ddfac536bd51",
+      "name": "Writer"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here if the revised outline: {{ $json.output }}",
+        "options": {
+          "systemMessage": "=# Overview\n\n\nYou are an expert blog writer. Generate a detailed blog post using the outline with well-structured paragraphs and engaging content."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        400,
+        -400
+      ],
+      "id": "5c86dc29-6107-45a8-89ca-706f15852308",
+      "name": "Reviewer & Editor"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "00ea7952-6631-44fd-bddc-e7808165421f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uRZm9yp7PCaAHbcf",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "query": "what is Gen AI ",
+        "options": {}
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -96
+      ],
+      "id": "671fee74-8a78-4452-b165-3dbb23122092",
+      "name": "Search in Tavily1",
+      "credentials": {
+        "tavilyApi": {
+          "id": "tKolnvMloQf4sx2v",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        -192
+      ],
+      "id": "53ecc10b-7eb9-4cd0-8847-ff8dedc0d474",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "oQ3iD5wvRru7OsK1",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Researcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Researcher": {
+      "main": [
+        [
+          {
+            "node": "Writer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Writer": {
+      "main": [
+        [
+          {
+            "node": "Reviewer & Editor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Writer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Reviewer & Editor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search in Tavily1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Researcher",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Researcher",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e59a9b07-a226-429b-adba-18f42cf530b0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
+  },
+  "id": "bIpglDv9mcRQNqIi",
+  "tags": []
+}

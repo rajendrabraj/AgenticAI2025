@@ -1,0 +1,82 @@
+{
+  "name": "Telegram_To_Twitter",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -592,
+        -208
+      ],
+      "id": "9a0d4c89-0238-4e8c-ba53-cc44f28e40a2",
+      "name": "Telegram Trigger",
+      "webhookId": "e79fcd56-7d04-4eb3-a749-25a556605dbe",
+      "credentials": {
+        "telegramApi": {
+          "id": "hAl8cjMJZDDpc1dJ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "=Sent using Telegram the following :  \n\n{{ $json.message.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -208
+      ],
+      "id": "1338aaf6-4139-4c29-b252-5abd2d149382",
+      "name": "Create Tweet",
+      "retryOnFail": true,
+      "executeOnce": true,
+      "maxTries": 5,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "ykcj8n26w0ZYCcyA",
+          "name": "X account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Tweet": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "52cb0fb3-27d1-4593-a494-312522016cc2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f1a4b4a7a552979a30d1ddbd1d0cfb28da1812492cfcecc2d5c9adeaab49a193"
+  },
+  "id": "pWjVZ96zrTDoPjlY",
+  "tags": []
+}
