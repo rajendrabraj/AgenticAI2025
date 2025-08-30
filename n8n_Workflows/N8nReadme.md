@@ -2,9 +2,11 @@
 ----
 🧠 n8n Workflows and different kinds of Workflow and using the Power of No Code Tools. 
 
-🧑‍💻 Integrate Human vs Tools and Agents inside the N8N Workflow.
+🧑‍💻 Objective :  To Integrate Human Integration , Workflow and  Tools and Agents inside the N8N Workflow.
 
-📚 This is more of Inner Team Integration by using Autogen calls multiple Inner Agent and UserProxy is used to ask a question with Human Input.
+📚 Few of the N8n Workflow are added to the repository :  
+
+Repository Link :   
 
 ✅ N8n Workflow- Chatbot-Telegram-Twitter Workflow
 ✅ N8n Workflow-  Research - Reader and Writer Workflow 
