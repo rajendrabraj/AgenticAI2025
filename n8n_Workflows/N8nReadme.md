@@ -11,15 +11,22 @@ Repository Link :    https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n
 ----
 N8n Use cases Experimented :  
 
+🌐 Fast Connectivity to different Tools using N8n Low Code and No code framework.
+
+🔍 N8n Workflow- Uses SerperApi and TavilySearch which makes integration seamless.
+
+
 ✅ N8n Workflow- Chatbot-Telegram-Twitter Workflow.
 
 ✅ N8n Workflow-  Research - Reader and Writer Workflow.
 
 ✅ N8n Workflow-  Provide Input query as a Chat Prompt and the Output send / redirected to GMAIL and seamless integration with email.
 
-🌐 Fast Connectivity to different Tools using N8n Low Code and No code framework.
+✅ N8n Workflow-  Testing of DATA upload and Chunking of the Data 
 
-🔍 N8n Workflow- Uses SerperApi and TavilySearch which makes integration seamless.
+✅ N8n Workflow-  Testing of the Chain of Thoughts 
+
+
 
 ----
 
