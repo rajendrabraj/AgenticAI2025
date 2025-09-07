@@ -26,7 +26,7 @@ N8n Use cases Experimented :
 
 ✅ N8n Workflow-  Implementation of Chain of Thoughts 
 
-✅ N8n Workflow-  Docker to Supabase and Retrieve from Supabase connectivity.
+✅ N8n Workflow-  DROPBOX  to SUPABASE VECTOR DB  and Retrieve from SUPABASE using N8N  connectivity.
 
 
 
