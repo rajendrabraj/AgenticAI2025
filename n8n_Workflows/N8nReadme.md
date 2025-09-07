@@ -24,7 +24,9 @@ N8n Use cases Experimented :
 
 ✅ N8n Workflow-  Testing of DATA upload and Chunking of the Data 
 
-✅ N8n Workflow-  Testing of the Chain of Thoughts 
+✅ N8n Workflow-  Implementation of Chain of Thoughts 
+
+✅ N8n Workflow-  Docker to Supabase and Retrieve from Supabase connectivity.
 
 
 
