@@ -179,19 +179,24 @@ PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
 
 ##  **Python Progarms ** 
-
+---
 
 
 ![image](https://github.com/user-attachments/assets/7b3fad73-e161-43c4-993a-b7646a43eb28)
 
 
-Programs and assignment are here :
+---
 
-##   **📝Python Assignments ** 
+##   **📝 Agentic AI , Python Programs  Use Cases ** 
 
-These are the JSON related Programs
+
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/Usecases_Applications
 
 https://github.com/rajendrabraj/AgenticAI2025/tree/main/Assignment_One
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/CrewAI
+
 
 ---
 
