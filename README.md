@@ -155,6 +155,8 @@ https://github.com/rajendrabraj/AgenticAI2025/blob/main/Assignment_One/Project_S
 
 **📝Environmental Variables and Keys (Required)** 
 
+
+
 PHI_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
 GROQ_API_KEY="XXXXXXXXXXXXXXXXXXXXXXX”
 OPENAI_API_KEY"XXXXXXXXXXXXXXXXXXXXXXX”
