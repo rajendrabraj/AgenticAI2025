@@ -238,13 +238,13 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/CrewAI
 ---
 ##  **Autogen FrameWork Application Programs**
 
-[https://github.com/rajendrabraj/AgenticAI2025/tree/main/CrewAI](https://github.com/rajendrabraj/AgenticAI2025/tree/main/AutoGenClassNotes/Baseline_AutoGen_Assignment)
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/AutoGenClassNotes/Baseline_AutoGen_Assignment
 
 ---
 
 ##  **n8n Workflows FrameWork Application Programs**
 
-[https://github.com/rajendrabraj/AgenticAI2025/tree/main/CrewAI](https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_WorkFlows)
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_WorkFlows
 
 ---
 
