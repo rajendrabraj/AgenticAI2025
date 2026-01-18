@@ -187,7 +187,7 @@ PINE_CONE_API_KEY=    "XXXXXXXXXXXXXXXXXXXXXXX”
 
 Programs and assignment are here :
 
-##   **📝Assignment One** 
+##   **📝Python Assignments ** 
 
 These are the JSON related Programs
 
