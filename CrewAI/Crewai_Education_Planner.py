@@ -1,3 +1,9 @@
+## Python Code 
+## Name : Rajendra Bichu. 
+## Version 1.0. Date : 15th Jan 2026
+### CrewAI for creating a Education planner and course recommendation based on User Inputs
+
+
 from crewai import Crew, Agent, Task
 
 # Warning control
