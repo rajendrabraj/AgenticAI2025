@@ -1,0 +1,122 @@
+{
+  "name": "MCP_Client_GMAIL_TEST",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -976,
+        -336
+      ],
+      "id": "2682e838-6304-4682-8cca-5c14b12c2299",
+      "name": "When chat message received",
+      "webhookId": "391a49b9-119a-49ff-9342-c8acafa922e9"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -128
+      ],
+      "id": "a2a0ae11-3fa6-426a-9e9c-874d1f73586a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ooRp9kBcDa0MG1Bm",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. You have a MCP server which you have access to. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -640,
+        -416
+      ],
+      "id": "dc58f069-5db9-4929-b0c0-3f100da337da",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://rajendra2026iit.app.n8n.cloud/mcp/6bf9a508-3d53-4def-9778-2f563ebd2450",
+        "authentication": "mcpOAuth2Api",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        -336
+      ],
+      "id": "4aad694b-8d6c-429a-8fd5-40a7c4bd1ff1",
+      "name": "MCP Client1",
+      "credentials": {
+        "mcpOAuth2Api": {
+          "id": "d5ohyxudwVWuwAyC",
+          "name": "MCP account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "877a05db-243a-492d-9d8e-356abe1f5c93",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ebd46ea679b5bd50efbaefb2c217c7dbe53676489c8280eb78e824e7963b6406"
+  },
+  "id": "YMEO2dV47qz8MFOvFibNb",
+  "tags": []
+}

@@ -1,0 +1,281 @@
+{
+  "name": "MCP_Tools",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ToolsTutorial"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -128
+      ],
+      "id": "f8d41347-9303-4301-b087-0995f3f76764",
+      "name": "MCP Server Trigger",
+      "webhookId": "99988b28-b73a-4fda-a78d-aa20f57bd88b"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        32
+      ],
+      "id": "4d42a259-ab4a-4e73-830e-112d880be12e",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "description": "Create_Social_Media_Content",
+        "workflowId": {
+          "__rl": true,
+          "value": "6kof3X_fOBANZSmhRReuL",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/6kof3X_fOBANZSmhRReuL",
+          "cachedResultName": "SocialMediaPOST"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "query"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -272,
+        80
+      ],
+      "id": "6c534a68-50a0-47e3-b4e8-dcc41452c097",
+      "name": "Social_Post_Generator"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app0Aj0ElGqvBcAZ1",
+          "mode": "list",
+          "cachedResultName": "Agri Data Table",
+          "cachedResultUrl": "https://airtable.com/app0Aj0ElGqvBcAZ1"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblgxq6JFrS2jim8q",
+          "mode": "list",
+          "cachedResultName": "TODO",
+          "cachedResultUrl": "https://airtable.com/app0Aj0ElGqvBcAZ1/tblgxq6JFrS2jim8q"
+        },
+        "options": {
+          "fields": [
+            "Name",
+            "Completed"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        48,
+        -32
+      ],
+      "id": "f6b882bc-8d6d-4adc-92b9-b8b198ff9b82",
+      "name": "List _To_Dos",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "TIq2eCEjd2hkCAqY",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app0Aj0ElGqvBcAZ1",
+          "mode": "list",
+          "cachedResultName": "Agri Data Table",
+          "cachedResultUrl": "https://airtable.com/app0Aj0ElGqvBcAZ1"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblgxq6JFrS2jim8q",
+          "mode": "list",
+          "cachedResultName": "TODO",
+          "cachedResultUrl": "https://airtable.com/app0Aj0ElGqvBcAZ1/tblgxq6JFrS2jim8q"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Completed": false,
+            "Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Completed",
+              "displayName": "Completed",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date Created",
+              "displayName": "Date Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "To Do",
+                  "value": "To Do"
+                },
+                {
+                  "name": "In Progress",
+                  "value": "In Progress"
+                },
+                {
+                  "name": "Completed",
+                  "value": "Completed"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        112
+      ],
+      "id": "a0d54aa1-8d0d-46c2-b24f-db0ede664496",
+      "name": "Create_To_Dos",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "TIq2eCEjd2hkCAqY",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social_Post_Generator": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List _To_Dos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create_To_Dos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Kolkata",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "d8067ebb-6717-499f-8ce1-9f5060149fab",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ebd46ea679b5bd50efbaefb2c217c7dbe53676489c8280eb78e824e7963b6406"
+  },
+  "id": "Le5A-plGxpzrUkvaod56b",
+  "tags": []
+}
