@@ -1,4 +1,4 @@
-##  **📝MCP Server and Client Implementation using n8n 
+##  **📝MCP Server MCP Client and MCP Tools Implementation using n8n 
 
 This is for tools integration with MCOP and n8n and then registering them using Claude and Cursor and executing the worklfow.
 
