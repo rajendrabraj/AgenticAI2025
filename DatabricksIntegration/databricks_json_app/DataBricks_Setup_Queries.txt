@@ -1,0 +1,336 @@
+===============================================================================================
+
+
+Step #1
+
+
+
+pip install databricks-sql-connector
+
+===============================================================================================
+
+
+
+Step 2 — Generate Databricks Credentials
+
+From Databricks workspace → User Settings → Access Tokens → Generate New Token
+
+You will need:
+
+Server Hostname
+
+HTTP Path (SQL Warehouse path)
+
+Personal Access Token
+
+===============================================================================================
+
+
+
+import json
+import time
+from databricks import sql
+
+
+def connect_to_databricks():
+    """
+    Connects to Databricks SQL Warehouse (Test Database)
+    Returns a live connection object
+    """
+    connection = sql.connect(
+        server_hostname="YOUR_DATABRICKS_HOSTNAME",
+        http_path="YOUR_HTTP_PATH",
+        access_token="YOUR_ACCESS_TOKEN"
+    )
+    return connection
+
+
+def query_databricks_table(query):
+    """
+    Executes query and returns JSON output + execution time in milliseconds
+    """
+    conn = connect_to_databricks()
+    cursor = conn.cursor()
+
+    start_time = time.time()
+    cursor.execute(query)
+
+    columns = [desc[0] for desc in cursor.description]
+    rows = cursor.fetchall()
+
+    end_time = time.time()
+
+    execution_time_ms = round((end_time - start_time) * 1000, 2)
+
+    result = {
+        "execution_time_ms": execution_time_ms,
+        "columns": columns,
+        "record_count": len(rows),
+        "records": [
+            dict(zip(columns, row)) for row in rows
+        ]
+    }
+
+    cursor.close()
+    conn.close()
+
+    return json.dumps(result, indent=4, default=str)
+
+
+def main():
+    query = """
+        SELECT *
+        FROM your_catalog.your_schema.your_table
+        LIMIT 100
+    """
+
+    json_result = query_databricks_table(query)
+    print(json_result)
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+====================
+
+
+server_hostname="adb-123456789.12.azuredatabricks.net"
+http_path="/sql/1.0/warehouses/abc123xyz"
+access_token="dapiXXXXXXXXXXXXXXXX"
+
+FROM your_catalog.your_schema.your_table
+
+
+==============================================================
+
+{
+    "execution_time_ms": 324.17,
+    "columns": ["id", "name", "salary"],
+    "record_count": 3,
+    "records": [
+        {
+            "id": 1,
+            "name": "John",
+            "salary": 50000
+        },
+        {
+            "id": 2,
+            "name": "Alice",
+            "salary": 62000
+        },
+        {
+            "id": 3,
+            "name": "Bob",
+            "salary": 58000
+        }
+    ]
+}
+
+
+================================================================
+
+✅ Optional Enhancements (Production-grade)
+
+I can also provide versions with:
+
+🔐 Environment variable based secrets (secure)
+
+📄 Output JSON file saving
+
+🧠 Dynamic query builder
+
+📊 Pandas DataFrame conversion
+
+🪵 Logging & error handling
+
+🚀 High-performance batch streaming
+
+⚡ Want Secure Version?
+
+If you'd like, I can provide a secure enterprise-grade version using:
+
+.env file for secrets
+
+Config-driven connection
+
+Robust exception handling
+
+Query parameters
+
+=================================================================================
+Production Version
+
+databricks_json_app/
+│
+├── app.py
+├── databricks_client.py
+├── requirements.txt
+├── .env
+└── logs/
+    └── app.log
+
+
+===============================================================
+Install Packages
+
+pip install databricks-sql-connector python-dotenv
+
+
+===============================================================
+
+requirements.txt
+
+databricks-sql-connector
+python-dotenv
+
+pip install -r requirements.txt
+
+
+=====================================================================
+
+DATABRICKS_HOSTNAME=adb-xxxxxxxx.azuredatabricks.net
+DATABRICKS_HTTP_PATH=/sql/1.0/warehouses/xxxxxxxx
+DATABRICKS_TOKEN=dapiXXXXXXXXXXXXXXXXXXXX
+
+
+=========================================================================
+
+databricks_client.py
+
+import os
+import json
+import time
+import logging
+from databricks import sql
+from dotenv import load_dotenv
+
+load_dotenv()
+
+logging.basicConfig(
+    filename="logs/app.log",
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    level=logging.INFO
+)
+
+
+def connect_to_databricks():
+    try:
+        conn = sql.connect(
+            server_hostname=os.getenv("DATABRICKS_HOSTNAME"),
+            http_path=os.getenv("DATABRICKS_HTTP_PATH"),
+            access_token=os.getenv("DATABRICKS_TOKEN")
+        )
+        logging.info("Connected to Databricks successfully")
+        return conn
+    except Exception as e:
+        logging.exception("Databricks connection failed")
+        raise e
+
+
+def execute_query(query: str) -> dict:
+    conn = None
+    cursor = None
+
+    try:
+        conn = connect_to_databricks()
+        cursor = conn.cursor()
+
+        start_time = time.time()
+        cursor.execute(query)
+
+        columns = [desc[0] for desc in cursor.description]
+        rows = cursor.fetchall()
+
+        end_time = time.time()
+
+        execution_time_ms = round((end_time - start_time) * 1000, 2)
+
+        result = {
+            "execution_time_ms": execution_time_ms,
+            "columns": columns,
+            "record_count": len(rows),
+            "records": [dict(zip(columns, row)) for row in rows]
+        }
+
+        logging.info(f"Query executed in {execution_time_ms} ms")
+
+        return result
+
+    except Exception as e:
+        logging.exception("Query execution failed")
+        raise e
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+
+
+=========================================================================
+App.py
+
+import json
+from databricks_client import execute_query
+
+
+def main():
+    query = """
+        SELECT *
+        FROM your_catalog.your_schema.your_table
+        LIMIT 100
+    """
+
+    result = execute_query(query)
+
+    # Save JSON output to file
+    with open("output.json", "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=4, default=str)
+
+    print(json.dumps(result, indent=4, default=str))
+
+
+if __name__ == "__main__":
+    main()
+
+
+==============================================================================
+
+Finally Execute
+
+python app.py
+
+==============================================================================
+
+
+🚀 Optional Enterprise Enhancements
+
+I can also add:
+
+🔹 Parameterized queries (SQL injection safe)
+
+🔹 Databricks Unity Catalog auth patterns
+
+🔹 Connection pooling
+
+🔹 Async execution
+
+🔹 REST API wrapper (Flask / FastAPI)
+
+🔹 Airflow integration
+
+🔹 CI/CD ready Docker setup
+
+⚡ Want API Version?
+
+If you'd like, I can convert this into:
+
+REST API → Query Databricks → JSON response in milliseconds
+
+=============================================================================================================
+
+
