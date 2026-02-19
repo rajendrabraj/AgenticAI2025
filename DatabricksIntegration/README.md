@@ -8,5 +8,5 @@ Databricks is a cloud-based Data Intelligence Platform designed to unify data en
 
 📚 Repository :
 
-Repository Link : https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_Workflows
+Repository Link :   https://github.com/rajendrabraj/AgenticAI2025/tree/main/DatabricksIntegration
 
