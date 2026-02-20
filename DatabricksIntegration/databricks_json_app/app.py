@@ -5,6 +5,7 @@
 import json
 from databricks_client import execute_query
 from JSON_To_HTML import json_to_html_table
+from JSON_TO_CSV import json_to_csv
 
 
 def main():
@@ -39,14 +40,21 @@ def main():
 
     ## Export JSON to HTML Table
 
-    # print("Converting JSON to HTML Table.")
-    # print("--" * 50)
-    # json_file_path= "C:\\Rajendra_2015\\AgenticAI_Programs\\Agentic_Batch2\\2-Langchain Basics\\11_IIT_Madras\\1_0_My_DataBricks_Assignment\\output.json"
-    # html_file_path= "C:\\Rajendra_2015\\AgenticAI_Programs\\Agentic_Batch2\\2-Langchain Basics\\11_IIT_Madras\\1_0_My_DataBricks_Assignment\\Records.html"
+    print("Converting JSON to HTML Table.")
+    print("--" * 50)
+    json_file_path= "C:\\Rajendra_2015\\AgenticAI_Programs\\Agentic_Batch2\\2-Langchain Basics\\11_IIT_Madras\\1_0_My_DataBricks_Assignment\\output.json"
+    html_file_path= "C:\\Rajendra_2015\\AgenticAI_Programs\\Agentic_Batch2\\2-Langchain Basics\\11_IIT_Madras\\1_0_My_DataBricks_Assignment\\Records.html"
+    csv_file_path = "C:\\Rajendra_2015\\AgenticAI_Programs\\Agentic_Batch2\\2-Langchain Basics\\11_IIT_Madras\\1_0_My_DataBricks_Assignment\\Records.csv"
 
-    # json_to_html_table(json_file_path, html_file_path)
-
-    # print("Created HTML file.")
+    print("Converting JSON to HTML Table.")
+    json_to_html_table(json_file_path, html_file_path)
+    print("Created HTML file.")
+    print("--" * 50)
+    print("Converting JSON to CSV File Table.")
+    json_to_csv(json_file_path, csv_file_path)
+    print("--" * 50)
+    print("Created CSV file.")
+    
 
 
 if __name__ == "__main__":

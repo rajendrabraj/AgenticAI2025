@@ -1,6 +1,11 @@
+
+## This program reads the JSON file and converts it to HTML file format.
+## Works on Python version 3.13 
+
 import pandas as pd
 import json
 from itertools import zip_longest
+
 
 def json_to_html_table(json_file_path, html_file_path):
     """
