@@ -1,0 +1,274 @@
+{
+  "name": "n8n_InjestPDF",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "READPDFNode",
+        "formDescription": "Read PDF",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "READPDF",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -2336,
+        -256
+      ],
+      "id": "f43ee302-ec40-4ee6-9a9e-baeb7b4f077b",
+      "name": "On form submission",
+      "webhookId": "d5f0184e-f8dd-4b4c-9a32-c2773c192bd8"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "READPDF",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2144,
+        -464
+      ],
+      "id": "b4125c8e-1f8f-4aa7-952e-48c27d26c57a",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.text;\nconst chunkSize = 800;\nconst overlap = 100;\n\nlet chunks = [];\n\nfor (let i = 0; i < text.length; i += (chunkSize - overlap)) {\n  const chunk = text.slice(i, i + chunkSize);\n\n  chunks.push({\n    chunk: chunk,\n    chunkText: chunk   // 👈 additional field\n  });\n}\n\nreturn chunks.map(item => ({\n  json: item\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        -208
+      ],
+      "id": "1a74b48c-4811-4cff-b7e1-35862847f74d",
+      "name": "Perform_Chunking"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all chunk texts\nconst allTexts = items.map(item => \n  item.json.chunkText || item.json.chunk || \"\"\n);\n\n// Join with newline (preserve record separation)\nlet combinedText = allTexts.join(\"\\n\");\n\n// Clean text (keep structure, remove noise)\ncombinedText = combinedText\n  .replace(/\\r/g, \"\")\n  .replace(/\\t/g, \" \")\n  .replace(/\\s+/g, \" \")\n  .trim();\n\n// Return single combined output\nreturn [\n  {\n    json: {\n      text: combinedText\n\n      \n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1328,
+        -240
+      ],
+      "id": "6158e7d6-20f6-453d-ac77-f8a1c33e3e26",
+      "name": "Process_For_PineCone"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1776,
+        -544
+      ],
+      "id": "b4da78de-bdf2-4daa-8dd1-b351c99ad498",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "https://pdf-chat-index-yiy5ibb.svc.aped-4627-b74a.pinecone.io/vectors/upsert",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "pineconeApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "=crypto.randomUUID()"
+            },
+            {
+              "name": "values",
+              "value": "={{ $json.data[0].embedding }}"
+            },
+            {
+              "name": "metadata",
+              "value": "="
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -688,
+        -368
+      ],
+      "id": "9715564a-6424-42eb-9a4c-9234381a2d9b",
+      "name": "Insert_PineCone",
+      "credentials": {
+        "pineconeApi": {
+          "id": "GkFUbaezhLqxEjgn",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            },
+            {
+              "name": "input",
+              "value": "={\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"{{ $json.chunk }}\",\n  \"user\": \"{{ $json.chunkText }}\"\n}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.chunkText }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1424,
+        -544
+      ],
+      "id": "e61c9b1c-7aa8-4b5a-9adc-f1efe698428d",
+      "name": "Embeddings",
+      "alwaysOutputData": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "Ilmy1uvqOZ5lebH6",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1024,
+        -384
+      ],
+      "id": "178ca3d9-00a7-4644-849d-956fa5ed18b4",
+      "name": "Merge1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Perform_Chunking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perform_Chunking": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process_For_PineCone": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Embeddings",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Process_For_PineCone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert_PineCone": {
+      "main": [
+        []
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Insert_PineCone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5aebb2b1-88b1-4629-a26b-7914eb99761b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "499eefea9552b5b4dfe81b0af121636f57589a503961d1e60b09a8d682430b9f"
+  },
+  "id": "XlS4dWyCdORiQ1hh",
+  "tags": []
+}

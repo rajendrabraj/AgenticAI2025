@@ -1,0 +1,101 @@
+{
+  "nodes": [
+    {
+      "id": "pdf_loader",
+      "type": "documentLoader",
+      "data": {
+        "label": "PDF Loader"
+      }
+    },
+    {
+      "id": "text_splitter",
+      "type": "textSplitter",
+      "data": {
+        "label": "Text Splitter"
+      }
+    },
+    {
+      "id": "embeddings",
+      "type": "embeddings",
+      "data": {
+        "label": "OpenAI Embeddings"
+      }
+    },
+    {
+      "id": "faiss",
+      "type": "vectorStore",
+      "data": {
+        "label": "FAISS"
+      }
+    },
+    {
+      "id": "retriever",
+      "type": "retriever",
+      "data": {
+        "label": "Retriever"
+      }
+    },
+    {
+      "id": "prompt",
+      "type": "promptTemplate",
+      "data": {
+        "label": "Prompt Template"
+      }
+    },
+    {
+      "id": "chat_model",
+      "type": "chatModel",
+      "data": {
+        "label": "GPT-4o-mini"
+      }
+    },
+    {
+      "id": "memory",
+      "type": "memory",
+      "data": {
+        "label": "Buffer Memory"
+      }
+    },
+    {
+      "id": "output",
+      "type": "output",
+      "data": {
+        "label": "Response"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "pdf_loader",
+      "target": "text_splitter"
+    },
+    {
+      "source": "text_splitter",
+      "target": "embeddings"
+    },
+    {
+      "source": "embeddings",
+      "target": "faiss"
+    },
+    {
+      "source": "faiss",
+      "target": "retriever"
+    },
+    {
+      "source": "retriever",
+      "target": "prompt"
+    },
+    {
+      "source": "prompt",
+      "target": "chat_model"
+    },
+    {
+      "source": "memory",
+      "target": "chat_model"
+    },
+    {
+      "source": "chat_model",
+      "target": "output"
+    }
+  ]
+}

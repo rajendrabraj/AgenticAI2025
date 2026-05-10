@@ -1,0 +1,1394 @@
+AI PDF Loader : https://www.youtube.com/watch?v=m0nr1_pnAxc
+
+https://flowiseai.com/
+
+
+Youtube Reference :
+
+https://www.youtube.com/watch?v=ROoGbFrvuwM
+Important Pinecone Index : https://www.youtube.com/watch?v=m0nr1_pnAxc
+
+
+
+https://www.youtube.com/watch?v=m0nr1_pnAxc
+
+ChatPrompt Template :  https://www.youtube.com/watch?v=--0qASEWM3g
+
+https://www.youtube.com/watch?v=ROoGbFrvuwM
+
+https://www.youtube.com/watch?v=ROoGbFrvuwM
+
+
+
+=================================================
+
+
+Step-by-Step Implementation Flow
+Set up Pinecone:
+Create an index in Pinecone with the correct dimensions (e.g., 1536 for text-embedding-ada-002).
+Get your Pinecone API Key, Environment, and Index Name.
+Build the Flowise Ingestion Flow:
+PDF Loader: Add the PDF File Loader node.
+Text Splitter: Connect a RecursiveCharacterTextSplitter to the loader. This breaks down large documents into manageable chunks.
+Embeddings: Connect OpenAI Embeddings to the splitter and vector store nodes.
+Vector Store: Connect the Pinecone Vector Store node, filling in your Pinecone credentials.
+Upsert Data:
+Upload your PDF file into the PDF Loader node within Flowise.
+Click the Upsert button to convert the PDF into embeddings and store them in Pinecone. 
+=================================================
+
+
+Execution and errors :
+
+
+
+I have connected everything from PDF Connector-->Recursive Splitter-->Embeddings to Pincone and when run the flow I get this Error "this.retriever.invoke is not a function"
+
+What should be the Pinecone Index parameters or what type of index i should created inside PineCone to store the contents of PDF
+
+✅ Use: Dense Vector Index
+
+👉 Because:
+
+OpenAI embeddings (like text-embedding-3-small) produce dense vectors
+Pinecone expects matching index type
+⚙️ 🔹 Required Index Parameters (CRITICAL)
+
+When creating index in Pinecone dashboard:
+
+1. 📏 Dimension (MOST IMPORTANT)
+
+This MUST match your embedding model.
+
+For:
+text-embedding-3-small
+
+👉 Use:
+
+Dimension = 1536 ✅
+If wrong:
+
+Metric (Similarity Function)
+
+Choose:
+
+cosine ✅ (RECOMMENDED)
+Why cosine?
+Best for semantic similarity
+Works perfectly for text embeddings
+Other options (not recommended here):
+dotproduct
+Euclidean
+
+Name :   pdf-chat-index
+
+Index Name: pdf-chat-index
+Dimension: 1536
+Metric: cosine
+Type: Dense
+Mode: Serverless
+Region: us-east-1 (example)
+
+
+
+===========================
+
+Pinecone Vector Store
+        ↓
+Vector Store Retriever   ✅ (THIS WAS MISSING)
+        ↓
+Conversational Retrieval Chain
+
+OpenAI Embeddings → Pinecone Vector Store → Vector Store Retriever
+
+Vector Store Retriever → Conversational Retrieval Chain
+Chat Model (OpenAI) → Conversational Retrieval Chain
+ChatPromptTemplate → Conversational Retrieval Chain
+
+❌ What you likely did (wrong)
+Pinecone → Conversational Chain ❌
+
+👉 This causes:
+
+this.retriever.invoke is not a function
+🧠 Simple Rule
+Vector Store ≠ Retriever
+
+You ALWAYS need:
+
+Vector Store → Retriever → Chain
+
+
+                 [ChatPromptTemplate]
+                           │
+                           ▼
+[Chat Model] → [Conversational Retrieval Chain] ← [Vector Store Retriever]
+                                                        │
+                                                        ▼
+                                             [Pinecone Vector Store]
+                                                        │
+                                                        ▼
+                                               [Embeddings]
+
+
+In the PDF file connector for PDF upload and data to be later on chunked what parameters shall i set.
+Usage settings and Output settings.
+
+📄 🔹 1. Usage Settings (How the PDF is read)
+
+These settings affect how the loader ingests your PDF.
+
+✅ A. Split Pages / One Document Per Page
+Set: TRUE ✅
+Why:
+Each page becomes a separate document
+Makes chunking cleaner and more accurate
+✅ B. File Source
+Upload file OR provide file path/URL
+
+👉 Use:
+
+Upload file directly (recommended)
+⚠️ C. Load Method (if visible)
+
+Some versions show options like:
+
+pdf / buffer / base64
+2. Output Settings (VERY IMPORTANT)
+
+This defines what is passed to the next node (Text Splitter)
+
+✅ A. Output Type
+
+You’ll usually see something like:
+
+Document / Text / JSON
+
+👉 Set:
+
+Document ✅ (IMPORTANT)
+Why?
+Text Splitter expects Document objects
+Not raw strings
+
+Split Pages: true ✅
+File: upload PDF
+Metadata: optional
+
+Output Type: Document ✅
+Output Key: documents (default)
+
+PDF Loader → creates DOCUMENTS
+Text Splitter → breaks DOCUMENTS
+Embeddings → converts to vectors
+Pinecone → stores vectors
+
+Usage Settings:
+- Split Pages = true
+
+Output Settings:
+- Output Type = Document
+- Output Key = documents
+
+FlowWise Conversational Retrieval Chain should be connected with what parameters to retrieve the data  from Pinecone vector , please give me the steps
+
+User Question
+   ↓
+Retriever (Pinecone)
+   ↓
+Relevant chunks (context)
+   ↓
+LLM (OpenAI)
+   ↓
+Answer
+
+OpenAI Embeddings
+Pinecone Vector Store
+Vector Store Retriever   ✅
+Chat Model (OpenAI)
+ChatPromptTemplate
+
+Embeddings → Pinecone Vector Store → Vector Store Retriever
+
+
+
+Example Prompt:
+“You are a jewellery assistant. Answer ONLY from provided catalogue context
+Be polite, concise, and factual
+If item is out of stock, suggest a similar alternative
+If unsure, say you don’t know
+Context: {context}
+Question: {question}”
+
+“You are a jewellery assistant. Answer ONLY from provided catalogue context
+Be polite, concise, and factual
+If item is out of stock, suggest a similar alternative
+If unsure, say you don’t know
+
+------------
+Context: {context}
+Question: {question}
+------------
+REMEMBER: If there is no relevant information within the context, just say "Hmm, I'm not sure". Don't try to make up an answer. Never break character.
+
+
+You are Ornativa’s virtual jewellery expert.
+
+Answer the user’s question using ONLY the provided catalogue context.
+
+Guidelines:
+
+* Be polite, concise, and factual.
+* If the answer is not in the context, say: "I don’t know."
+* If an item is out of stock, suggest a similar alternative product from the context.
+* Do not make up information.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Chat History :
+{chat_history}
+============
+
+You are Ornativa’s virtual jewellery expert.
+
+Answer the user’s question using ONLY the provided catalogue context.
+
+Guidelines:
+
+* Be polite, concise, and factual.
+* If the answer is not in the context, say: "I don’t know."
+* If an item is out of stock, suggest a similar alternative product from the context.
+* Do not make up information.
+
+Response Format:
+
+* Product Name:
+* Price:
+* Material:
+* Category:
+* Availability:
+* Description (1–2 lines):
+* Alternative Suggestion (if out of stock):
+
+Context:
+{context}
+
+Question:
+{question}
+
+Chat History :
+{chat_history}
+
+
+Final
+
+You are Ornativa’s virtual jewellery expert.
+
+Use ONLY the provided context to answer the question.
+
+Instructions:
+
+* Be polite, concise, and factual.
+* Do not make up information.
+* If the answer is not in the context, say: "I don’t know."
+* If a product is out of stock, suggest a similar alternative from the context.
+
+Response Format:
+Provide the answer in a clear structured format:
+
+Product Name: <name if available>
+Price: <price if available>
+Material: <material if available>
+Category: <category if available>
+Availability: <in stock / out of stock>
+Description: <1–2 line summary>
+Alternative: <suggest similar product if out of stock, otherwise say "Not required">
+
+Context:
+{context}
+
+Question:
+{question}
+
+Chat History:
+{chat_history}
+
+=================================================
+
+You must test at least 5 queries.
+
+🧪 Sample Test Evidence (You can use this)
+
+
+
+show me classic diamond ring category 
+show me necklace material
+show me ring category
+show me bracelet category
+
+Show me diamond products.
+What’s the price of the ring?
+“List all available diamond items.”
+“What is the price of the Pearl Necklace?”
+“Which products are made of 22K gold?”
+Do you have platinum bangles?
+Do you sell watches?
+
+Do you have diamond rings?
+What is the price?
+Is it available in white gold?
+
+
+=================================================
+
+
+PINECONEKEY="pcsk_5oBH8r_Hi4yQZDzsA2KxnPWGhtCKXwenb5fA14zwSmTDxMu4UDX6aJKQonTBx3obFZPE7a"
+
+Environment: us-west1-gcp 
+
+Enviorment : us-east-1
+
+Index : pineconeindex 
+
+Index : flowwise
+
+https://flowwise-yiy5ibb.svc.aped-4627-b74a.pinecone.io
+
+
+Host : https://pineconeindex-yiy5ibb.svc.aped-4627-b74a.pinecone.io 
+
+https://pineconeindex-yiy5ibb.svc.aped-4627-b74a.pinecone.io
+
+=================================================
+
+
+
+Flowise is an open-source, low-code/no-code tool that allows users to build customized Large Language Model (LLM) applications and AI agents using a drag-and-drop visual interface. Based on LangChain, it simplifies creating complex AI workflows—such as chatbots and RAG (Retrieval-Augmented Generation) systems—without writing traditional code. 
+
+This video provides a good introduction to Flowise and its features:
+
+Key Features and Capabilities:
+Visual Builder: Drag-and-drop interface to connect LLMs, prompts, memory, and data sources.
+AI Agents: Build autonomous agents capable of reasoning, acting, and using tools.
+Ready-to-Use Templates: Accelerates development for common tasks like document processing or chatbots.
+Integrations: Supports over 100 integrations, including OpenAI, LangChain, vector stores, and APIs.
+Self-Hosting: Can be run locally or hosted on Flowise Cloud. 
+You can watch this video to see how to build an AI agent with tools in Flowise:
+
+https://flowiseai.com/
+
+
+Youtube Reference :
+
+https://www.youtube.com/watch?v=ROoGbFrvuwM
+Important Pinecone Index : https://www.youtube.com/watch?v=m0nr1_pnAxc
+
+
+
+https://www.youtube.com/watch?v=m0nr1_pnAxc
+
+ChatPrompt Template :  https://www.youtube.com/watch?v=--0qASEWM3g
+
+
+
+
+=================================================================================================================
+
+
+
+Introduction
+This Week 20 Graded Mini Project asks you to build a Flowise-powered jewellery retail chatbot for a fictional brand, Ornativa Jewels (Hyderabad, India). The chatbot must answer customer questions by reading and using the product catalogue provided in Jewellery Details.pdf. The goal is to practise building a retrieval-based chatbot using a visual pipeline (document loading, chunking, embeddings, retrieval, prompting, memory, and testing) without relying on hard-coded answers.
+
+ 
+
+Where to find the tasks
+The complete brief and the provided catalogue file (Jewellery Details.pdf Download Jewellery Details.pdf) are available under Week 20 – Graded Mini Project on Vocareum. Follow the steps below to build your chatbot in Flowise and prepare your submission.
+
+Note: This assignment must be completed on Flowise (cloud or local). It cannot be completed inside the Vocareum notebook environment.
+
+ 
+
+Project Objective
+Your objective is to create and test a Jewellery Chatbot that: answers customer questions using the catalogue content provided in Jewellery Details.pdf, supports follow-up questions using short-term conversation context (memory), remains polite, concise, and factual in tone, and suggests a relevant alternative when an item is out of stock based on the catalogue.
+
+========================================================================================================================================================
+
+Problem Statement for Exercise : 
+
+Explain the key steps which can be configured by FlowWise Tool and elaborate the below steps and output as text only. Give me clear steps to be followed using Flowwise Tools with a clear explanation..
+
+Problem Statement - Using FlowWise Tool your objective is to create and test a Jewellery Chatbot that: answers customer questions using the catalogue content provided in Jewellery Details.pdf, supports follow-up questions using short-term conversation context (memory), remains polite, concise, and factual in tone, and suggests a relevant alternative when an item is out of stock based on the catalogue.
+
+Step #1 : Data Setup Task -Data Setup Upload the PDF file which has jewellery data , use document loader to read the contents of the PDF, Split the text file using Text Splitter node.  Store the embeddings to Vector node FAISS.
+Step #2 : Create the Query Chain , Add a Chat Model node (e.g., OpenAI GPT-4o-mini) ,A working query-response flow that can answer questions 
+Step #3 : Insert a Memory node ,Ensure the chatbot can remember the previous query context
+Step #4 : Customisation and Testing and Customise the system prompt to reflect the brand’s tone and test five queries atleast.
+Final Output - Test evidence at least five user queries with the chatbot’s responses (screenshots or copied logs). 
+
+Explain the key steps which can be configured by FlowWise Tool and elaborate the below steps and output as text only. Give me clear steps to be followed using Flowwise Tools with a clear explanation as per the problem statement above and the defined steps and tasks. Output should be pure text and proper steps to be followed, no tables or images as output. 
+
+========================================================================================================================================================
+Tasks
+Task 1 – Data Setup Upload the PDF file which has jewellery data , use document loader to read the contents of the PDF, Split the text file using Text Splitter node.
+Store the embeddings to Vector node FAISS.
+
+
+Upload the provided file Jewellery Details.pdf into Flowise.
+
+
+Use a Document Loader node to read the contents of the PDF.
+Connect it to a Text Splitter node (e.g., RecursiveCharacterTextSplitter) to chunk the content.Store embeddings using a Vector Store node (e.g., Chroma, FAISS, or Supabase).
+
+
+Deliverable: A Flowise flow that successfully ingests and indexes the jewellery catalogue.
+
+ 
+
+Task 2 – Create the Query Chain
+
+Add a Chat Model node (e.g., OpenAI GPT-4o-mini).
+
+
+Create a Prompt Template node with the instruction:
+
+
+“You are a jewellery store assistant. Use the catalogue data to answer questions accurately.”
+Connect Prompt Template → Retriever → Chat Model to form a retrieval-based pipeline.
+Add Chat Input and Chat Output nodes to complete the conversation flow.
+
+
+Deliverable: A working query-response flow that can answer questions such as:
+
+“List all available diamond items.”
+“What is the price of the Pearl Necklace?”
+“Which products are made of 22K gold?”
+ 
+
+Task 3 – Add Conversational Memory
+
+Insert a Memory node (e.g., Buffer Memory) between the input and model nodes.Ensure the chatbot can remember the previous query context. 
+
+
+Example:
+User: Show me diamond products.
+Bot: Classic Diamond Ring, Diamond Stud Earrings, and Lotus Pendant are available.
+User: What’s the price of the ring?
+Test multiple turns of conversation to confirm memory retention.
+Deliverable: A Flowise chatbot that maintains short-term conversation context.
+
+
+ 
+
+
+Task 4 – Customisation and Testing
+
+Customise the system prompt to reflect the brand’s tone, e.g.:
+
+
+“You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual.”
+Test at least five queries, including price, material, category, and stock-related questions.
+If an item is out of stock, configure the chatbot to suggest an alternative product. 
+
+
+Example:
+“Ruby Solitaire Ring is currently out of stock. You may like the Classic Diamond Ring instead.”
+
+
+Deliverable: Evidence of testing (queries + responses) and out-of-stock handling with an appropriate alternative suggestion (based on the catalogue).
+
+ 
+=========================================================================================================================================
+
+
+Deliverables  Mandatory
+
+Flowise chatflow export (JSON), or a clearly captured set of screenshots showing the full node pipeline and connections.
+Test evidence: at least five user queries with the chatbot’s responses (screenshots or copied logs).
+
+ 
+Show me diamond products.
+What’s the price of the ring?
+“List all available diamond items.”
+“What is the price of the Pearl Necklace?”
+“Which products are made of 22K gold?”
+
+
+Short write-up (README or PDF) describing: your node choices, chunking approach, prompt design, memory setup, and how you handled out-of-stock suggestions.
+========================================================================================================================================= 
+
+Constraints
+Do not hard-code answers.
+Do not ignore the provided catalogue; responses must be driven by retrieval from Jewellery Details.pdf.
+Do not paste API keys into screenshots or shared files.
+ 
+=========================================================================================================================================
+Practice Guidelines (for Graded Mini Project):
+This graded mini project will not be completed in Vocareum. You will build a retrieval-based conversational assistant using Flowise with an LLM provider (for example, the OpenAI API), focusing on document ingestion, retrieval quality, grounded prompting, memory, and testing.
+
+To Use Chat Support for This Assignment (inside Vocareum):
+
+Open your practice notebook in Vocareum. Use the left sidebar to open the Assistant panel.
+Ask for clarifications, troubleshooting help, or prompt-writing support in the Assistant chat.
+Monitor your GenAI Allowance/Budget, as shown in the Assistant panel, and plan prompts accordingly.
+If you exhaust your allowance for a task, please contact the Emeritus support team.
+API key access: Your course-specific API key and usage notes are provided via the guide and Vocareum instructions. Follow those steps to locate your key when needed.
+You can find detailed instructions here: Vocareum_GenAI_API_Students_Guide.pdfDownload Vocareum_GenAI_API_Students_Guide.pdf
+Security warning: Keep your API key private. Do not paste it in screenshots, chats, notebooks you share, or public repos. Prefer environment variables or secure key fields in tools; never hard-code keys in shared files. If you suspect exposure, rotate the key immediately per the guide.
+
+=========================================================================================================================================
+
+To access Vocareum:
+
+Go to the Getting Started module on your Course homepage (just below Programme Orientation).
+Click the link labelled Vocareum: Professional Certificate Programme in Agentic AI and Applications.
+You can also access it from the Course menu on the left side of your screen.
+Note: You may use Vocareum to access course guidance and API key instructions if needed. However, the chatbot build for this graded mini project must be completed in Flowise and cannot be executed inside Vocareum.
+
+ =========================================================================================================================================
+
+Submission Guidelines
+Submit one zip file containing the following:
+
+Flowise export (JSON) or full workflow screenshots.
+Test evidence (at least five queries with responses).
+README (or short PDF) explaining your flow, prompt, memory choice, and out-of-stock handling approach.
+Name your file as: Week 20_Graded Mini Project_[Your Name].zip
+
+
+=========================================================================================================================================
+
+
+You are building a RAG + Memory-based conversational agent:
+
+Flow structure:
+PDF → Embeddings → Vector DB
+User Query → Retriever → LLM
+Memory → Context-aware responses
+Prompt → Controls tone + fallback logic
+
+
+=========================================================================================
+🔹 Step 1: Data Setup Task (Foundation Layer)
+🎯 Objective
+Convert your Jewellery Details.pdf into a searchable knowledge base
+
+
+
+1. Add Document Loader Node
+Node: Document Loader (PDF)
+Configuration:
+Upload: Jewellery Details.pdf
+Loader type: PDF Loader
+Output: Raw text documents
+What happens internally:
+Reads PDF pages
+Converts to text chunks (unstructured)
+👉 Without this, your chatbot has no domain knowledge
+
+Split Pages: true
+Metadata: optional
+
+
+Chunk Size: 800
+Overlap: 100
+
+Model: text-embedding-3-small
+
+
+
+PDF Loader
+  - Split Pages: true ✅
+
+↓
+Text Splitter
+  - 800 / 100 ✅
+
+↓
+Embeddings (OpenAI)
+
+↓
+Pinecone
+
+
+
+========================================
+
+In FlowWise What should be the settings for Text Recurisive Text Splitter Node explain each parameter.
+
+2. Add Text Splitter Node
+Node: Recursive Character Text Splitter
+Configuration:
+Chunk size: 500–1000 characters
+Chunk overlap: 50–150
+Why this matters:
+LLMs cannot process large documents directly
+Splitting ensures:
+Better semantic retrieval
+Higher accuracy
+Example:
+Instead of:
+Entire catalogue → ❌
+You get:
+Ring description chunk
+Necklace description chunk
+Pricing chunk
+👉 This improves precision of answers
+
+Chunk Size: 800
+Chunk Overlap: 100
+Separators: default
+Keep Separator: false
+
+
+PDF Loader
+   ↓
+Recursive Text Splitter  ✅ (this node)
+   ↓
+Embeddings (OpenAI)
+   ↓
+Pinecone
+
+
+==================================================================
+
+
+3. Add Embeddings Node
+Node: Embeddings (e.g., OpenAI Embeddings)
+Configuration:
+Model: text-embedding-3-small (cost-efficient)
+What it does:
+Converts text → vector representation
+Example:
+“Gold ring with diamond” → [0.23, -0.91, …]
+👉 Enables semantic search instead of keyword search
+
+What should be the parameters for PINECone Vector store to store the PDF into Index and Vector
+
+Pinecone Vector Store — What it does
+
+In Pinecone, this node:
+
+Takes chunks (from Text Splitter)
+Converts them to embeddings
+Stores them as vectors in an index
+⚙️ 🔹 Required Parameters (EXPLAINED)
+1. 🔑 API Key
+Your Pinecone API Key
+Where to get:
+Pinecone dashboard → API Keys
+
+Environmet : Example: us-east-1 / asia-southeast1-gcp
+What it is:
+Region where your index is hosted
+⚠️ IMPORTANT:
+
+Must match your index region exactly
+
+Index Name : Example: pdf-chat-index  (Flowwise) in my case
+Operation Mode : Upsert ✅
+
+Embeddings :
+
+5. 🧠 Embeddings (CONNECTED NODE)
+
+Must connect:
+
+OpenAI Embeddings → Pinecone
+
+👉 Using OpenAI
+
+Example:
+
+Model: text-embedding-3-small
+6. 📄 Document Input
+
+Connect:
+
+Text Splitter → Pinecone
+
+👉 This sends chunked documents
+NameSpace : Example: pdf-docs
+
+Namespace = pdf-collection-1 ✅
+
+PDF Loader
+   ↓
+Text Splitter
+   ↓
+OpenAI Embeddings
+   ↓
+Pinecone Vector Store (Upsert)
+
+Settings :
+
+API Key: your_key
+Environment: us-east-1 (example)
+Index Name: pdf-chat-index
+Operation: Upsert ✅
+Namespace: pdf-docs
+Embedding Model: text-embedding-3-small
+
+✔ API key correct
+✔ Environment matches
+✔ Index exists
+✔ Dimension correct (1536)
+✔ Same embedding model everywhere
+✔ Namespace consistent
+✔ Mode = Upsert
+
+
+
+👉 Must match your project
+
+=========================================================================================================================
+4. Add Vector Store Node
+Node: FAISS Vector Store
+Configuration:
+Input: embeddings + chunks
+Storage: in-memory (or persistent if configured)
+Why FAISS:
+Fast similarity search
+Works well for local setups
+👉 This is your knowledge database
+✅ Output of Step 1:
+You now have:
+Structured knowledge base
+Searchable jewellery catalogue
+
+=========================================================================================================================
+🔹 Step 2: Create the Query Chain (Core Intelligence)
+🎯 Objective
+Enable chatbot to answer questions using catalogue
+
+
+1. Add Retriever Node
+Node: Vector Store Retriever
+Configuration:
+Connect to FAISS
+Top K: 3–5
+What it does:
+Takes user query
+Finds most relevant chunks
+Example:
+User: “Do you have diamond rings?”
+→ Retrieves ring-related chunks
+
+=========================================================================================================================
+2. Add Chat Model Node
+Node: Chat Model
+Example:
+OpenAI GPT-4o-mini
+Configuration:
+Temperature: 0.2–0.5 (low = factual)
+Max tokens: based on response size
+Why:
+Generates final answer using retrieved context
+=========================================================================================================================
+
+3. Add Prompt Template Node (VERY IMPORTANT)
+This is where you enforce business rules.
+
+
+Example Prompt:
+“You are a jewellery assistant. Answer ONLY from provided catalogue context
+Be polite, concise, and factual
+If item is out of stock, suggest a similar alternative
+If unsure, say you don’t know
+Context: {context}
+Question: {question}”
+
+“You are a jewellery assistant. Answer ONLY from provided catalogue context
+Be polite, concise, and factual
+If item is out of stock, suggest a similar alternative
+If unsure, say you don’t know
+
+------------
+Context: {context}
+Question: {question}
+------------
+REMEMBER: If there is no relevant information within the context, just say "Hmm, I'm not sure". Don't try to make up an answer. Never break character.
+
+
+
+
+
+
+
+
+
+👉 This controls:
+Tone
+Accuracy
+Hallucination prevention
+4. Connect Nodes into a Chain
+Flow:
+User Query
+→ Retriever
+→ Context
+→ Prompt Template
+→ Chat Model
+→ Response
+✅ Output of Step 2:
+A working chatbot that:
+Answers from catalogue
+Avoids hallucination
+Stays factual
+=========================================================================================================================
+
+🔹 Step 3: Insert Memory Node (Context Awareness)
+
+
+🎯 Objective
+Support follow-up questions
+
+
+
+1. Add Memory Node
+Node: Buffer Memory / Conversation Memory
+Configuration:
+Memory type: Buffer Memory
+Window size: 3–5 interactions
+What it does:
+Without memory:
+User: “Show me gold rings”
+User: “What about price?”
+→ ❌ Bot confused
+With memory:
+→ Understands “price of gold rings”
+
+
+
+2. Connect Memory to Chat Model
+Flow:
+Memory → Chat Model (as chat history)
+Advanced Option:
+Use:
+Conversation Summary Memory (for long chats)
+
+
+✅ Output of Step 3:
+Chatbot can:
+Handle follow-ups
+Maintain context
+Feel conversational
+
+
+
+🔹 Step 4: Customisation & Testing
+🎯 Objective
+Make chatbot production-ready
+1. Tone & Behaviour Customisation
+Already done via Prompt:
+Polite
+Concise
+Factual
+2. Out-of-Stock Handling Logic
+
+Handled via prompt:
+“If item not available, suggest closest alternative”
+
+
+Example:
+User: “Do you have platinum necklace?”
+Bot:
+“Currently unavailable, but we have a white gold necklace…”
+3. Edge Case Handling
+Add rules:
+If no context → “I don’t have that information”
+Avoid hallucination
+4. Testing (VERY IMPORTANT)
+
+========================================================================================
+You must test at least 5 queries.
+
+🧪 Sample Test Evidence (You can use this)
+
+
+Do you have diamond rings?
+What is the price?
+Is it available in white gold?
+
+Show me diamond products.
+What’s the price of the ring?
+“List all available diamond items.”
+“What is the price of the Pearl Necklace?”
+“Which products are made of 22K gold?”
+Do you have platinum bangles?
+Do you sell watches?
+
+
+
+Query 1:
+
+
+User: Do you have diamond rings?
+
+Bot: Yes, we offer multiple diamond rings including…
+
+Query 2:
+
+
+User: What is the price?
+
+Bot: The diamond rings range from…
+
+Query 3 (Follow-up):
+
+
+User: Is it available in white gold?
+
+Bot: Yes, the same design is available in white gold…
+
+Query 4 (Out of stock):
+
+
+User: Do you have platinum bangles?
+
+Bot: Currently unavailable, but we recommend…
+
+Query 5 (Unknown):
+
+
+User: Do you sell watches?
+
+Bot: I couldn’t find that in our catalogue…
+
+========================================================================================
+
+
+👉 Capture:
+
+Screenshots OR
+
+Chat logs
+
+🔥 Final Flow Summary (Mental Model)
+
+
+In Flowise:
+
+Data Layer
+
+PDF Loader → Text Splitter → Embeddings → FAISS
+
+Retrieval Layer
+
+Query → Retriever
+
+Reasoning Layer
+
+Prompt → Chat Model
+
+Memory Layer
+
+Conversation Memory
+
+Output Layer
+
+Final chatbot response
+
+🚀 Key Insight (Important for you)
+
+
+This Flow is:
+
+Not just chatbot
+
+It is a mini Agentic System
+
+
+
+Because it has:
+
+Knowledge (Vector DB)
+
+Reasoning (LLM)
+
+Memory (Context)
+
+Decision logic (Prompt rules)
+
+If you want next, I can:
+
+Attachment.png Design a production-grade version (with fallback, reranking, guardrails)
+
+Or Attachment.png convert this into LangGraph / enterprise architecture for banking use case
+
+======================================================================================================================
+
+Top Layer (Data Setup)
+PDF Loader → Text Splitter → Embeddings → FAISS
+→ Builds your knowledge base
+Middle Layer (Query Flow)
+User Query → Retriever → Prompt → Chat Model → Response
+→ This is your runtime pipeline
+Side Connection
+FAISS → Retriever
+→ Enables semantic search
+Bottom Layer (Memory)
+Memory Node → Chat Model
+→ Enables conversation continuity
+
+======================================================================================================================
+
+
+When you recreate this in Flowise:
+
+Each box = a node
+Each arrow = connection (drag link in UI)
+Memory connects directly into Chat Model
+Retriever connects to both:
+Vector DB (FAISS)
+Prompt
+
+======================================================================================================================
+
+How to Use This in
+Flowise
+Open Flowise UI
+Go to Chatflows
+Click Import
+Upload the downloaded JSON file
+The full node graph will appear automatically
+
+You still need to configure a few things:
+
+1. PDF Loader
+Upload your Jewellery Details.pdf
+2. Embeddings Node
+Add your OpenAI API Key
+Select model: text-embedding-3-small
+3. Chat Model
+Set model: gpt-4o-mini
+Temperature: 0.3
+4. Prompt Template (paste this)
+You are a jewellery assistant.
+
+Answer ONLY from provided catalogue context
+Be polite, concise, and factual
+If item is out of stock, suggest a similar alternative
+If unsure, say you don’t know
+Context: {context}
+Question: {question}
+=================================================
+
+PINECONEKEY="pcsk_5oBH8r_Hi4yQZDzsA2KxnPWGhtCKXwenb5fA14zwSmTDxMu4UDX6aJKQonTBx3obFZPE7a"
+
+Environment: us-west1-gcp 
+
+Enviorment : us-east-1
+
+Index : pineconeindex 
+
+Host : https://pineconeindex-yiy5ibb.svc.aped-4627-b74a.pinecone.io 
+
+https://pineconeindex-yiy5ibb.svc.aped-4627-b74a.pinecone.io
+
+=================================================
+
+import pinecone
+
+pinecone.init(
+    api_key="YOUR_API_KEY",
+    environment="us-west1-gcp"
+)
+
+my-index
+chatbot-data
+semantic-search
+
+pinecone.list_indexes()
+
+index = pinecone.Index("my-index")
+
+import pinecone
+
+pinecone.init(
+    api_key="YOUR_API_KEY",
+    environment="asia-southeast1-gcp"
+)
+
+index = pinecone.Index("my-index")
+
+
+=================================================
+
+🧪 Sample Test Evidence (You can use this)
+
+
+List all available diamond items.
+What is the price of the Pearl Necklace?
+Which products are made of 22K gold?
+
+Do you have platinum bangles?
+Do you sell watches?
+
+
+
+Do you have diamond rings?
+What is the price?
+Is it available in white gold?	
+
+
+Do you have ruby rings?
+What is the price?
+
+Do you have bracelets categories?
+What is the price?
+
+Is it available in white gold?
+
+
+Show me diamond products.
+
+Show me diamond products and their price
+
+
+
+What’s the price of the ring?
+
+
+
+=====================================================================================
+
+PART 1 — Ingest PDF into Pinecone
+
+This flow runs once (or when uploading new docs).
+
+1. Add Nodes (Left → Right)
+PDF Document Loader → Text Splitter → Embeddings → Pinecone Vector Store
+🧩 Node Setup
+1. PDF Document Loader
+Upload your PDF
+2. Text Splitter
+Chunk size: 500–1000
+Overlap: 50–100
+3. Embeddings
+
+Use OpenAI Embeddings
+
+Model: text-embedding-3-small (or large)
+4. Pinecone Vector Store
+
+Using Pinecone
+
+Fill:
+
+API Key
+Environment (e.g. us-east-1)
+Index Name (must already exist or create)
+
+👉 Enable:
+
+“Upsert” / “Insert Documents”
+▶️ Run this flow
+
+This stores your PDF into Pinecone.
+
+🔹 PART 2 — Chat with PDF (RAG Flow)
+
+This is the flow you actually interact with.
+
+2. Add Nodes
+ChatPromptTemplate
+        ↑
+Retrieval QA Chain / Conversational Retrieval Chain
+        ↑
+Vector Store Retriever (Pinecone)
+        ↑
+Embeddings
+🧩 Step-by-step wiring
+1. Pinecone Vector Store (Retriever Mode)
+Same API key, env, index
+Set:
+Mode: Retriever
+2. Embeddings (same as before)
+
+Must match what you used during ingestion.
+
+3. Vector Store Retriever
+
+Connect:
+
+Embeddings → Pinecone → Retriever
+4. Conversational Retrieval Chain (IMPORTANT)
+
+Don’t use plain “Open Conversation Chain” ❌
+Use:
+
+Conversational Retrieval QA Chain ✅
+
+Why?
+Because it:
+
+pulls data from Pinecone
+injects into prompt
+5. ChatPromptTemplate
+
+Example:
+
+System: Use the following context to answer:
+{context}
+
+Human: {question}
+
+👉 In Flowise:
+
+Connect this to the chain as Prompt
+6. Chat Model (OpenAI)
+Model: gpt-4o-mini or similar
+Connect to chain
+🔗 Final Connections (IMPORTANT)
+User Input
+   ↓
+Conversational Retrieval Chain
+   ├── Chat Model (OpenAI)
+   ├── Retriever (Pinecone)
+   └── ChatPromptTemplate
+🔹 What Actually Happens
+
+When you ask something:
+
+Query → converted to embedding
+Pinecone → returns relevant chunks
+Injected into {context}
+Prompt → sent to OpenAI
+Answer generated using your PDF
+🔥 Common Mistakes (You’re likely hitting one)
+❌ Connecting PDF loader directly to chat flow
+❌ Using “Open Conversation Chain” instead of Retrieval chain
+❌ Forgetting retriever node
+❌ Using different embedding models (breaks similarity search)
+❌ Not inserting documents into Pinecone first
+🔹 Simple Mental Model
+[PDF] → (store once in Pinecone)
+
+[User Question]
+      ↓
+[Retriever → Pinecone]
+      ↓
+[Context + Prompt]
+      ↓
+[OpenAI]
+      ↓
+[Answer]
+
+If you want, I can:
+
+Draw your exact Flowise canvas layout
+Or 
+debug your current flow (just describe what nodes you used)
+
+==================================================================================================
+
+FLOW 1: PDF → Pinecone (Ingestion Flow)
+
+[PDF Document Loader]
+          │
+          ▼
+     [Text Splitter]
+          │
+          ▼
+     [OpenAI Embeddings]
+          │
+          ▼
+   [Pinecone Vector Store]
+        (Upsert Mode)
+
+
+Connections
+PDF Loader → Text Splitter
+Text Splitter → Embeddings
+Embeddings → Pinecone
+⚙️ Key Settings
+Pinecone:
+Mode: Upsert
+Index: your-index
+Environment: your-env
+
+
+FLOW 2: Chat with PDF (Main Chat Flow)
+
+This is the one you’ll actually use in the UI.
+
+                  [ChatPromptTemplate]
+                           │
+                           ▼
+[Chat Model (OpenAI)] → [Conversational Retrieval Chain] ← [Vector Store Retriever]
+                                                             ▲
+                                                             │
+                                                    [Pinecone Vector Store]
+                                                             ▲
+                                                             │
+                                                     [OpenAI Embeddings]
+
+=================================================================
+
+
+OpenAI Embeddings → Pinecone Vector Store → Vector Store Retriever
+
+Vector Store Retriever ───────► Conversational Retrieval Chain
+Chat Model (OpenAI) ─────────► Conversational Retrieval Chain
+ChatPromptTemplate ─────────► Conversational Retrieval Chain
+
+        (User Input)
+              │
+              ▼
+[Conversational Retrieval Chain]
+     ├── Chat Model (OpenAI)
+     ├── ChatPromptTemplate
+     └── Retriever
+            └── Pinecone
+                  └── Embeddings
+
+=============================================================================
+
+System:
+You are a helpful assistant. Use the context below to answer.
+
+Context:
+{context}
+
+User:
+{question}
+
+=====================================================================
+
+Critical Notes
+DO NOT connect PDF loader in chat flow ❌
+DO NOT use "Open Conversation Chain" ❌
+MUST use:
+✅ Conversational Retrieval Chain
+Embeddings must be SAME in both flows
+Pinecone index must already contain data
+🧠 Think of it Like This
+Flow 1 = “Upload brain” 🧠
+Flow 2 = “Ask brain questions” 💬
+
+==================================================
+
+IS gpt-4o-mini depcreated ? In flow wise i am getting this error , suggest a better solution
+
+ChatOpenAI node → Model Name:
+gpt-4.1-mini   ✅ (best drop-in replacement)
+
+
+==================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

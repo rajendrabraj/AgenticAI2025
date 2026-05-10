@@ -1,0 +1,21 @@
+Jewellery Product Catalog - Sample Data
+ProductID: R101 Name: Classic Diamond Ring Category: Ring Material: 18K Gold +
+Diamond Weight: 5.2 g Price: 135000 Stock: Available
+ProductID: R102 Name: Ruby Solitaire Ring Category: Ring Material: 22K Gold +
+Ruby Weight: 4.8 g Price: 98500 Stock: Out of Stock
+ProductID: N201 Name: Pearl Necklace Category: Necklace Material: 18K Gold +
+Pearl Weight: 28.5 g Price: 245000 Stock: Available
+ProductID: N202 Name: Emerald Choker Category: Necklace Material: 22K Gold +
+Emerald Weight: 32.0 g Price: 310000 Stock: Available
+ProductID: E301 Name: Daily Wear Gold Earrings Category: Earrings Material: 22K
+Gold Weight: 7.5 g Price: 55000 Stock: Available
+ProductID: E302 Name: Diamond Stud Earrings Category: Earrings Material: 18K Gold
++ Diamond Weight: 6.2 g Price: 105000 Stock: Available
+ProductID: B401 Name: Gold Chain Bracelet Category: Bracelet Material: 22K Gold
+Weight: 12.0 g Price: 87500 Stock: Available
+ProductID: B402 Name: Emerald Cuff Bracelet Category: Bracelet Material: 18K Gold
++ Emerald Weight: 15.0 g Price: 150000 Stock: Out of Stock
+ProductID: P501 Name: Lotus Pendant Category: Pendant Material: 18K Gold +
+Diamond Weight: 8.0 g Price: 72000 Stock: Available
+ProductID: P502 Name: Om Symbol Pendant Category: Pendant Material: 22K Gold
+Weight: 6.5 g Price: 48000 Stock: Available

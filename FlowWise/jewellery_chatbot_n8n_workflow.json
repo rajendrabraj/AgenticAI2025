@@ -1,0 +1,172 @@
+{
+  "name": "Jewellery Chatbot (Chat Interface)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "chat_trigger",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "windowSize": 5
+      },
+      "id": "memory_load",
+      "name": "Memory Load",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        400,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "retrieve",
+        "index": "jewellery-catalogue",
+        "topK": 4
+      },
+      "id": "pinecone_retriever",
+      "name": "Pinecone Retriever",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        600,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a jewellery assistant. Answer only from the catalogue context. Be polite, concise, and factual. If item is out of stock, suggest alternatives. If not found, say you don\u2019t have that information."
+          },
+          {
+            "role": "user",
+            "content": "Chat History:\n{{ $json.memory }}\n\nContext:\n{{ $json.context }}\n\nUser Question:\n{{ $json.input }}"
+          }
+        ]
+      },
+      "id": "prompt_template",
+      "name": "ChatPrompt Template",
+      "type": "@n8n/n8n-nodes-langchain.promptTemplate",
+      "typeVersion": 1,
+      "position": [
+        800,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "temperature": 0.2
+      },
+      "id": "chat_model",
+      "name": "Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.chatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "windowSize": 5
+      },
+      "id": "memory_save",
+      "name": "Memory Save",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        500
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "chat_output",
+      "name": "Chat Output",
+      "type": "@n8n/n8n-nodes-langchain.chatOutput",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        500
+      ]
+    }
+  ],
+  "connections": {
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Memory Load",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory Load": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Retriever",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Retriever": {
+      "main": [
+        [
+          {
+            "node": "ChatPrompt Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatPrompt Template": {
+      "main": [
+        [
+          {
+            "node": "Chat Model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Model": {
+      "main": [
+        [
+          {
+            "node": "Memory Save",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory Save": {
+      "main": [
+        [
+          {
+            "node": "Chat Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
