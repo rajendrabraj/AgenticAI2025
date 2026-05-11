@@ -59,3 +59,7 @@ Evaluation Task
 
 ---
 
+** 🔍 Stream Lit Interface
+
+<img width="846" height="965" alt="image" src="https://github.com/user-attachments/assets/7ad6b1e6-db1f-497d-abdb-8ea3cb1dba2b" />
+
