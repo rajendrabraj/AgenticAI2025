@@ -27,7 +27,8 @@
 
 **  🧠 Streamlit Integration 
 
-📝 This will be like a “Front end” to Enter the query , submit the query and show the results in a Text Area
+📝 This will be like a “Front end” to Enter the query , submit the query(using the Submit Button)  and show the results in a Text Area.
+
 ---
 
 ** 💡  Agent Tasks 
