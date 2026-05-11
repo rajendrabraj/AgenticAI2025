@@ -1,8 +1,11 @@
 
-** 🧠 Crew AI Capstone Project Work
+** 🧠 **Crew AI Capstone Project Work**
 
 ---
-💡  Problem Statement :  AI Engineer or Applied AI Consultant inside a ecommerce company. The organization wants to deploy an AI agent that can assist users in real workflows — handling ambiguity, reasoning across steps, using tools, learning from feedback, and operating safely in production. You must design an AI agent that supports a realistic business workflow in one chosen industry scenario. The agent should demonstrate reliability, explainability, safety-first behavior, and practical usefulness for real users, with evidence through artefacts and test logs.
+💡  **Problem Statement** 
+        AI Engineer or Applied AI Consultant inside a ecommerce company. The organization wants to deploy an AI agent that can assist users in real workflows — handling ambiguity, reasoning across steps, using tools, learning from feedback, and operating safely in production. You must design an AI agent that supports a realistic business workflow in one chosen industry scenario. The agent should demonstrate reliability, explainability, safety-first behavior, and practical usefulness for real users, with evidence through artefacts and test logs.
+
+** 💡  **Multi Agent Setup (Agents) ** 
 
 🧠  Customer Agent Chabot   User Inputs using Queries of the Interactive Customer Agent Chabot
     •	Interactive (Chatbot) – This will ask queries in a loop unless “Exit or quit” 
@@ -25,13 +28,13 @@
 
 ---
 
-**  🧠 Streamlit Integration 
+**  🧠 **Streamlit Integration **
 
 📝 This will be like a “Front end” to Enter the query , submit the query(using the Submit Button)  and show the results in a Text Area.
 
 ---
 
-** 💡  Agent Tasks 
+** 💡  **Agent Tasks** 
 
 📝  Intent Task
 📝  Identifies the user’s intent from the input query and assigns a confidence score for accuracy. Helps route the request to the appropriate workflow or downstream processing agent.
