@@ -1,0 +1,157 @@
+Pipeline: 13+ GW tenders (UP, Rajasthan, Uttarakhand, WB, Gujarat). 95% operating capacity under LT/MT PPAs; new PPAs earnings-accretive (fixed capacity charges).
+
+Strategy: Brownfield (60%; cost advantage), near-pithead (63%; fuel security), self-funded (internal accruals + NCDs ₹7,500 Cr FY26). Dhirauli mine (6.5 MTPA) approved for Mahan.
+
+Outlook: Peak demand to FY27 growth; thermal critical for RE integration. EBITDA doubling to ₹50,000 Cr by FY31 conservative.
+
+Sources: Q4 FY26 Concall/Presentation (391253/390044); Recent Announcements (e.g., 386558, 385664); Annual Reports (275871/252844).
+
+==================================================
+Give me information about Pipeline as pure text output
+Give me information about Brownfield strategy
+Give me companies demand Outlook as pure text output
+
+Give me PAT for the past 3 years  as pure text output
+
+Future Plans and growth as pure text output
+
+give me  Period Consolidated PAT for each Quarter for past quarters as pure text output
+
+give me Annual Profits (Last 2 Years) as pure text output
+
+
+==================================================
+
+In the last two years, APSEZ reported the following annual profits:
+
+FY24: Profit After Tax (PAT) of INR 3,480 crores
+FY25: Profit After Tax (PAT) of INR 4,770 crores
+These figures indicate a strong upward trend in annual profits over the two-year period.
+
+
+
+For FY25, the consolidated Profit After Tax (PAT) for APSEZ was reported at INR 4,770 crores. This reflects a significant increase of 37% compared to the previous fiscal year, demonstrating strong financial performance and growth.
+
+
+Give me information about Brownfield strategy as pure text ouput
+
+AI
+APSEZ's brownfield strategy involves the expansion and enhancement of existing port facilities to increase capacity and operational efficiency without the need for new land acquisition. This approach allows the company to leverage its current infrastructure and resources effectively. By investing in upgrading and modernizing existing ports, APSEZ aims to maximize the utilization of its assets, improve service offerings, and respond to growing cargo demands. The brownfield strategy is part of a broader effort to maintain competitiveness in the logistics and transportation sector while minimizing environmental impact and ensuring sustainable growth.
+
+In the past three years, APSEZ reported the following Profit After Tax (PAT):
+
+FY23: PAT of INR 3,000 crores
+FY24: PAT increased to INR 3,480 crores, reflecting a growth of 16%
+FY25: PAT rose to INR 4,770 crores, showing a further increase of 37%
+These figures indicate a consistent upward trend in profitability over the three-year period.
+
+
+==================================================
+Output Chat
+
+Hi there! How can I help?
+
+Me
+Adani ports profits for last 2 years
+
+AI
+Hmm, I'm not sure.
+
+Me
+hi
+
+AI
+Hmm, I'm not sure.
+
+Me
+more about Adani ports
+
+AI
+Hmm, I'm not sure.
+
+Me
+give me more about APSEZ results
+
+AI
+APSEZ has demonstrated exceptional performance, with all four business pillars delivering strong high double-digit growth rates, surpassing both market and competition benchmarks. In the most recent quarter, the company reported a revenue of INR 9,167 crores, which is up 30% from the previous year. The EBITDA was INR 5,550 crores, reflecting a growth of 27%, and the net profit reached INR 3,120 crores, up 29%.
+
+Additionally, the consolidated Return on Capital Employed (ROCE) increased to 16% in H1 FY '26 compared to 15% in FY '25. The company generated over INR 3,000 crores in free cash during the first half of the fiscal year.
+
+Specifically, the domestic ports revenue grew to INR 6,351 crores, marking a 15% increase driven by an 8% cargo increase and achieving a record high market share of 28%. The domestic ports also reached the highest ever H1 EBITDA margin at 74.2%, attributed to successful operational efficiency initiatives. The ROCE for domestic ports improved to 24% in H1 compared to 21% in FY '25.
+
+Me
+APSEZ forecast for 2026
+
+AI
+Hmm, I'm not sure.
+
+Me
+what is the future growth plan
+
+AI
+APSEZ has identified significant growth opportunities, particularly leveraging India's extensive 11,000 kilometers of coastline, which facilitates increased trade through loading and unloading activities. The company is focusing on enhancing its market share and redefining the supply chain for liquid cargo, with recent developments including the establishment of Dhamra and a partnership with BPCL for LNG bunkering.
+
+APSEZ has evolved its financial and business simulation models, which are linked to cargo volume and realistic trade, driven by four key commodities: containers, dry cargo, and two types of liquid cargo. The company anticipates changes in the mix and geography of its operations but expects overall growth to remain stable.
+
+Me
+give me information about future bids
+
+AI
+APSEZ is actively looking to participate in upcoming projects, including the recent notification of Galathea Bayport as India's 13th major port. The management has expressed a clear intention to bid for new capacities being developed in India, regardless of the model, whether it be Public-Private Partnership (PPP) or Hybrid Annuity Model (HAM). The company is committed to maintaining its market share, which is currently around 27%, and is prepared to pursue any new opportunities that arise in the sector.
+
+Me
+Need inforamtion about Key expansion pipeline
+
+AI
+APSEZ has a robust expansion pipeline, focusing on increasing its capacity and operational efficiency. The company has planned a Phase II development with an investment of INR 16,000 crores, which aims to enhance capacity to over 5 million tons. This expansion includes the extension of the breakwater, necessary equipment, and the ecosystem required to operate the port effectively.
+
+Additionally, there is potential for developing a liquid terminal, with an MOU already signed with BPCL for LNG bunkering. This will enable ship-to-ship bunkering, positioning APSEZ competitively in the LNG market, which is currently dominated by locations like Jebel Ali and Colombo. The ongoing and future projects are expected to significantly contribute to APSEZ's growth trajectory.
+
+Me
+I need informaion future strategy also
+
+AI
+APSEZ's future strategy is centered around sustainable growth and operational efficiency. The company is committed to sustainability as a core aspect of its business model, viewing it as an enabler rather than just an objective. APSEZ has become a leader in sustainable transportation, being the first in its sector in India to adopt the Taskforce on Nature-related Financial Disclosures, which sets a benchmark for nature-positive infrastructure development.
+
+The strategy also involves continuous investment in technology to improve operational efficiency, as evidenced by the recent achievement of a world-class Gross Crane Rate (GCR) of 30 container lifts per hour at Vizhinjam, just eight months into operation. This focus on technology and sustainability will be crucial in achieving their 5-year plan by FY29, ensuring that growth is both profitable and environmentally responsible.
+
+Me
+give me a summary of PAT for the last 3 years
+
+AI
+In the last three years, APSEZ reported the following growth in Profit After Tax (PAT):
+
+For FY '24, the PAT grew by 16%.
+For FY '25, the PAT showed an increase of 29%.
+For FY '26, the PAT continued its upward trend, reflecting a growth of 16%.
+These figures indicate a consistent increase in profitability, showcasing the company's strong financial performance and effective management strategies over the years.
+
+Me
+give me growth forecase for next 3 years
+
+AI
+Hmm, I'm not sure.
+
+Me
+give me PLF trends
+
+AI
+Hmm, I'm not sure.
+
+Me
+FY25 performance
+
+AI
+During FY25, APSEZ delivered strong performance across various financial metrics:
+
+The company achieved a revenue growth of 16%.
+EBITDA increased by 20%.
+Net profit (PAT) rose by 37%.
+Additionally, domestic ports revenue grew by 12%, supported by an all-time high market share of 27% and an impressive EBITDA margin of 73%. Mundra port became the first Indian port to cross 200 million metric tons of cargo in a single year. The company's leverage stood at 1.9x at the end of FY25, indicating strong financial discipline. Overall, APSEZ surpassed its FY25 guidance, demonstrating robust operational and financial performance.
+
+Type your question...
+
+
+
+==================================================
+
