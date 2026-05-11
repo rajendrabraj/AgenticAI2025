@@ -62,7 +62,17 @@ Evaluation Task
 
 ---
 
+**Tech Stack and Components**
+
+<img width="1372" height="917" alt="image" src="https://github.com/user-attachments/assets/1d2510a6-5398-4c94-b4e5-ff653d34ec78" />
+
+
+---
+
 ** 🔍 **Stream Lit Interface(Front End)**
 
 <img width="846" height="965" alt="image" src="https://github.com/user-attachments/assets/7ad6b1e6-db1f-497d-abdb-8ea3cb1dba2b" />
+
+
+---
 
