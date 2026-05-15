@@ -1,0 +1,394 @@
+
+## Rajendra Bichu.  This is to implement the RAG , Vector Search based on Financial documents and FAQ's
+----
+🧠 This program is to use RAG Search and build a ChatBOT to process the contents of the files stored in one folder for Financial data, Silver data, Infosys quarterly report.
+This was a assignment for Week15 and Domain Chosen is ,  Finance – Investment FAQs, mutual fund docs, public filings
+
+🧑‍💻 Objective :  To read all the files of the financial data, company reports AMFI mutual fund FAQ  and process them using Vector Store , FAISS and RAG based search.
+
+
+🧑‍💻 Objective :  To read all the files of the financial data and process them using Vector Store , FAISS and RAG based search.
+
+
+----
+🧠 How This Program or tool works.
+
+
+✅ The program reads the files which are there in the folder, Investment FAQ, Financial data, Silver data, Infosys quarterly report and later on we can query using the RAG data.
+
+✅ Injest.py will ensure that the data is loaded by processing one by one files. Once data is loaded it will be indexed using FAISS and stored in FAISS Vector.
+
+✅ Chatbot.py - This program is send queries to search the vector embedding and return the results. This program gives 3 types of different queries.
+
+✅ dataload.log - A Logfile is created to capture the processing which happens during the runtime.
+
+✅ Data Used for processing  - Infosys quarterly report, Silver Report, and AMFI Mutual fund report of 2025 which were downloaded from the internet
+
+----
+
+----
+🧠 This program is to use RAG Search and build a ChatBOT to process the contents of the files stored in one folder for Financial data, Silver data, Infosys quarterly report
+
+
+🧑‍💻 Objective :  To read all the files of the financial data and process them using Vector Store , FAISS and RAG based search.
+
+
+----
+🧠 How This Program or tool works.
+
+
+✅ The program reads the files which are there in the folder, Investment FAQ, Financial data, Silver data, Infosys quarterly report and later on we can query using the RAG data.
+
+✅ Injest.py will ensure that the data is loaded by processing one by one files. Once data is loaded it will be indexed using FAISS and stored in FAISS Vector.
+
+✅ Chatbot.py - This program is send queries to search the vector embedding and return the results. This program gives 3 types of different queries.
+
+✅ dataload.log - A Logfile is created to capture the processing which happens during the runtime.
+
+✅ Data Used for processing  - Infosys quarterly report, Silver Report, and AMFI Mutual fund report of 2025 which were downloaded from the internet
+
+✅ Retrieve data of records top_k=10 or top_k-15 , this program uses top_k= 10
+
+----
+✅ Files and data used
+
+AMFI_AnnualMFReport2025.PDF
+Infosys_earningcall.PDF
+Investment_FAQ.PDF
+
+---
+
+🧠 Chat BOT  Questions to test the program.
+
+What is Net Asset Value (NAV) of a scheme?
+What is Silver performance?
+what is silver supply in 2024?
+what is silver demand in 2025?
+What is silver supply outlook ?
+what is the Infosys guidance?
+what is longterm approach with SIP? 
+How is the domestic equity market for funds?
+What is a Balanced/Hybrid Scheme ?
+What is Index Funds?
+What are Tax Saving Schemes?
+What are Exchange Traded Funds (ETFs)?
+
+----
+✅ Output is recorded in the log file.
+
+Sample Output as below for question asked via CHATBOT interface:
+
+
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> & C:\Users\Windows\AppData\Local\Programs\Python\Python313\python.exe "c:/Rajendra_2015/AgenticAI_Programs/Agentic_Batch2/2-Langchain Basics/11_IIT_Madras/Week15_RAG_Assignment/RAG-Tutorials-main/RAG-Tutorials-main/src/ChatBot.py"
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Script path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\src\ChatBot.py
+========================================
+Parent directory: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main
+========================================
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data folder location: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+[RAGPDF] Initailazing  RAGSearch PDF  Search...
+[VectorStore INFO] Initializing FaissVectorStore...
+Loading weights: 100%|██████████████| 103/103 [00:00<00:00, 1079.64it/s, Materializing param=pooler.dense.weight] 
+BertModel LOAD REPORT from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  |
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  |
+
+Notes:
+- UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[VectorStoreINFO] Loaded embedding model: all-MiniLM-L6-v2
+Faiss path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data\faiss.index
+META path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data\metadata.pkl
+[Debug]-START Loading Vector Stores...
+[VectorStore INFO] Initializing load faiss index...
+[VectorStore INFO] Loaded Faiss index and metadata from c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+[INFO] Groq LLM initialized: llama-3.3-70b-versatile
+Enter your query to search (exit to quit):
+What is Silver performance?
+[VectorStore INFO] Querying vector store for: 'What is Silver performance?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  4.47it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The query 'What is Silver performance?' is not directly related to the provided context, which appears to be about the performance of various mutual funds, investor trends, and the overall growth of the mu
+
+However, based on the context, it can be inferred that "Silver performance" might be related to the performance of a specific mutual fund or investment scheme, possibly with a name or category that includes the term "Silver". But without more specific information, it's difficult to provide a precise answer.
+
+If you're looking for information on a specific mutual fund or investment scheme called "Silver", I would recommend checking the performance data provided in the context or searching for more information on that specific fund. If you have any more details or clarification regarding "Silver performance", I'd be happy to try and assist you further.
+Enter your query to search (exit to quit):
+what is silver demand in 2025?
+[VectorStore INFO] Querying vector store for: 'what is silver demand in 2025?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 56.03it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not mention silver demand in 2025. It appears to be related to the mutual fund industry, discussing trends, growth, and investments in various types of funds, such as equity, debt, and hybrid funds, in India and the US. There is no information about silver demand or the precious metals market.
+Enter your query to search (exit to quit):
+What is Index Funds?
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 60.07it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: Index funds are a type of investment fund that aims to track and replicate the performance of a specific stock market index, such as the S&P 500 or the Nifty 50. They are a type of passive investment, meaning that they do not try to beat the market but rather aim to match its performance.
+
+In the context of the provided text, index funds are mentioned as one of the types of funds that have seen significant growth in recent years. The text states that 102 new index funds were launched in the current year, and 35 index funds were launched in the previous year, collectively mobilizing a significant amount of money from investors.
+
+Index funds are often preferred by investors who want to diversify their portfolio and reduce their risk, as they provide broad exposure to a particular market or sector. They are also often less expensive than actively managed funds, as they do not require a fund manager to actively pick stocks or make investment decisions.
+
+Overall, index funds are a popular investment option for those who want to invest in the stock market without taking on excessive risk or trying to time the market. They offer a low-cost and efficient way to gain exposure to a particular market or sector, and can be a useful addition to a diversified investment portfolio.
+Enter your query to search (exit to quit):
+What are Tax Saving Schemes?
+[VectorStore INFO] Querying vector store for: 'What are Tax Saving Schemes?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 53.59it/s] 
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not directly mention "Tax Saving Schemes." However, it discusses various mutual fund schemes, including Equity Linked Savings Schemes (ELSS), which are a type of tax-saving scheme in India.
+
+Tax-saving schemes, in general, refer to investment options that offer tax benefits to investors, such as deductions or exemptions, under the Income Tax Act. In India, some common tax-saving schemes include:
+
+1. Equity Linked Savings Schemes (ELSS): A type of mutual fund that invests in equities and offers tax benefits un2. Public Provident Fund (PPF): A long-term savings scheme that offers tax benefits under Section 80C and provides a fixed return on investment.
+3. National Savings Certificate (NSC): A fixed-income investment scheme that offers tax benefits under Section 80C and provides a fixed return on investment.
+4. Tax-saving fixed deposits: Some banks offer fixed deposits with a lock-in period of 5 years, which qualify for tax benefits under Section 80C.
+
+These schemes help investors reduce their taxable income and save on taxes, while also providing a potential for long-term growth or fixed returns on investment.
+Enter your query to search (exit to quit):
+what is the Infosys guidance?
+[VectorStore INFO] Querying vector store for: 'what is the Infosys guidance?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 57.42it/s] 
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The context provided does not mention Infosys guidance. The text appears to be related to the mutual fund industry in India, discussing trends, growth, and investor behavior. It does not contain any information about Infosys, which is a multinational corporation that provides business consulting, information technology, and outsourcing services. Therefore, there is no guidance from Infosys mentioned in the context.
+Enter your query to search (exit to quit):
+quit
+[VectorStore INFO] Querying vector store for: 'quit'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 34.91it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: There is no information in the provided context related to the query "quit". The context appears to be a collection of cricket statistics, player data, and some unrelated information about Indian states and investment trends. If you could provide more context or clarify the query, I'll be happy to help.
+Enter your query to search (exit to quit):
+
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> & C:\Users\Windows\AppData\Local\Programs\Python\Python313\python.exe "c:/Rajendra_2015/AgenticAI_Programs/Agentic_Batch2/2-Langchain Basics/11_IIT_Madras/Week15_RAG_Assignment/RAG-Tutorials-main/RAG-Tutorials-main/src/ChatBot.py"
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Script path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\src\ChatBot.py
+========================================
+Parent directory: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main
+========================================
+Data directory path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+Data folder location: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+[RAGPDF] Initailazing  RAGSearch PDF  Search...
+[VectorStore INFO] Initializing FaissVectorStore...
+Loading weights: 100%|██████████████| 103/103 [00:00<00:00, 1079.64it/s, Materializing param=pooler.dense.weight] 
+BertModel LOAD REPORT from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  |
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  |
+
+Notes:
+- UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[VectorStoreINFO] Loaded embedding model: all-MiniLM-L6-v2
+Faiss path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data\faiss.index
+META path: c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data\metadata.pkl
+[Debug]-START Loading Vector Stores...
+[VectorStore INFO] Initializing load faiss index...
+[VectorStore INFO] Loaded Faiss index and metadata from c:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2\2-Langchain Basics\11_IIT_Madras\Week15_RAG_Assignment\RAG-Tutorials-main\RAG-Tutorials-main\data
+[INFO] Groq LLM initialized: llama-3.3-70b-versatile
+Enter your query to search (exit to quit):
+What is Silver performance?
+[VectorStore INFO] Querying vector store for: 'What is Silver performance?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  4.47it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The query 'What is Silver performance?' is not directly related to the provided context, which appears to be about the performance of various mutual funds, investor trends, and the overall growth of the mu
+
+However, based on the context, it can be inferred that "Silver performance" might be related to the performance of a specific mutual fund or investment scheme, possibly with a name or category that includes the term "Silver". But without more specific information, it's difficult to provide a precise answer.
+
+If you're looking for information on a specific mutual fund or investment scheme called "Silver", I would recommend checking the performance data provided in the context or searching for more information on that specific fund. If you have any more details or clarification regarding "Silver performance", I'd be happy to try and assist you further.
+Enter your query to search (exit to quit):
+what is silver demand in 2025?
+[VectorStore INFO] Querying vector store for: 'what is silver demand in 2025?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 56.03it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not mention silver demand in 2025. It appears to be related to the mutual fund industry, discussing trends, growth, and investments in various types of funds, such as equity, debt, and hybrid funds, in India and the US. There is no information about silver demand or the precious metals market.
+Enter your query to search (exit to quit):
+What is Index Funds?
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 60.07it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: Index funds are a type of investment fund that aims to track and replicate the performance of a specific stock market index, such as the S&P 500 or the Nifty 50. They are a type of passive investment, meaning that they do not try to beat the market but rather aim to match its performance.
+
+In the context of the provided text, index funds are mentioned as one of the types of funds that have seen significant growth in recent years. The text states that 102 new index funds were launched in the current year, and 35 index funds were launched in the previous year, collectively mobilizing a significant amount of money from investors.
+
+Index funds are often preferred by investors who want to diversify their portfolio and reduce their risk, as they provide broad exposure to a particular market or sector. They are also often less expensive than actively managed funds, as they do not require a fund manager to actively pick stocks or make investment decisions.
+
+Overall, index funds are a popular investment option for those who want to invest in the stock market without taking on excessive risk or trying to time the market. They offer a low-cost and efficient way to gain exposure to a particular market or sector, and can be a useful addition to a diversified investment portfolio.
+Enter your query to search (exit to quit):
+What are Tax Saving Schemes?
+[VectorStore INFO] Querying vector store for: 'What are Tax Saving Schemes?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 53.59it/s] 
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not directly mention "Tax Saving Schemes." However, it discusses various mutual fund schemes, including Equity Linked Savings Schemes (ELSS), which are a type of tax-saving scheme in India.
+
+Tax-saving schemes, in general, refer to investment options that offer tax benefits to investors, such as deductions or exemptions, under the Income Tax Act. In India, some common tax-saving schemes include:
+
+1. Equity Linked Savings Schemes (ELSS): A type of mutual fund that invests in equities and offers tax benefits un2. Public Provident Fund (PPF): A long-term savings scheme that offers tax benefits under Section 80C and provides a fixed return on investment.
+3. National Savings Certificate (NSC): A fixed-income investment scheme that offers tax benefits under Section 80C and provides a fixed return on investment.
+4. Tax-saving fixed deposits: Some banks offer fixed deposits with a lock-in period of 5 years, which qualify for tax benefits under Section 80C.
+
+These schemes help investors reduce their taxable income and save on taxes, while also providing a potential for long-term growth or fixed returns on investment.
+Enter your query to search (exit to quit):
+what is the Infosys guidance?
+[VectorStore INFO] Querying vector store for: 'what is the Infosys guidance?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 57.42it/s] 
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The context provided does not mention Infosys guidance. The text appears to be related to the mutual fund industry in India, discussing trends, growth, and investor behavior. It does not contain any information about Infosys, which is a multinational corporation that provides business consulting, information technology, and outsourcing services. Therefore, there is no guidance from Infosys mentioned in the context.
+Enter your query to search (exit to quit):
+quit
+[VectorStore INFO] Querying vector store for: 'quit'
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: There is no information in the provided context related to the query "quit". The context appears to be a collection of cricket statistics, player data, and some unrelated information about Indian states and investment trends. If you could provide more context or clarify the query, I'll be happy to help.
+Enter your query to search (exit to quit):
+quit
+[VectorStore INFO] Querying vector store for: 'quit'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 62.26it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: There is no information in the provided context related to the query "quit". The context appears to be a collection of cricket statistics, player data, and some unrelated information about Indian states and investment trends. If you could provide more context or clarify the query, I'd be happy to help.
+Enter your query to search (exit to quit):
+What is Index Funds?
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 77.89it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: For the query "What is Index Funds?", the context provides the following information:      
+
+Index Funds are a type of passive investment fund that tracks a specific stock market index, such as the S&P 500. They are designed to provide broad diversification and can be a low-cost way to invest in the stock market.       
+
+In the context, it is mentioned that:
+
+* 102 new index funds were launched in the current year, collectively mobilizing Rs 15,056 crore.
+* In fiscal 2024, 35 index funds were launched, which collectively mobilized Rs 4,214 crore.
+* Index funds are a part of the passive funds category, which also includes gold ETFs and other ETFs.
+* The passive funds category has seen steady inflows, with a notable increase in the number of index funds being launched.
+* Individual investors hold 7% of the total AUM in passive funds, including index funds.
+
+Overall, the context suggests that index funds are a popular investment option, with a growing number of new funds being launched and a significant amount of money being invested in them.
+Enter your query to search (exit to quit):
+What are Tax Saving Schemes?
+[VectorStore INFO] Querying vector store for: 'What are Tax Saving Schemes?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 72.17it/s] 
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not directly mention "Tax Saving Schemes." However, it discusses various mutual fund schemes, including Equity Linked Savings Schemes (ELSS), which are a type of tax-saving scheme in India.
+
+Tax-saving schemes, in general, refer to investment options that provide tax benefits to investors, such as deductions or exemptions, under the Income Tax Act. In India, some common tax-saving schemes include:
+
+1. Equity Linked Savings Schemes (ELSS): A type of mutual fund that invests in equities and provides tax benefits under Section 80C of the Income Tax Act.
+2. Public Provident Fund (PPF): A long-term savings scheme that provides tax benefits under Section 80C and offers a fixed return.
+3. National Savings Certificate (NSC): A fixed-income investment scheme that provides tax benefits under Section 80C.
+4. Tax-saving fixed deposits: Fixed deposits offered by banks that provide tax benefits under Section 80C.        
+
+These schemes help investors reduce their taxable income and save on taxes, while also providing a potential for long-term growth or fixed returns. However, the context provided does not specifically discuss these schemes in detail.
+Enter your query to search (exit to quit):
+What are Exchange Traded Funds (ETFs)?
+[VectorStore INFO] Querying vector store for: 'What are Exchange Traded Funds (ETFs)?'
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: Exchange Traded Funds (ETFs) are a type of investment fund that is traded on a stock exchange, like individual stocks. They are designed to track the performance of a particular index, sector, or asset class, such as stocks, bonds, or commodities. ETFs are considered a type of passive investment, as they aim to replicate the performance of the underlying index or asset, rather than trying to beat it.
+
+In the context of the provided text, ETFs are mentioned as part of the mutual fund industry, with a notable increase in inflows and AUM. The text highlights the growth of index funds, gold ETFs, and other ETFs, with a significant increase in net flows and AUM in fiscal 2025. ETFs are also mentioned as a popular choice among investors, with a growing number of folios and a significant share of the total AUM in the mutual fund industry.
+
+Key points about ETFs from the context:
+
+* ETFs are a type of passive investment that tracks the performance of an index or asset class.
+* Index funds, gold ETFs, and other ETFs have seen significant growth in inflows and AUM in fiscal 2025.
+AUM in the mutual fund industry.
+* ETFs are considered a diversification strategy employed by investors, along with other types of mutual funds.   
+Enter your query to search (exit to quit):
+What is Silver performance?
+[VectorStore INFO] Querying vector store for: 'What is Silver performance?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 68.64it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The query 'What is Silver performance?' is not directly related to the provided context, which appears to be about the performance of various mutual funds, investor trends, and the overall growth of the mutual fund industry in India.
+
+However, based on the context, it can be inferred that "Silver performance" might be related to the performance oft without more specific information, it's difficult to provide a precise answer.
+
+If you're looking for information on a specific "Silver" fund or investment, I'd be happy to try and help you with that. Alternatively, if you have any more context or details about what you mean by "Silver performance", I'd be happy to try and provide a more specific answer.
+Enter your query to search (exit to quit):
+What is Net Asset Value (NAV) of a scheme?
+[VectorStore INFO] Querying vector store for: 'What is Net Asset Value (NAV) of a scheme?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 45.44it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+of a scheme." However, based on general knowledge, the Net Asset Value (NAV) of a mutual fund scheme is the total value of the scheme's assets minus its liabilities, divided by the number of outstanding units. It represents the per-unit value of the scheme and is used to calculate the returns on investment for the investors.
+
+In the context of the provided text, which discusses the performance of various mutual fund schemes, including equity, debt, and hybrid schemes, the NAV is an important metric for evaluating the scheme's performance. However, the text does not provide a direct definition or explanation of the NAV.
+Enter your query to search (exit to quit):
+what is silver demand in 2025?
+[VectorStore INFO] Querying vector store for: 'what is silver demand in 2025?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 62.80it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+======
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not explicitly mention the demand for silver in 2025. However, it does discuss the growth of gold ETFs, which witnessed a substantial 2.75 times increase in flows to Rs 14,582 crore in fiscal 2025, attributed to the significant rise in gold prices due to heightened geopolitical tensions and a weakening global economic outlook. This suggests that investors are seeking safe-haven assets like gold, but it does not provide information on silver demand. Therefore, the context does not provide a direct answer to the query "what is silver demand in 2025?"
+Enter your query to search (exit to quit):
+What is silver supply outlook ?
+[VectorStore INFO] Querying vector store for: 'What is silver supply outlook ?'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 73.33it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+======
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The provided context does not mention the silver supply outlook. It appears to be related to the mutual fund industry, discussing trends, inflows, and asset allocation in various categories such as equity, debt, hybrid, and passive funds. If you're looking for information on the silver supply outlook, I'd be happy to help with that, but it's not present in the given context.
+Enter your query to search (exit to quit):
+quit
+[VectorStore INFO] Querying vector store for: 'quit'
+Batches: 100%|█████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 77.88it/s] 
+[VectorStore INFO] Invoking Vectore Search...
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+Final ChatBOT Summary: The query 'quit' does not appear to be related to the provided context, which seems to be a collection of cricket statistics and player data. There is no mention of quitting or any related concept in the given text. The context appears to be focused on cricket players, their performance, and various statistics. If you could provide more context or clarify the query, I would be happy to try and assist you further.
+Enter your query to search (exit to quit):
+exit
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> 
+
+----
+
