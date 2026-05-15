@@ -1,0 +1,232 @@
+Case: Amazon AI Hiring Tool Bias
+
+
+
+
+Specifics over slogans: identify what the system did, where it was used, and what the failure looked like in practice (not just “it was biased” / “it hallucinated”).
+Mechanism and root cause: explain how the failure emerged (data issues, objective/metrics, deployment context, lack of oversight, incentives, poor testing, unclear accountability).
+Impact and ethics: describe who was harmed (users, communities, organisations) and why the outcome matters ethically (fairness, transparency, safety, trust).
+Preventive actions: propose concrete mitigations (audits, monitoring, human review gates, documentation, governance sign-offs, guardrails, rollback plans), not vague “be careful” advice.
+
+===================
+Case Selected: 
+Amazon developed an internal AI-powered recruiting tool to automate resume screening. However, the system learned gender bias from historical hiring data and systematically penalized women candidates, leading to its eventual shutdown. 
+Context :Internal hiring system at Amazon (2014–2017). Resume screening for technical roles (e.g., software engineers). Ranking candidates using a 1–5 star scoring system 
+Failure Description :  Bias and penalized the resume which contain women related applications.machine-learning specialists uncovered a big problem: their new recruiting engine did not like women.
+Specifics over slogans:  The system did things wrong as it Penalized resumes containing: Words like “women’s” (e.g., women’s chess club) . Favored resumes resembling male-dominated historical profiles. Failed to evaluate candidates gender-neutrally. Reinforced existing hiring bias instead of removing it
+
+Mechanism and root cause: Model trained on 10 years of historical resumes. Majority of resumes came from male candidates ,No fairness constraints or bias correction mechanisms.  Optimization focused only on pattern matching, not fairness
+
+Impact and ethics:   Explainability tools, Audit pipelines during development,Data reflects male dominance in tech hiring.Penalizes resumes with female indicators.Amazon abandons the system entirely.
+Real impact was on Women candidates as they were Unfairly downgraded or filtered out,  Loss of Equal opportunity, lack of Trust in hiring systems.
+Reputational risk: Highlighted globally as AI bias example, Slowed adoption of AI in hiring
+Project scrapped after years of investment.Ethical Impact :  Trust and Transparency was missing. AI systems perceived as objective, but were biased. Violated equal employment principles
+
+
+Preventive actions:
+Removing gender-indicative terms.Reweighting features,Amazon later introduced tools like bias detection in ML pipelines (e.g., SageMaker Clarify).  Amazon later introduced tools like bias detection in ML pipelines (e.g., SageMaker Clarify)
+Data audits before training, Model fairness validation, Responsible AI frameworks and Ethical review boards
+Continuous monitoring for Drift , and then LLM-as-judge / fairness evaluators (modern approach).
+
+Source :
+https://mediawell.ssrc.org/news-items/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-reuters/?utm_source=chatgpt.com
+https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G/
+
+=====================================================================================================================
+
+Impact and ethics: 
+1. Data Issues (Primary Failure)
+
+Result:  AI learned: “male profiles = better hires”
+
+2. Feature Engineering Failure
+Model used keyword-based signals , Incorrectly treated gender-indicative terms as negative signals.
+
+
+
+3. Model Design Failure
+
+
+
+4. Testing & Validation Failure
+Lack of:
+
+Bias testing (gender fairness metrics)
+
+Adversarial validation
+
+Bias detected late (after deployment/testing phase)
+
+
+
+5. Governance & Oversight Failure
+No strong AI ethics review framework 
+
+Lack of:  Explainability tools, Audit pipelines during development
+
+📉 How the failure emerged (Step-by-step)
+Step 1: Train model on historical hiring data
+
+Step 2: Data reflects male dominance in tech hiring
+
+Step 3: Model learns patterns → associates “male-like resumes” with success
+
+Step 4: Penalizes resumes with female indicators
+
+Step 5: Bias persists even after attempts to fix
+
+Step 6: Amazon abandons the system entirely
+
+💥 Real Impact of the Failure
+
+
+👤 Impact on Users (Candidates)
+Real impact was on Women candidates:  Unfairly downgraded or filtered out,  Loss of Equal opportunity, lack of Trust in hiring systems
+Reputational risk: Highlighted globally as AI bias example, Slowed adoption of AI in hiring
+Project scrapped after years of investment.
+
+
+🏢 Impact on Organization (Amazon)
+
+
+
+
+
+🌍 Broader Industry Impact
+Became a landmark case study in AI ethics
+
+Triggered:
+
+Research on fairness in ML
+
+Regulatory discussions on AI hiring
+
+⚖️ Why this failure matters (Ethics)
+
+
+Ethical Impact :  Trust and Transparency was missing. AI systems perceived as objective, but were biased. Violated equal employment principles
+
+
+
+Transparency
+Black-box model → no explainability on decisions
+
+
+
+Fairness
+Violated equal employment principles
+
+
+
+Accountability
+No clear mechanism to:
+
+Detect bias early
+
+Assign responsibility
+
+
+
+👉 Key lesson:
+
+AI does not remove bias — it amplifies it if trained on biased data
+
+🛠️ Preventive Actions & Mitigation
+
+
+1. Immediate Action
+Amazon scrapped the tool entirely 
+
+
+
+2. Technical Fix Attempts (Before Shutdown)
+Tried:
+
+Removing gender-indicative terms.Reweighting features,Amazon later introduced tools like bias detection in ML pipelines (e.g., SageMaker Clarify).
+
+Amazon later introduced tools like bias detection in ML pipelines (e.g., SageMaker Clarify)
+Data audits before training, Model fairness validation, Responsible AI frameworks and Ethical review boards
+Continuous monitoring for Drift , and then LLM-as-judge / fairness evaluators (modern approach).
+
+
+Failed because:
+
+Bias was deeply embedded in data patterns
+
+
+
+3. Post-Failure Improvements (Industry-wide)
+Adoption of:
+
+Bias detection tools (e.g., fairness metrics), 
+Explainability systems
+
+Example:
+
+Amazon later introduced tools like bias detection in ML pipelines (e.g., SageMaker Clarify)
+Data audits before training, Model fairness validation, Responsible AI frameworks and Ethical review boards
+Continuous monitoring for Drift , and then LLM-as-judge / fairness evaluators (modern approach).
+
+
+4. Governance Improvements
+AI lifecycle controls:
+
+Data audits before training, Model fairness validation, Responsible AI frameworks and Ethical review boards
+Continuous monitoring for Drift , and then LLM-as-judge / fairness evaluators (modern approach).
+
+
+
+5. Monitoring & Evaluation
+Continuous monitoring for:
+
+Drift
+
+Bias re-emergence
+
+Use of:
+
+LLM-as-judge / fairness evaluators (modern approach)
+
+📚 Key References (Source Links Summary)
+
+
+🔗 Primary Source (Reuters Investigation)
+Amazon AI hiring bias Reuters articleAttachment.png
+
+Core facts: bias discovery, training data issue, system design
+
+
+
+🔗 Supporting Sources
+Business Standard summary of caseAttachment.png
+
+BuiltIn case study explanationAttachment.png
+
+Data Ethics Repository summaryAttachment.png
+
+Algorithmic bias case study (2025 analysis)Attachment.png
+
+🧾 Final Summary (Concise)
+Amazon built an AI hiring tool to automate recruitment
+
+It became biased against women due to historical data
+
+Failed across:
+
+Data quality
+
+Model design
+
+Testing and governance
+
+Impact:
+
+Discrimination risk
+
+System scrapped
+
+Industry-wide ethical awareness
+
+Lesson:
+
+👉 “Garbage in → biased AI out”
