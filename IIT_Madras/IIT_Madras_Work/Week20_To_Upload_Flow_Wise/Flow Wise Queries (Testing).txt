@@ -1,0 +1,471 @@
+============================================================================================================================
+
+
+Questions:
+
+Task 4 – Customisation and Testing
+
+============================================================================================================================
+
+
+
+***Please note I have also added few more data to check the Robustness apart from the data which is given.
+============================================================================================================================
+
+
+Customise the system prompt to reflect the brand’s tone, e.g.:
+“You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual.”
+Test at least five queries, including price, material, category, and stock-related questions.
+If an item is out of stock, configure the chatbot to suggest an alternative product. Example:
+“Ruby Solitaire Ring is currently out of stock. You may like the Classic Diamond Ring instead.”
+
+============================================================================================================================
+
+***Please note I have also added few more data to check the Robustness apart from the data which is given.
+============================================================================================================================
+
+what is the price of Double Butterfly Pendant ?
+what is the price of Rose Pendant ?
+what is the price of Kitty Pendant ?
+Give me data about Rose Pendant , kitty Pendant, Double Butterfly Pendant?
+show me classic diamond ring category 
+show me necklace material and chain materials
+show me ring category all records
+show me bracelet category
+
+Give me a list of Classic Diamond Ring Category?
+Give me a list of Ring Material with price?
+Give me a list of Gold Chain Bracelet Category?
+Give me a list of Emerald Cuff Bracelet Category?
+Give me a list of Lotus Pendant Category?
+Give me a list of Lotus Pendant Category with price?
+
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual.Show me diamond products.
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. Do you have enough stock of diamond rings?
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. What’s the price of the ring?
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. What is the price of the Pearl Necklace?  
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. Which products are made of 22K gold?
+
+
+Show me diamond products
+What’s the price of the ring?
+List all available diamond items.  
+What is the price of the Pearl Necklace?  
+Which products are made of 22K gold?  
+Do you have platinum bangles?
+Do you sell watches?
+
+Task 4 – Customisation and Testing
+
+Customise the system prompt to reflect the brand’s tone, e.g.:
+“You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual.”
+Test at least five queries, including price, material, category, and stock-related questions.
+If an item is out of stock, configure the chatbot to suggest an alternative product. Example:
+“Ruby Solitaire Ring is currently out of stock. You may like the Classic Diamond Ring instead.”
+
+
+
+Flow Wise Queries (Testing) 
+==============================================
+Show me diamond products
+
+AI
+The diamond products available are:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+Diamond Stud Earrings
+
+Material: 18K Gold + Diamond
+Weight: 6.2 g
+Price: 105000
+Stock: Available
+Lotus Pendant
+
+Material: 18K Gold + Diamond
+Weight: 8.0 g
+Price: 72000
+Stock: Available
+These are the diamond products listed in the provided data.
+
+Type your question...
+
+==============================================
+
+Which products are made of 22K gold?
+
+AI
+The products made of 22K gold are:
+
+Gold Chain Bracelet
+
+ProductID: B401
+Weight: 12.0 g
+Price: 87500
+Stock: Available
+Ruby Solitaire Ring
+
+ProductID: R102
+Weight: 4.8 g
+Price: 98500
+Stock: Out of Stock
+Emerald Choker
+
+ProductID: N202
+Weight: 32.0 g
+Price: 310000
+Stock: Available
+Daily Wear Gold Earrings
+
+ProductID: E301
+Weight: 7.5 g
+Price: 55000
+Stock: Available
+Om Symbol Pendant
+
+ProductID: P502
+Weight: 6.5 g
+Price: 48000
+Stock: Available
+These are the products made of 22K gold listed in the provided data.
+
+Type your question...
+
+
+=================================================
+
+Show me diamond products
+
+AI
+The diamond products available are:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+Diamond Stud Earrings
+
+Material: 18K Gold + Diamond
+Weight: 6.2 g
+Price: 105000
+Stock: Available
+Lotus Pendant
+
+Material: 18K Gold + Diamond
+Weight: 8.0 g
+Price: 72000
+Stock: Available
+These are the diamond products listed in the provided data.
+
+Me
+what is the price of Double Butterfly Pendant
+
+AI
+The price of the Double Butterfly Pendant is INR 799.
+
+Me
+List all available diamond items
+
+AI
+The available diamond items are:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+Diamond Stud Earrings
+
+Material: 18K Gold + Diamond
+Weight: 6.2 g
+Price: 105000
+Stock: Available
+Lotus Pendant
+
+Material: 18K Gold + Diamond
+Weight: 8.0 g
+Price: 72000
+Stock: Available
+These are the diamond items listed as available in the provided data.
+
+Me
+List all available diamond items
+
+AI
+The available diamond items are:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+Diamond Stud Earrings
+
+Material: 18K Gold + Diamond
+Weight: 6.2 g
+Price: 105000
+Stock: Available
+Lotus Pendant
+
+Material: 18K Gold + Diamond
+Weight: 8.0 g
+Price: 72000
+Stock: Available
+These are the diamond items listed as available in the provided data.
+
+Me
+Give me a list of Classic Diamond Ring Category?
+
+AI
+The Classic Diamond Ring is as follows:
+
+ProductID: R101
+Name: Classic Diamond Ring
+Category: Ring
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+This is the information for the Classic Diamond Ring category.
+
+Me
+Give me a list of Ring Material with price?
+
+AI
+Here is the list of rings along with their material and price:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Price: 135000
+Ruby Solitaire Ring
+
+Material: 22K Gold + Ruby
+Price: 98500 (Out of Stock)
+These are the rings listed with their materials and prices.
+
+Me
+Give me a list of Gold Chain Bracelet Category?
+
+AI
+The Gold Chain Bracelet is as follows:
+
+ProductID: B401
+Name: Gold Chain Bracelet
+Category: Bracelet
+Material: 22K Gold
+Weight: 12.0 g
+Price: 87500
+Stock: Available
+This is the information for the Gold Chain Bracelet category.
+
+Me
+show me classic diamond ring category
+
+AI
+The Classic Diamond Ring is as follows:
+
+ProductID: R101
+Name: Classic Diamond Ring
+Category: Ring
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+This is the information for the Classic Diamond Ring category.
+
+Me
+Which products are made of 22K gold?
+
+AI
+The products made of 22K gold are:
+
+Gold Chain Bracelet
+
+ProductID: B401
+Weight: 12.0 g
+Price: 87500
+Stock: Available
+Ruby Solitaire Ring
+
+ProductID: R102
+Weight: 4.8 g
+Price: 98500
+Stock: Out of Stock
+Emerald Choker
+
+ProductID: N202
+Weight: 32.0 g
+Price: 310000
+Stock: Available
+Daily Wear Gold Earrings
+
+ProductID: E301
+Weight: 7.5 g
+Price: 55000
+Stock: Available
+Om Symbol Pendant
+
+ProductID: P502
+Weight: 6.5 g
+Price: 48000
+Stock: Available
+These are the products made of 22K gold listed in the provided data.
+
+=================================================================================
+show me necklace material and chain materials
+
+AI
+The necklace materials and chain materials listed are:
+
+Necklace Material: 18K White Pearl, Onyx, set with a brilliant-cut diamond of 0.02 carats.
+Chain Material: Adjustable chain (specific material not provided in the data).
+If you need more specific details or additional items, please let me know!
+
+=================================================================================
+
+Do you have platinum bangles?
+
+AI
+Hmm, I'm not sure.
+
+Me
+Do you have platinum bangles?
+
+AI
+Hmm, I'm not sure.
+
+
+Give me a list of Emerald Cuff Bracelet Category?
+
+AI
+The Emerald Cuff Bracelet is as follows:
+
+ProductID: B402
+Name: Emerald Cuff Bracelet
+Category: Bracelet
+Material: 18K Gold
+Emerald Weight: 15.0 g
+Price: 150000
+Stock: Out of Stock
+This is the information for the Emerald Cuff Bracelet category.
+
+You are Ornativa’s virtual jewellery expert. Do you have enough stock of diamond rings?
+
+AI
+Yes, there is enough stock of the Classic Diamond Ring, which is available. However, the Ruby Solitaire Ring is currently out of stock.
+
+Me
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. What’s the price of the ring?
+
+AI
+The price of the Classic Diamond Ring is INR 135000.
+
+Me
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. What is the price of the Pearl Necklace?
+
+AI
+I'm sorry, but I don't have information on the price of the Pearl Necklace.
+
+Me
+You are Ornativa’s virtual jewellery expert. Be polite, concise, and factual. Which products are made of 22K gold?
+
+AI
+The products made of 22K gold are:
+
+Gold Chain Bracelet
+
+Price: 87500
+Stock: Available
+Ruby Solitaire Ring
+
+Price: 98500
+Stock: Out of Stock
+Emerald Choker
+
+Price: 310000
+Stock: Available
+Daily Wear Gold Earrings
+
+Price: 55000
+Stock: Available
+Om Symbol Pendant
+
+Price: 48000
+Stock: Available
+Me
+Give me a list of Emerald Cuff Bracelet Category?
+
+AI
+The Emerald Cuff Bracelet is as follows:
+
+ProductID: B402
+Name: Emerald Cuff Bracelet
+Category: Bracelet
+Material: 18K Gold
+Emerald Weight: 15.0 g
+Price: 150000
+Stock: Out of Stock
+This is the information for the Emerald Cuff Bracelet category.
+
+Me
+Give me a list of Gold Chain Bracelet Category?
+
+AI
+The Gold Chain Bracelet is as follows:
+
+ProductID: B401
+Name: Gold Chain Bracelet
+Category: Bracelet
+Material: 22K Gold
+Weight: 12.0 g
+Price: 87500
+Stock: Available
+This is the information for the Gold Chain Bracelet category.
+
+Me
+Give me a list of Ring Material with price?
+
+AI
+Here is the list of rings along with their material and price:
+
+Classic Diamond Ring
+
+Material: 18K Gold + Diamond
+Price: 135000
+Ruby Solitaire Ring
+
+Material: 22K Gold + Ruby
+Price: 98500 (Out of Stock)
+These are the rings listed with their materials and prices.
+
+Me
+Give me a list of Classic Diamond Ring Category?
+
+AI
+The Classic Diamond Ring is as follows:
+
+ProductID: R101
+Name: Classic Diamond Ring
+Category: Ring
+Material: 18K Gold + Diamond
+Weight: 5.2 g
+Price: 135000
+Stock: Available
+This is the information for the Classic Diamond Ring category.
+
+
+
+
+=================================================================================
+
+
+
