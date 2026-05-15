@@ -1,0 +1,55 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# Create a sample DataFrame
+data = {
+    'Column A': np.random.randint(0, 100, 10),
+    'Column B': np.random.rand(10) * 10,
+    'Column C': ['Category ' + str(i) for i in range(1, 11)]
+}
+df = pd.DataFrame(data)
+
+# Set the page configuration (optional, but can improve layout)
+st.set_page_config(layout="wide")
+
+# Display a title for the app
+st.title("DataFrame Contents Viewer")
+
+# Display the DataFrame using st.dataframe()
+st.dataframe(df, use_container_width=True)
+
+# You can also add interactive elements, for example, a checkbox to hide/show the index
+hide_index = st.checkbox("Hide DataFrame Index")
+if hide_index:
+    st.dataframe(df.style.hide(axis="index"), use_container_width=True)
+else:
+    st.dataframe(df, use_container_width=True)
+
+
+===================
+
+import random
+import pandas as pd
+import streamlit as st
+
+df = pd.DataFrame(
+    {
+        "name": ["Roadmap", "Extras", "Issues"],
+        "url": ["https://roadmap.streamlit.app", "https://extras.streamlit.app", "https://issues.streamlit.app"],
+        "stars": [random.randint(0, 1000) for _ in range(3)],
+        "views_history": [[random.randint(0, 5000) for _ in range(30)] for _ in range(3)],
+    }
+)
+
+st.dataframe(
+    df,
+    column_config={
+        "name": "Hotel_Name",
+        "location": "Hotel Address",
+        "price_per_night": "Price Per Night",        
+        ),
+    },
+    hide_index=True,
+)
+

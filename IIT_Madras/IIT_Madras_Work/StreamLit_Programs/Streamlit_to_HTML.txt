@@ -1,0 +1,74 @@
+import streamlit as st
+import pandas as pd
+from io import StringIO
+
+st.title("Display Comma-Separated Data as HTML Table")
+
+# Sample comma-separated records (as a single string)
+csv_data = """
+Name,Age,City
+Alice,25,New York
+Bob,30,San Francisco
+Charlie,35,Los Angeles
+"""
+
+# Optional: show the raw input
+with st.expander("Raw CSV data"):
+st.text(csv_data.strip())
+
+# Convert string to a DataFrame
+df = pd.read_csv(StringIO(csv_data))
+
+# Show DataFrame (optional)
+st.subheader("DataFrame Preview")
+st.dataframe(df)
+
+# Convert DataFrame to HTML table
+html_table = df.to_html(index=False, border=1)
+
+# Show raw HTML (optional)
+with st.expander("See raw HTML code"):
+st.code(html_table, language='html')
+
+# Render the HTML table
+st.subheader("HTML Table Output")
+st.markdown(html_table, unsafe_allow_html=True)
+
+Here’s a Streamlit Python program that reads data from a comma-separated string (not a file), converts it into a Pandas DataFrame, and then displays it as an HTML table in the app.
+
+==================
+
+
+
+import streamlit as st
+import pandas as pd
+
+# Set the Streamlit app title
+st.title("🏨 Jaipur Hotels - Price Listing")
+
+# Hotel data (parsed from your image)
+hotel_data = [
+{'name': 'Rambagh Palace', 'location': 'Bhawani Singh Rd, Rambagh, Jaipur', 'price_per_night': 55000},
+{'name': 'The Oberoi Rajvilas', 'location': 'Goner Rd, Paldi Meena, Jaipur', 'price_per_night': 45000},
+{'name': 'JW Marriott Jaipur Resort & Spa', 'location': 'Jaipur-Delhi Highway, NH11, Kukas, Jaipur', 'price_per_night': 35000},
+{'name': 'Fairmont Jaipur', 'location': '2, Riico Kukas, Jaipur', 'price_per_night': 30000},
+{'name': 'ITC Rajputana, A Luxury Collection Hotel', 'location': 'Palace Road, Jaipur', 'price_per_night': 25000},
+{'name': 'The Leela Palace Jaipur', 'location': 'Jaipur-Delhi Highway, Kukas, Jaipur', 'price_per_night': 42000},
+{'name': 'Jaipur Marriott Hotel', 'location': 'Ashram Marg, Near Jawahar Circle, Jaipur', 'price_per_night': 22000},
+{'name': 'Taj Jai Mahal Palace', 'location': 'Jacob Road, Civil Lines, Jaipur', 'price_per_night': 32000},
+{'name': 'Hilton Jaipur', 'location': '42 Geejgarh House, Hawa Sadak, Jaipur', 'price_per_night': 18000},
+{'name': 'The Raj Palace', 'location': 'Amer Road, Jaipur', 'price_per_night': 29000}
+]
+
+# Convert list of dicts to DataFrame
+df = pd.DataFrame(hotel_data)
+
+# Optional: Sort by price
+df_sorted = df.sort_values(by="price_per_night")
+
+# Display in Streamlit using table format
+st.subheader("Hotel Price Table (Sorted Low to High)")
+st.dataframe(df_sorted, use_container_width=True)
+
+
+
