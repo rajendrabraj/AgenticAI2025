@@ -71,3 +71,21 @@ We’ll show workarounds (e.g., wrapping capabilities as function tools) in late
 
 You can also **mix and match**: wrap an ADK agent as a function/tool inside another framework, or vice versa, if a particular capability is missing.
 
+---
+
+
+## ADK vs Other Frameworks (Quick Comparison)
+
+| Feature / Concern | **ADK** | **LangChain / LangGraph** | **CrewAI** | **Microsoft AutoGen** |
+|---|---|---|---|---|
+| Core focus | Modular agents, tools, **workflows**; strong dev UX (CLI/UI) | General LLM app framework; **LangGraph** for durable, controllable agents | Role-based multi-agent "crews" + **Flows** for deterministic orchestration | Event-driven multi-agent conversations; humans/tools/LLMs in the loop |
+| Built-in tools | Google Search, code exec, RAG, etc. (Gemini-focused) | Many integrations via toolkits; now nudging toward LangGraph for agents | Rich agent roles/tools; expanding code-exec features | Agents, tools, human-in-the-loop; code agents; AutoGen Studio (UI) |
+| Models | Gemini-first, but **model-agnostic** (GPT/Claude supported) | Open, many providers; strong ecosystem | Open; supports multiple providers | Open; supports multiple providers |
+| Workflows | **Sequential, Parallel, Loop** agents first-class | Compose graphs with nodes/edges, retries, persistence | **Crews** (autonomy) & **Flows** (determinism) | Multi-agent chat, tools; custom routing patterns |
+| Dev tooling | `adk` CLI, local web UI; samples/codelabs | LangSmith/LangGraph Platform, tracing, eval | CLI + templates; community courses; quickstart | SDK + examples; AutoGen Studio research tool |
+| Productionization | Vertex AI alignment; local-to-cloud paths | LangGraph deploy, platform features | Python-first; community driven | Python-first; event-driven scaling |
+| Where it shines | Opinionated **agent workflows**, built-ins, DX | Huge ecosystem + graph control | Team-of-agents persona workflows | Conversational multi-agent protocols |
+| Watch-outs | Some built-ins are **Gemini-only** and may be **root-agent only** | Rapidly evolving APIs (LangGraph migration) | Autonomy can be harder to constrain | Conversation-centric design requires orchestration care |
+
+---
+
