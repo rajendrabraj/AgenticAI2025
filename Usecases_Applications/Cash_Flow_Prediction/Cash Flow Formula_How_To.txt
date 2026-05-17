@@ -1,0 +1,54 @@
+Cash Flow Formula
+
+Net Cash Flow=Revenue−(Payroll+Vendor Payments+Operating Expenses+Tax Payments)+FX Impact
+
+
+Revenue	Payroll	Vendor_Payments	Operating_Expenses	FX_Impact	Tax_Payments
+11421958	2526867	3281932	1909178	-180121	890268
+
+
+Payroll
++ Vendor Payments
++ Operating Expenses
++ Tax Payments
+
+2,526,867
++ 3,281,932
++ 1,909,178
++   890,268
+= 8,608,245
+
+
+Revenue Minus Expenses
+11,421,958 - 8,608,245
+= 2,813,713
+
+Add FX Impact
+
+FX Impact is negative:
+
+2,813,713 + (-180,121)
+= 2,633,592
+
+Net Cash Flow = 2,633,592
+
+Money Coming In
+Revenue
+Money Going Out
+Payroll
+Vendor payments
+Operating expenses
+Taxes
+Adjustments
+FX Impact (foreign exchange gain/loss)
+
+Since FX impact is negative here,  it reduces the cash flow. 
+
+Month	Revenue	Payroll	Vendor_Payments	Operating_Expenses	FX_Impact	Tax_Payments	Inflation_Rate	Interest_Rate	Projected_Sales_Growth	Net_Cash_Flow	Revenue	Add(Expenses)	FX Impact	Calculated_Cash_Flow	Variance
+2021-08	12800051	2577629	3560725	1890181	41097	885057	4.87	6.97	9.65	3886459	12800051	8913592	41097	3927556	41097
+2023-08	12800051	2577629	3560725	1890181	41097	885057	4.87	6.97	9.65	3886459	12800051	8913592	41097	3927556	41097
+2024-08	12800051	2577629	3560725	1890181	41097	885057	4.87	6.97	9.65	3886459	12800051	8913592	41097	3927556	41097
+
+Since FX impact is negative here,  it Increases  the cash flow. 
+
+
