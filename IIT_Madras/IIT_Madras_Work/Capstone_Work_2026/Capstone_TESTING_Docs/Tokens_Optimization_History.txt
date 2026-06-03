@@ -1,0 +1,137 @@
+{'prompt_tokens': 2606, 'completion_tokens': 452, 'total_tokens': 3058}
+
+
+How can I optimized the below tokens usage prompt_tokens, completion_tokens so that they use it <500 tokens
+
+
+In Your Example
+1. prompt_tokens: 2606
+
+This means:
+
+Your input prompt
+system prompt
+task description
+agent instructions
+JSON context
+previous messages
+tool outputs
+
+combined together used 2606 tokens.
+
+This is usually large because your agents contain:
+
+long compliance prompts
+evaluation instructions
+JSON schemas
+escalation rules
+PII policies
+
+completion_tokens: 452
+
+This means:
+
+The AI generated a response containing 452 tokens.
+
+Usually:
+
+JSON output
+evaluation results
+escalation details
+reasoning
+summary
+
+
+Why This Matters
+
+Token usage affects:
+
+API cost
+latency
+response speed
+model context window
+performance
+scalability
+
+
+Very roughly:
+
+Tokens	Approximate Text
+100 tokens	~75 words
+1000 tokens	~750 words
+3000 tokens	~2200 words
+
+So your workflow is using a fairly large enterprise prompt.
+
+
+n Your CrewAI Project
+
+High token usage usually comes from:
+
+Large agent backstories
+Large expected_output JSON
+Multiple tasks
+Multiple agents
+Long compliance prompts
+Passing previous context repeatedly
+Enterprise Optimization Tips
+
+To reduce tokens:
+
+Shorten backstories
+Reduce repeated instructions
+Keep JSON schemas smaller
+Avoid duplicate rules
+Use concise prompts
+Limit unnecessary context passing
+
+Cost Estimation
+
+More tokens = higher API cost.
+
+Example:
+
+GPT-4o
+GPT-4 Turbo
+Embedding models
+
+all charge based on token consumption.
+
+To reduce your CrewAI token usage from ~3000 tokens to <500 tokens, you must aggressively optimize:
+
+Agent backstories
+Task descriptions
+Expected JSON schemas
+Context passing
+Repeated instructions
+Verbose reasoning
+
+Your current prompts are very large because:
+
+repeated compliance rules
+repeated escalation logic
+repeated evaluation criteria
+large JSON output structures
+multiple duplicated instructions
+
+========================================================================
+
+Techniques
+
+backstory="Customer support AI specializing in order, refund, shipment, PII, and escalation validation."
+Make Verbose = False
+
+Condense the Backstory
+Agents expected_output can be condensed
+========================================================================
+
+Testing
+
+give me refund status for Order_Id= O007
+give me refund status for Order_Id= 0018
+
+I have login issues to the system please help me
+I have password related issues
+
+
+========================================================================

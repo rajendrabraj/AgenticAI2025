@@ -1,0 +1,76 @@
+def login_issue(user_name):
+    logging.info("Routing to check Login Issues Status Query")
+    result = f"Handling Login Issue for {user_name}"
+    query = "I have login related issues please help  for  User  " + user_name
+    
+    # start_time = str(datetime.now()) 
+    # lstr_plain_string = start_time + " :  AI CHAT BOT ORDER QUERY : " + query   
+    # append_to_chatbot_file_string(lstr_plain_string)
+    # lstr_plain_string = "=========================================================="
+    # append_to_chatbot_file_string(lstr_plain_string)
+    
+    
+    # response_json = search_knowledge_base_records(input_query=query)
+    # print(response_json)
+    # clean_json = json.loads(response_json)
+    # clean_output = json.dumps(clean_json)        
+    # print("\n")         
+    # print(f"Response String CLEAN  :  {clean_output} " )
+    # print("\n")   
+    # logging.info("AI CHATBOT  :  Response : %s", json.dumps(clean_output, indent=4))
+    #  # Convert JSON object to JSON string
+    # response_string = json.dumps(response_json, indent=4)            
+    # print(response_string)    
+    
+    #  ## Knowledge Base Search to copy the Records are logged to the log file and CHAT BOT File.
+    # #clean_output = json.dumps(response_json, separators=(",", ":"))
+    # final_clean_output = json.dumps(clean_json)   
+    # print("\n")         
+    # print(f"Response String CLEAN  # 2 :  {final_clean_output} " )
+    # print("\n")     
+    # # Log JSON without \n characters (use safe f-string to avoid percent-formatting issues)
+    # logging.info(f"AI CHATBOT Logging : Search KnowledgeBase Response : {final_clean_output}")    
+    # logging.info(f"AI CHATBOT Logging :  KnowledgeBase Response : : {final_clean_output}")      
+    # ## Copy the results to      
+    # lstr_plain_string = "AI CHATBOT File Logging :  RESULTS of KnowledgeBase   :  " + query
+    # lstr_plain_string = "=========================================================="
+    # append_to_chatbot_file_string(lstr_plain_string)
+    # lstr_plain_string = "AI CHATBOT AI CHATBOT Logging : Knowledge Base Results"
+    # append_to_chatbot_file_string(final_clean_output) 
+         
+       
+    ## Directly Escalate furtther for Login Issues as this is a critical issue which needs to be resolved on priority.
+    
+    start_time = str(datetime.now()) 
+    query = "I have login related issues please help  for  User  " + user_name
+    response_string = {"status": "NOT_FOUND", "message": "Login Related Issue needs to be escalated to Human Agent"}
+    
+    lstr_plain_string = start_time + " :  Escalating for Login Issues : " + query   
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    
+    ## Directly escalate further 
+    print("AI ChatBOT : Calling the Escalation Agent")
+       ##=======================================
+    ##Log this to file which agent is called.
+    lstr_plain_string = "AI CHATBOT File Logging  :  Calling the Escalation Agent   :  " + query
+    append_to_chatbot_file_string(lstr_plain_string)
+    ##=======================================
+    lstr_plain_string = "AI CHATBOT  :  Calling the Escalation Agent   :  " + query
+    append_to_chatbot_file_string(lstr_plain_string)    
+    logging.info(f"Calling Escalation Agent Now for query {query}")    
+    final_escalation_response = run_escalate_agent(query,response_string)
+      
+    
+      ## Copy the results to 
+    append_to_chatbot_file_string(final_escalation_response)
+    
+    print(final_escalation_response)
+    logging.info(f"Escalation Agent :  Check  Result : {final_escalation_response}")
+    
+    end_time =  str(datetime.now())    
+    lstr_plain_string = end_time + " : Escalating for Login Issues(COMPLETED) : " + query   
+    append_to_chatbot_file_string(lstr_plain_string) 
+    
+    return "SUCCESS"

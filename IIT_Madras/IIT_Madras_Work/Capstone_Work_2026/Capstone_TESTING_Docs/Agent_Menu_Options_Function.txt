@@ -1,0 +1,64 @@
+Give me a python code when i select the option as input a function which will simply route to different functions with different queries.
+
+My options are as below :
+
+Option #1 :  Order Status Enquiry
+Option #2 :  Order Shipping Status Enquiry
+Option #3 :  Order Refund  Status Enquiry
+Option #4 :  Products purchased by User 
+Option #5 :  Orders placed by User
+Option #6 :  Billing Details Query for given Order
+Option #7 :  Login Related Issues
+Option #8 :  Password Related Issues
+Option #9 :  Exit or Query (exit / quit) 
+
+If Option #1 is seleted then Ask User Input as Order_ID(OXXX)
+If Option #2 is seleted then Ask User Input as Order_ID(OXXX)
+If Option #3 is seleted then Ask User Input as Order_ID(OXXX)
+If Option #4 is seleted then Ask User Input as User_Name(e.g Ramesh)
+If Option #5 is seleted then Ask User Input as User_Name(e.g Ramesh)
+If Option #6 is seleted then Ask User Input as Order_ID(OXXX)
+If Option #7 is seleted then Ask User Input as User_Name(e.g Ramesh)
+If Option #8 is seleted then Ask User Input as User_Name(e.g Ramesh)
+If Option #9 is seleted then Ask User Input as "exit/quit"
+
+This function should always return a string as "SUCCESS" 
+
+
+
+This should be an independent which I should call using main.
+
+
+==========
+
+while True :
+        user_input = input("\n User Please Submit your Query \n  : ")   
+        query= user_input    
+        response_json = search_knowledge_base_records(input_query=query)
+        print("JSON Search Output")         
+        # print("\n")        
+        print(response_json)
+        # print("\n")   
+        clean_json = json.loads(response_json)
+        clean_output = json.dumps(clean_json)        
+        print("\n")         
+        print(f"Response String CLEAN  :  {clean_output} " )
+        print("\n") 
+       
+       
+        logging.info("Evaluation : Search KnowledgeBase Response : %s", json.dumps(clean_output, indent=4))
+            
+        # Convert JSON object to JSON string
+        response_string = json.dumps(response_json, indent=4)            
+        print(response_string)              
+        ## Execute and run the PII Agent now
+        print("Calling the Evaluation Agent")
+        logging.info(f"Calling Evaluation Agent Now for query {query}")
+        query= user_input    
+        final_Evaluation_response = run_evaluation_agent(query,response_string)
+        print(final_Evaluation_response)
+        logging.info(f"Evaluation Check  Result : {final_Evaluation_response}")
+    
+==========
+
+

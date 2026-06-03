@@ -1,0 +1,26 @@
+Generate a Ticket 
+
+import random
+ticket_id = f"TICKET{random.randint(1000, 9000)}"
+
+
+            ticket_id = f"TICKET{random.randint(1000, 9000)}"
+            return json.dumps({
+                "status": "NOT_FOUND",
+		"Ticket Number " : ticket_id
+                "Ticket Status": "I have raised a Ticket for your request, please check your email",
+                "User Guidance": "One of the Customer support Enginner will reach out to you soon.",
+                "message": f"Information is not received for the Question Asked .Please contact 24x7 customer support 1800-0011-011 or email to customer_care@support.com"
+            }, indent=4)
+
+    except Exception as e:
+
+        return json.dumps({
+            "status": "NOT_FOUND",
+                "Ticket Number " : ticket_id
+                "Ticket Status": "I have raised a Ticket for your request, please check your email",
+                "User Guidance": "One of the Customer support Enginner will reach out to you soon.",                
+                "message": str(e) + "Information is not received for the Question Asked . Please contact 24x7 customer support 1800-0011-011 or email to customer_care@support.com"
+        }, indent=4)
+
+

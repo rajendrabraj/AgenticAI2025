@@ -1,0 +1,574 @@
+EXPECTED IMPROVEMENT
+
+First query handled with retrieval
+Second query uses memory context
+Third query understands full conversation
+
+Without memory:
+Each query treated independently
+
+With memory:
+Context-aware responses
+Better continuity
+Reduced repetition
+
+MEMORY RETENTION POLICY
+
+Short-term memory stores current session
+Long-term memory stores last 5 interactions
+Older data automatically dropped
+
+
+FINAL SUMMARY
+
+Multi-step reasoning added via planning prompt
+Short-term and long-term memory implemented
+Multi-turn conversations improved
+Agents now context-aware
+Retrieval + memory improves accuracy significantly
+System behaves closer to real human support agent
+
+def run_conversation(query):
+   memory_context = get_long_term_context()
+
+
+    result_memory_check = support_crew_Evaluation.kickoff(inputs={
+        "query": query,
+        "memory": memory_context
+    })
+
+
+
+    short_term_memory.save_context(
+        {"input": query},
+        {"output": str(result_memory_check)}
+    )
+    )
+
+    save_to_long_term_memory(query, str(result_memory_check))
+
+    return result_memory_check
+
+
+
+## ============================================================================
+
+
+
+## Python Code for the Program 
+## Customer Support — AI Support Resolution Agent  often receive diverse queries—from login issues and billing errors to technical problems. Manually analyzing each message, searching a ## knowledge base, generating a helpful response, and deciding whether to escalate takes time and is inconsistent across agents.
+
+## Rajendra Bichu : Date : 29.04.2026 , Version 1.0 , Objectives are as below. 
+
+
+##Goals and Objectives are as below : 
+#Must refuse unsafe or policy-violating requests.
+#Must not fabricate policies.
+#Must escalate sensitive or unresolved cases.
+#Must not store personal data in logs.
+
+## ============================================================================
+##  Agent Features which this program covers 
+
+## Multi-step reasoning (planning + execution) ,  
+## Short-term and long-term memory
+## Multi-turn conversation handling
+## Memory retention and reset logic
+## Smarter agents and tasks
+
+## ============================================================================
+
+## Warning control
+import warnings
+warnings.filterwarnings('ignore')
+
+from crewai import Agent, Task, Crew
+
+import os
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+# Load environment variables
+load_dotenv()
+
+import warnings
+warnings.filterwarnings('ignore')
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+
+## PYTHON CODE FOR AGENTS
+## ============================================================================
+
+
+## INSTALLATION  of packages
+
+# this is also covered in requirements.txt for all the packages to be installed
+
+## pip install crewai langchain openai pinecone-client 
+
+pip install crewai langchain openai pinecone-client
+
+## Import the packages 
+
+import os
+import logging
+import warnings
+from dotenv import load_dotenv
+from crewai import Agent, Task, Crew
+from langchain_openai import ChatOpenAI
+
+from crewai import Agent, Task, Crew
+from langchain.memory import ConversationBufferMemory
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
+from langchain.tools import Tool
+
+
+
+load_dotenv()
+warnings.filterwarnings("ignore")
+
+script_path = os.path.abspath(__file__)
+script_dir = os.path.dirname(script_path)
+parent_directory = os.path.abspath(os.path.join(script_dir, os.pardir))
+logs_directory_path = os.path.join(parent_directory, "logs")
+os.makedirs(logs_directory_path, exist_ok=True)
+
+
+
+
+import pinecone
+
+## LLM Setup 
+
+llm = ChatOpenAI(
+model=“gpt-4o-mini”,
+temperature=0.2
+)
+
+## PINECONE SETUP
+
+pinecone.init(
+api_key=“YOUR_PINECONE_API_KEY”,
+environment=“us-east-1”
+)
+
+index_name = “support-kb”
+
+if index_name not in pinecone.list_indexes():
+pinecone.create_index(index_name, dimension=1536)
+
+
+## Add Embedding for PineCone 
+
+embeddings = OpenAIEmbeddings()
+
+vector_store = Pinecone.from_existing_index(
+index_name=index_name,
+embedding=embeddings
+)
+## ============================================================================
+## DOCUMENT INGESTION
+
+documents = [
+“Refund policy: Users can request refund within 7 days of duplicate charge.”,
+“Subscription billing issues require transaction verification.”,
+“Escalate technical issues unresolved within 24 hours.”,
+“Never share personal or sensitive data.”
+]
+
+vector_store.add_texts(documents)
+
+## ============================================================================
+
+## RETRIEVAL FUNCTION
+
+def retrieve_docs(query):
+docs = vector_store.similarity_search(query, k=3)
+return [doc.page_content for doc in docs]
+
+## ============================================================================
+
+## ============================================================================
+
+
+
+## Define the Tools Knowledge and escalation Tools 
+
+def knowledge_tool_func(query):
+docs = retrieve_docs(query)
+if len(docs) == 0:
+return “No relevant information found”
+return “\n”.join(docs)
+
+def escalation_tool_func(query):
+return “Escalation triggered for: “ + query
+
+knowledge_tool = Tool(
+name=“KnowledgeBaseSearch”,
+func=knowledge_tool_func,
+description=“Search KB using embeddings”
+)
+
+escalation_tool = Tool(
+name=“EscalationTool”,
+func=escalation_tool_func,
+description=“Escalate to human agent”
+)
+
+
+## Assign the Tools  
+tools = [knowledge_tool, escalation_tool]
+
+## ============================================================================
+
+
+## Define the Multi Step Prompting 
+
+
+
+
+planning_prompt = “””
+You are an intelligent support AI.
+
+Step 1: Understand the query
+Step 2: Check memory context
+Step 3: Retrieve relevant knowledge
+Step 4: Decide tool usage
+Step 5: Generate safe response
+Step 6: Decide escalation
+
+Query: {query}
+
+Memory Context:
+{memory}
+
+Available Tools:
+{tools}
+
+Output:
+Plan:
+Answer:
+Reasoning:
+Tool Used:
+Confidence:
+Escalation:
+“””
+
+## Define the Agents with Right Tools to be called
+
+intent_agent = Agent(
+role=“Intent Classifier”,
+goal=“Understand intent and conversation context”,
+llm=llm,
+verbose=True
+)
+
+memory_agent = Agent(
+role=“Memory Manager”,
+goal=“Maintain and retrieve conversation history”,
+llm=llm,
+verbose=True
+)
+
+## Execute by assigning the right Tool 
+
+
+retrieval_agent = Agent(
+role=“Retriever”,
+goal=“Fetch knowledge using embeddings”,
+tools=[knowledge_tool],
+verbose=True
+)
+
+reasoning_agent = Agent(
+role=“Planner and Reasoner”,
+goal=“Perform multi-step reasoning and planning”,
+llm=llm,
+tools=tools,
+verbose=True
+)
+
+## Execute by assigning the right Tool 
+
+escalation_agent = Agent(
+role=“Escalation Manager”,
+goal=“Escalate when required”,
+tools=[escalation_tool],
+llm=llm,
+verbose=True
+)
+
+audit_agent = Agent(
+role=“Audit Logger”,
+goal=“Log decisions safely”,
+verbose=True
+)
+
+## Define the Crew Tasks..
+
+intent_task = Task(
+description=“Analyze query and identify intent with context awareness”,
+agent=intent_agent
+)
+
+memory_task = Task(
+description=“Fetch relevant short-term and long-term memory context”,
+agent=memory_agent
+)
+
+retrieval_task = Task(
+description=“Retrieve relevant documents using KnowledgeBaseSearch tool”,
+agent=retrieval_agent
+)
+
+## Execute by assigning the Prompts to the Tasks 
+
+reasoning_task = Task(
+description=planning_prompt,
+agent=reasoning_agent
+)
+
+escalation_task = Task(
+description=“Check if escalation is needed using EscalationTool”,
+agent=escalation_agent
+)
+
+audit_task = Task(
+description=“Log reasoning steps and decisions without PII”,
+agent=audit_agent
+)
+
+## Crew Setup and launching the Crew 
+
+support_crew = Crew(
+agents=[
+intent_agent,
+memory_agent,
+retrieval_agent,
+reasoning_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+memory_task,
+retrieval_task,
+reasoning_task,
+escalation_task,
+audit_task
+],
+verbose=True
+)
+
+===========================================================================================================
+
+
+
+
+
+
+## ============================================================================
+
+##Define the Memory  add the memory functions 
+### Add the memory Setup 
+
+short_term_memory = ConversationBufferMemory(
+memory_key="chat_history",
+return_messages=True
+)
+
+long_term_memory = []
+
+
+def save_to_long_term_memory(query, response):
+    long_term_memory.append({
+    "query": query,
+    "response": response
+})
+
+
+## Define the long term context 
+
+def get_long_term_context():
+    history = " " 
+    for item in long_term_memory[-5:]:
+        history += "User: " + item["query"] + "\n"
+        history += "AI: " + item["response"] + "\n"
+    return history
+
+
+## Reset of the memory
+
+def reset_memory():
+   short_term_memory.clear()
+   long_term_memory.clear()
+
+##Define Memory Crew
+
+def run_experiment_memory(query: str, memory: str):
+    memory_crew = Crew(
+        agents=[
+            intent_agent,
+            safety_agent,
+            retrieval_agent,
+            resolution_agent,
+            escalation_agent,
+            audit_agent,
+            evaluation_agent,
+        ],
+        tasks=[
+            intent_task,
+            safety_task,
+            retrieval_task,
+            resolution_task,
+            escalation_task,
+            audit_task,
+            evaluation_task,
+        ],
+        verbose=True,
+    )
+return memory_crew.kickoff(inputs={"query": query,"memory": memory})
+
+def run_conversation(query):
+    memory_context = get_long_term_context()
+
+    result_memory_check = run_experiment_memory(query, memory_context)
+
+    short_term_memory.save_context(
+        {"input": query},
+        {"output": str(result_memory_check)}
+    )
+
+    save_to_long_term_memory(query, str(result_memory_check))
+
+    return result_memory_check
+
+
+====================================================================================
+
+def run_memory_conversation(query):
+    logging.info("START : Inside run_memory_conversation function with query: " + query)
+    
+    memory_context = get_long_term_context()
+    logging.info(f"Memory History: {memory_context}")
+    
+    logging.info("START Inside Function   : Call Experiment Memory Crew : ")    
+    result_memory_check = run_experiment_memory(query, memory_context)
+    logging.info("END Inside Function : Call Experiment Memory Crew : ")
+    logging.info(f"Memory CREW Result(Inside Function): {result_memory_check}")    
+
+    # short_term_memory.save_context(
+    #     {"input": query},
+    #     {"output": str(result_memory_check)}
+    # )
+
+    save_to_long_term_memory(query, str(result_memory_check))
+
+    return result_memory_check
+
+===========================================================================================================
+
+## Executing the : Multi Turn Conversation functions and Memory
+
+## Executing the : Multi Turn Conversation functions and Memory
+
+    logging.info("START : Run #7 Evaluation Agent with Memory Conversation History")
+
+    print("-" * 90)
+    print("START: Run #7 Evaluation Agent with Memory Conversation History")
+    
+    query_one = "I was charged twice"
+    
+    logging.info("With Query : Run #7 " + query_one )      
+    
+    response_memory_1 = run_memory_conversation(query_one)
+    print(query_one)
+    print("-" * 90)
+    print(response_memory_1)
+    print("-" * 90)
+    logging.info(f"Result: {response_memory_1}")
+    print("-" * 90)
+
+    query_two = "Can you check the refund status?"
+    logging.info("With Query : Run #7 " + query_two )  
+    
+    print("-" * 90)
+    response_memory_2 = run_memory_conversation(query_two)
+    print("-" * 90)
+    print(query_two)
+    print(response_memory_2)
+    print("-" * 90)
+    logging.info(f"Result: {response_memory_2}")
+    print("-" * 90)
+
+    print("-" * 90)
+
+    query_three = "Why did this happen?"
+    logging.info("With Query : Run #7 " + query_three )  
+    
+    print("-" * 90)
+    response_memory_3 = run_memory_conversation(query_three)
+    print("-" * 90)
+    print(query_three)
+    print(response_memory_3)
+    print("-" * 90)
+    logging.info(f"Result: {response_memory_3}")
+    print("-" * 90)
+    print("END: Run #7 Evaluation Agent with Memory Conversation History")
+    print("-" * 90)
+    logging.info("END : Run #7 Evaluation Agent with Memory Conversation History")
+
+
+
+####################################################################
+
+from langchain.memory.buffer import ConversationBufferMemory
+
+from langchain.memory import ConversationBufferMemory
+
+memory = ConversationBufferMemory()
+print(memory)
+
+
+####################################################################
+
+## Reset the Memory..
+
+reset_memory()
+
+## ================================================================
+
+If my langchain version is 1.2.17 and I am using this it is giving me error
+from langchain.memory.buffer import ConversationBufferMemory
+
+short_term_memory = ConversationBufferMemory(
+memory_key="chat_history",
+return_messages=True
+)
+
+from langchain.memory import ConversationBufferMemory
+
+short_term_memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True
+)
+
+
+
+pip uninstall langchain -y
+pip install langchain==1.2.17
+pip install mcp>=1.23.0
+pip install websockets>=15.0
+pip install langchain==1.2.17
+pip install mcp~=1.16.0
+pip install mcp~=1.16.0
+
+
+crewai 1.8.0 requires mcp~=1.16.0, but you have mcp 1.27.0 which is incompatible.
+crewai 1.8.0 requires openai~=1.83.0, but you have openai 2.33.0 which is incompatible.
+crewai 1.8.0 requires pyjwt~=2.9.0, but you have pyjwt 2.12.1 which is incompatible.
+
+
+
+## ================================================================
+

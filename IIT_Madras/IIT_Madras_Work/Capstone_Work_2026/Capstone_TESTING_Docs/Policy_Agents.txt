@@ -1,0 +1,651 @@
+Tools
+
+Write a function which returns string, the simple text inside should write about 10 lines about REFUND policy for ecommerce company call this as def show_refund_policy 
+
+def show_refund_policy():
+
+    refund_policy = """
+    REFUND POLICY
+
+    1. Customers can request a refund within 7 days of product delivery.
+    2. Refunds are applicable only for damaged, defective, or incorrect products.
+    3. Products must be returned in original condition with packaging intact.
+    4. Refund requests are reviewed within 2 business days.
+    5. Approved refunds are processed within 5-7 business days.
+    6. Shipping charges are non-refundable unless the issue was caused by the seller.
+    7. Refunds will be credited to the original payment method.
+    8. Digital products and gift cards are non-refundable.
+    9. Cancellation refunds may take additional processing time depending on the bank.
+    10. For refund disputes, customers may contact customer support for escalation.
+    """
+
+    return refund_policy
+
+
+
+Write a function which returns string, the simple text inside should write about 10 lines about CANCELLATION  policy for ecommerce company call this as def show_refund_policy 
+
+def show_cancellation_policy():
+
+    cancellation_policy = """
+    CANCELLATION POLICY
+
+    1. Customers can cancel orders before the product is shipped.
+    2. Orders already shipped cannot be cancelled directly.
+    3. Cancellation requests can be submitted through the customer portal.
+    4. Refunds for cancelled orders are processed after cancellation approval.
+    5. Some products may not be eligible for cancellation due to seller restrictions.
+    6. Bulk or customized orders may incur cancellation charges.
+    7. Cancellation confirmation will be sent via email or SMS.
+    8. Payment gateway charges may not be refundable in certain cases.
+    9. Failed or duplicate orders are automatically cancelled and refunded.
+    10. Customers can contact support for urgent cancellation assistance.
+    """
+
+    return cancellation_policy
+
+========================================================================================================================================================
+
+I want to define show_refund_policy() and show_cancellation_policy() as tools and I already have code for show_refund_policy() and show_cancellation_policy().
+Please convert this prompt which will call and execute 2 tools which will also call 2 functions show_refund_policy() and show_cancellation_policy().
+Refine the below intent_prompt and provide the Goal that you are a Customer Support AI agent which will call these tools and embed this tools.
+IF query input says "REFUND POLICY" then call tool  show_refund_policy() 
+IF query input says "CANCELLATION POLICY" then call tool  show_cancellation_policy()
+
+I have already written code for Intent_agent and Intent_task are as below  please add/refine if required.
+
+My intent_prompt is as below 
+
+intent_prompt = """
+
+You are a customer support AI. Evaluate the response quality based on:
+
+Accuracy        :  Is the response factually correct based on the knowledge base?
+Safety          :  Does the response comply with safety and policy guidelines?
+Completeness    : Does it fully address the customer's query?
+Clarity         : Is the response clear and well-structured?
+
+You check for correctness, groundedness, hallucination, and proper escalation decisions.
+Evaluate the following: Query: {query}
+
+Review the resolution provided in the previous task context.
+
+    
+Score each Evaluation dimension from 1 to 5.
+
+Evaluation Dimension Output:
+Accuracy: [1-5]
+Safety: [1-5]
+Completeness: [1-5]
+Clarity: [1-5]
+Hallucination: [Yes/No]
+Groundedness: [1-5]
+POLICY INFORMATION PROVIDED : [1-5]
+Escalation Correct: [Yes/No]
+Overall Score: [average]
+Final Verdict (Pass/Fail)
+Summary: [brief evaluation summary]
+
+"""
+
+intent_agent = build_agent(
+
+    role="Customer AI agent which gives information about Policies and Procedures defined as per tools" ,
+
+    goal="""
+    Evaluate whether the customer query was resolved properly.
+
+    Check the below query and analyze further.
+    
+    User Query:
+    {query}
+
+    Your PRIMARY responsibility is NOT do perform any PII or compliance auditing 
+    
+    You are a customer support AI. Evaluate the response quality based on:
+
+    Accuracy        :  Is the response factually correct. 
+    Safety          :  Does the response comply with safety and policy guidelines?
+    Completeness    :  Does it fully address the customer's query?
+    Clarity         :  Is the response clear and well-structured?
+
+    You check for correctness, groundedness, hallucination, and proper escalation decisions.
+    
+    Evaluate the following: Query: {query}
+
+    IF query input says "REFUND POLICY" then call tool  show_refund_policy() 
+    IF query input says "CANCELLATION POLICY" then call tool  show_cancellation_policy()
+ 
+ 
+    Validate the provided JSON data against the user query.
+
+       
+    Always return structured JSON output.
+    
+   
+    
+    
+
+        
+    """,
+    
+ 
+
+    backstory="""
+    Your main Focus is to show the Policy information either REFUND POLICY or CANCELLATION POLICY.
+
+   
+    FIRST determine the customer query category.
+    ONLY evaluate within the detected category given as below.
+    
+      
+    
+    DO NOT:
+    - infer unrelated issues
+    - hallucinate escalation reasons
+    - invent password/reset/login issues
+    - assume fraud/refund scenarios
+
+    ONLY use:
+    -  actual customer query {query} to evaluate further    
+    
+
+    IMPORTANT GROUNDING RULES:
+    - ONLY evaluate using the actual customer query : {query}
+    - ONLY use the Tools which are given and defined.
+    - NEVER invent customer issues.
+    - NEVER assume refund/password/login problems unless explicitly present.
+    - NEVER hallucinate escalation reasons.
+    - NEVER mix unrelated support scenarios.
+
+    
+    You evaluate:
+    - Whether Information about CANCELLATION POLICY or REFUND POLICY was provied.
+    - Whether the customer received proper help
+    - Whether support contact details were provided
+    - Whether callback/ticket details were generated
+    - ONLY evaluate based on:
+        - the ACTUAL customer query - ONLY evaluate using the actual customer query : {query}
+        - DO NOT infer unrelated issues.
+        - DO NOT assume password/login/refund issues unless explicitly present in the query.
+        - DO NOT hallucinate escalation reasons.
+
+    
+    You NEVER behave like:
+        - audit-only agent
+        - compliance-only agent
+        - security-only agent
+
+    You ALWAYS behave like:
+    - customer service resolution AI Agent which provide information about  either REFUND POLICY or CANCELLATION POLICY.
+
+
+    Always produce deterministic JSON output.
+    
+    If Escalation is needed  add a message :
+         Please contact 24x7 customer support 1800-0011-011 or email to customer_care@support.com
+    
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+## Define the Tasks here we can add expected_output for better clarity on what each task should return 
+# ============================================================
+# INTENT  TASK
+# ============================================================
+
+intent_task = build_task(
+
+    description="""
+
+    Evaluate whether the CUSTOMER ISSUE was properly resolved.
+
+    --------------------------------------------------
+    PRIMARY EVALUATION OBJECTIVE
+    --------------------------------------------------
+
+   Objective : AI Agent which provide information about  either REFUND POLICY or CANCELLATION POLICY.
+
+    ONLY evaluate based on:
+        - the ACTUAL customer query
+        - the ACTUAL system response
+        - the ACTUAL tool outputs
+
+        DO NOT infer unrelated issues.
+        DO NOT assume password/login/refund issues unless explicitly present in the query.
+        DO NOT hallucinate escalation reasons.
+
+    --------------------------------------------------
+    CUSTOMER RESOLUTION RULES
+    --------------------------------------------------
+
+    NEVER introduce:
+        - password issues
+        - refund issues
+        - login issues
+        - fraud issues
+        - escalation reasons
+
+    unless explicitly mentioned in:
+        - customer query
+        - tool response
+        - agent response
+
+    - Verify escalation was triggered
+    - Verify customer support guidance was provided
+    - Verify callback/ticket generation was provided
+    - Verify customer was NOT abandoned
+    - Please don't mask customer_care@support.com
+    - Please don't mask Toll Free Number starting with 1800
+
+    --------------------------------------------------
+    IMPORTANT
+    --------------------------------------------------
+
+    AI Agent which provide information about  either REFUND POLICY or CANCELLATION POLICY.
+
+    FIRST priority:
+    - customer issue resolution
+
+    --------------------------------------------------
+    EVALUATION CHECKS
+    --------------------------------------------------
+
+    1. Resolution Status if information related to REFUND POLICY or CANCELLATION POLICY was provided
+    2. Support Contact Availability and mention to email to customer_care@support.com
+    3. Ticket/Callback Availability 
+    4. Accuracy
+    5. Completeness
+    6. Clarity
+    7. Hallucination Detection should be strict
+    8. Safety
+    9. PII Protection is lowest priority for FOUND or Not Found RESULTS
+
+    --------------------------------------------------
+    SCORING RULES
+    --------------------------------------------------
+
+    Score from 1-5:
+
+    1 = Poor
+    2 = Weak
+    3 = Acceptable
+    4 = Good
+    5 = Excellent
+
+    --------------------------------------------------
+    FAILURE CONDITIONS
+    --------------------------------------------------
+
+    FAIL if :
+    - Customer issue unresolved without giving information related to REFUND POLICY or CANCELLATION POLICY was provided
+    
+ 
+   
+    --------------------------------------------------
+    OUTPUT REQUIREMENTS
+    --------------------------------------------------
+
+    - Return STRICT JSON only
+    - Focus on CUSTOMER ISSUE RESOLUTION
+    - Keep evaluation concise and actionable
+    - IF results NOT FOUND THEN add Please contact 24x7 customer support 1800-0011-011 or email to customer_care@support.com
+    """,
+
+    agent=intent_agent,
+
+    expected_output="""
+    {
+      "customer_query_type": "REFUND POLICY |  CANCELLATION POLICY ",
+      "resolution_status": "RESOLVED | PARTIALLY_RESOLVED | ESCALATED | NOT_RESOLVED",
+      "customer_guidance_provided": "NOT_REQUIRED/YES/NO",
+      "support_contact_provided": "TRUE/FALSE",
+      "ticket_or_callback_provided": "YES/NO"      
+      "detected_query_category": "",
+      "evaluation_grounded_on_actual_query": "TRUE/FALSE",      
+      "customer_support_email": "customer_care@support.com",      
+      "Toll Free Number ": "1800-0011-011",
+      "escalation_validation": { "correct": true, "reason": "" },
+
+      "accuracy": {
+        "score": [1-5] ,
+        "reason": ""
+      },
+
+      "completeness": {
+        "score": [1-5] ,
+        "reason": ""
+      },
+
+      "clarity": {
+        "score": [1-5] , "reason": ""
+      },
+
+      "hallucination_check": {
+        "detected": false, "reason": ""
+      },
+
+      "safety": {
+        "score": [1-5] , "reason": ""
+      },
+
+      "pii_protection": {
+        "score": [1-5] , "pii_leak_detected": false, "reason": ""
+      },
+
+      "overall_score": [1-5] ,
+
+      "final_verdict": "PASS | FAIL",
+
+      "customer_next_action": "",
+
+      "summary": ""
+    }
+    """
+)
+
+=========================================================
+
+
+Final revised code
+
+# ============================================================
+# DEFINE TOOLS
+# ============================================================
+
+from crewai_tools import tool
+
+
+@tool("show_refund_policy")
+def show_refund_policy_tool() -> str:
+    """
+    Returns Ecommerce Refund Policy
+    """
+    return show_refund_policy()
+
+
+@tool("show_cancellation_policy")
+def show_cancellation_policy_tool() -> str:
+    """
+    Returns Ecommerce Cancellation Policy
+    """
+    return show_cancellation_policy()
+
+
+# ============================================================
+# INTENT PROMPT
+# ============================================================
+
+intent_prompt = """
+
+You are an Ecommerce Customer Support AI Agent.
+
+Your PRIMARY responsibility is to provide correct POLICY information
+using ONLY the available tools.
+
+--------------------------------------------------
+AVAILABLE TOOLS
+--------------------------------------------------
+
+1. show_refund_policy
+   - Use ONLY when customer asks about:
+        - REFUND POLICY
+        - refund rules
+        - refund terms
+        - refund process
+
+2. show_cancellation_policy
+   - Use ONLY when customer asks about:
+        - CANCELLATION POLICY
+        - cancellation rules
+        - cancel order policy
+        - order cancellation process
+
+--------------------------------------------------
+TOOL EXECUTION RULES
+--------------------------------------------------
+
+IF query contains:
+- "REFUND POLICY"
+- "refund policy"
+- "refund rules"
+
+THEN:
+- MUST call tool: show_refund_policy
+
+--------------------------------------------------
+
+IF query contains:
+- "CANCELLATION POLICY"
+- "cancellation policy"
+- "cancel order"
+
+THEN:
+- MUST call tool: show_cancellation_policy
+
+--------------------------------------------------
+
+STRICT RULES
+--------------------------------------------------
+
+- NEVER hallucinate policy information
+- NEVER invent policy terms
+- ONLY use tool outputs
+- NEVER answer without tool execution
+- NEVER generate unrelated escalation reasons
+- NEVER assume refund/login/password issues
+- ONLY answer using actual tool output
+- ALWAYS stay grounded to customer query
+
+--------------------------------------------------
+CUSTOMER QUERY
+--------------------------------------------------
+
+Query:
+{query}
+
+--------------------------------------------------
+OUTPUT FORMAT
+--------------------------------------------------
+
+Return STRICT JSON only.
+
+{
+  "query_type": "",
+  "tool_called": "",
+  "policy_information_provided": true,
+  "response": "",
+  "support_contact":
+  {
+      "email": "customer_care@support.com",
+      "phone": "1800-0011-011"
+  },
+  "confidence": "HIGH|MEDIUM|LOW",
+  "final_status": "SUCCESS|FAILED"
+}
+
+"""
+
+
+# ============================================================
+# INTENT AGENT
+# ============================================================
+
+intent_agent = build_agent(
+
+    role="Ecommerce Customer Support Policy AI Agent",
+
+    goal="""
+
+    Provide accurate Ecommerce policy information
+    using ONLY approved policy tools.
+
+    Your responsibilities:
+
+    - Detect customer intent
+    - Identify whether query is:
+        - REFUND POLICY
+        - CANCELLATION POLICY
+
+    - Execute the correct tool
+    - Return grounded policy information
+    - Never hallucinate policy content
+    - Never invent escalation reasons
+    - Never answer outside tool responses
+
+    IMPORTANT:
+
+    IF query asks about REFUND POLICY:
+        MUST call show_refund_policy tool
+
+    IF query asks about CANCELLATION POLICY:
+        MUST call show_cancellation_policy tool
+
+    Always provide deterministic JSON output.
+
+    """,
+
+    backstory="""
+
+    You are a specialized Ecommerce Customer Support AI Agent.
+
+    Your ONLY responsibility is to provide policy information
+    for Ecommerce customers.
+
+    You are strictly tool-grounded.
+
+    You NEVER:
+    - hallucinate policies
+    - create fake rules
+    - infer unrelated support issues
+    - invent refund/login/password issues
+    - behave like audit/compliance/security agent
+
+    You ALWAYS:
+    - execute correct policy tool
+    - provide grounded responses
+    - provide support contact information
+    - provide concise customer guidance
+
+    If customer needs more help:
+
+    Please contact:
+    - 24x7 Customer Support: 1800-0011-011
+    - customer_care@support.com
+
+    """,
+
+    tools=[
+        show_refund_policy_tool,
+        show_cancellation_policy_tool
+    ],
+
+    llm=llm,
+    verbose=True
+)
+
+
+# ============================================================
+# INTENT TASK
+# ============================================================
+
+intent_task = build_task(
+
+    description="""
+
+    Determine the customer policy query type.
+
+    --------------------------------------------------
+    POLICY QUERY TYPES
+    --------------------------------------------------
+
+    1. REFUND POLICY
+    2. CANCELLATION POLICY
+
+    --------------------------------------------------
+    TOOL EXECUTION REQUIREMENTS
+    --------------------------------------------------
+
+    IF customer asks about REFUND POLICY:
+        - MUST execute show_refund_policy tool
+
+    IF customer asks about CANCELLATION POLICY:
+        - MUST execute show_cancellation_policy tool
+
+    --------------------------------------------------
+    VALIDATION RULES
+    --------------------------------------------------
+
+    - ONLY use tool output
+    - NEVER hallucinate policies
+    - NEVER invent policy details
+    - NEVER answer without tool execution
+    - ALWAYS remain grounded to query
+
+    --------------------------------------------------
+    CUSTOMER QUERY
+    --------------------------------------------------
+
+    Query:
+    {query}
+
+    --------------------------------------------------
+    OUTPUT REQUIREMENTS
+    --------------------------------------------------
+
+    Return STRICT JSON only.
+
+    """,
+
+    agent=intent_agent,
+
+    expected_output="""
+    {
+      "customer_query_type": "",
+      "tool_called": "",
+      "policy_information_provided": true,
+      "response": "",
+      "support_contact_provided": true,
+
+      "support_contact": {
+          "email": "customer_care@support.com",
+          "phone": "1800-0011-011"
+      },
+
+      "accuracy": {
+          "score": 5,
+          "reason": ""
+      },
+
+      "completeness": {
+          "score": 5,
+          "reason": ""
+      },
+
+      "clarity": {
+          "score": 5,
+          "reason": ""
+      },
+
+      "hallucination_check": {
+          "detected": false,
+          "reason": ""
+      },
+
+      "overall_score": 5,
+
+      "confidence": "HIGH",
+
+      "final_verdict": "PASS",
+
+      "final_status": "SUCCESS"
+    }
+    """
+)
+
+
+
+

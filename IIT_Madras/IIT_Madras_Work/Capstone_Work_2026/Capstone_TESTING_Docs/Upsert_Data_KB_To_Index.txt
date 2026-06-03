@@ -1,0 +1,22 @@
+Refund policy: Users can request refund within 7 days of duplicate charge.
+Subscription billing issues can be resolved by verifying transaction ID.
+Technical issues should be escalated if unresolved within 24 hours.
+Personal data must never be shared with unauthorized users.
+Refund policy: Users can request refund within 14 days of duplicate charge.
+Subscription billing issues can be resolved by verifying transaction ID.
+Technical issues should be escalated if unresolved within 48 hours.
+Personal data must never be shared with unauthorized users.
+Refund policy: Users can request refund within 30 days of duplicate charge.
+Subscription billing issues can be resolved by verifying transaction ID.
+Technical issues should be escalated if unresolved within 4 hours.
+Personal data must never be shared with unauthorized users.
+
+
+
+documents = [
+    {"id": "id5", "text": "Refund policy: Users can request refund within 14 days of duplicate charge."},
+    {"id": "id6", "text": "Subscription billing issues can be resolved by verifying transaction ID."},
+    {"id": "id7", "text": "Technical issues should be escalated if unresolved within 48 hours."},
+    {"id": "id8", "text": "Personal data must never be shared with unauthorized users."}
+]
+

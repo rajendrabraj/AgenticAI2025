@@ -1,0 +1,65 @@
+def billing_details(order_id):
+    logging.info("Routing to check Billing Status Query")
+    result = f"Fetching Billing Details for {order_id}"
+
+    query = "I have billing related issues please help escalate further for Order_Id  = " + order_id
+    
+    start_time = str(datetime.now()) 
+    lstr_plain_string = start_time + " :  AI CHAT BOT ORDER QUERY : " + query   
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    
+    response_json = search_knowledge_base_records(input_query=query)
+    print(response_json)
+    clean_json = json.loads(response_json)
+    clean_output = json.dumps(clean_json)        
+    print("\n")         
+    print(f"Response String CLEAN  :  {clean_output} " )
+    print("\n")   
+    logging.info("AI CHATBOT  :  Response : %s", json.dumps(clean_output, indent=4))
+     # Convert JSON object to JSON string
+    response_string = json.dumps(response_json, indent=4)            
+    print(response_string)    
+    
+    
+     ## Knowledge Base Search to copy the Records are logged to the log file and CHAT BOT File.
+    #clean_output = json.dumps(response_json, separators=(",", ":"))
+    final_clean_output = json.dumps(clean_json)   
+    print("\n")         
+    print(f"Response String CLEAN  # 2 :  {final_clean_output} " )
+    print("\n")     
+    # Log JSON without \n characters (use safe f-string to avoid percent-formatting issues)
+    logging.info(f"AI CHATBOT Logging : Search KnowledgeBase Response : {final_clean_output}")    
+    logging.info(f"AI CHATBOT Logging :  KnowledgeBase Response : : {final_clean_output}")      
+      ## Copy the results to      
+    lstr_plain_string = "AI CHATBOT File Logging :  RESULTS of KnowledgeBase   :  " + query
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "AI CHATBOT AI CHATBOT Logging : Knowledge Base Results"
+    append_to_chatbot_file_string(final_clean_output)    
+              
+    
+    ##Check it there is a need for Escalation for the above query
+    print("AI CHATBOT :Calling the Escalation Agent")
+       ##=======================================
+    ##Log this to file which agent is called.
+    lstr_plain_string = "AI CHATBOT File Logging  :  Calling the Esalation Agent   :  " + query
+    append_to_chatbot_file_string(lstr_plain_string)
+    ##=======================================
+    logging.info(f"AI CHATBOT : Calling Escalation Agent Now for query {query}")    
+    final_escalation_response = run_escalate_agent(query,response_string)
+    print(final_escalation_response)
+    logging.info(f"AI CHATBOT : Escalation Agent Results : {final_escalation_response}")           
+
+    ## Copy the results to Output File
+    append_to_chatbot_file_string(final_escalation_response) 
+    
+    
+    end_time =  str(datetime.now())    
+    lstr_plain_string = end_time + " :  AI CHAT BOT ORDER QUERY COMPLETED : " + query   
+    append_to_chatbot_file_string(lstr_plain_string) 
+    
+    
+
+    return "SUCCESS"

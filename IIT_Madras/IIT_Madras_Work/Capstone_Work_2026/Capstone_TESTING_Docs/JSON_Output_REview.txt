@@ -1,0 +1,61 @@
+My response is this format of JSON
+
+   response = {
+                    "Order_Id": metadata.get("Order_Id"),                    
+                    "product_name": metadata.get("product_name", "")[:20],
+                    "Customer_Name": metadata.get("user_name"),
+                    "Product_ID": metadata.get("product_id"),
+                    "Order_Status": metadata.get("Order_Status"),   
+                    "Refund_Status": metadata.get("Refund_Status"),                 
+                    "Shipment_Status": metadata.get("Shippment_Status"),
+                    "Shipment_Tracking_Number": metadata.get("Shippment_track_number"),
+                }
+
+clean_json = json.loads(response_json)
+clean_output = json.dumps(clean_json) 
+logging.info("Evaluation : Search KnowledgeBase Response : %s", json.dumps(clean_output, indent=4))
+
+Please review  the above code so that JSON string is written to log and and not as "\n" separated
+
+
+#clean_output = json.dumps(response_json, separators=(",", ":"))
+        final_clean_output = json.dumps(clean_json)   
+        print("\n")         
+        print(f"Response String CLEAN  # 2 :  {final_clean_output} " )
+        print("\n") 
+        
+        # Log JSON without \n characters (use safe f-string to avoid percent-formatting issues)
+        logging.info(f"Evaluation : Search KnowledgeBase Response : {final_clean_output}")
+
+=====
+
+  lstr_plain_string = "AI CHATBOT  :  RESULTS of KnowledgeBase   :  " + query
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "AI CHATBOT : Knowledge Base Results"
+    append_to_chatbot_file_string(final_clean_output)
+
+
+================
+Copy to run_chat_bot file
+
+# Log JSON without \n characters (use safe f-string to avoid percent-formatting issues)
+    logging.info(f"AI CHATBOT Logging : Search KnowledgeBase Response : {final_clean_output}")    
+    logging.info(f"AI CHATBOT Logging :  Response : : {final_clean_output}")    
+       
+     # Convert JSON object to JSON string
+    response_string = json.dumps(response_json, indent=4)            
+    print(response_string)   
+            
+     ## Copy the results to      
+    lstr_plain_string = "AI CHATBOT File Logging :  RESULTS of KnowledgeBase   :  " + query
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "AI CHATBOT AI CHATBOT Logging : Knowledge Base Results"
+    append_to_chatbot_file_string(final_clean_output)
+        
+    append_to_chatbot_file(response_string)     
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)        
+    
+

@@ -1,0 +1,23 @@
+Customer Support on Twitter
+https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter
+
+Brazilian E-commerce (Olist Dataset)
+https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+
+US Consumer Finance Complaints (Banking / Financial Complaints)
+https://www.kaggle.com/datasets/cfpb/us-consumer-finance-complaints
+
+FAQ Dataset for Chatbots
+https://www.kaggle.com/datasets/uciml/faq-dataset
+
+Customer Support Dataset (Q&A style)
+https://www.kaggle.com/datasets/abhi8923shriv/customer-support-dataset
+
+Customer Support Chat Data (Multi-turn conversations)
+https://www.kaggle.com/datasets/soorajchandran/customer-support-chat-data
+
+Banking Customer Intent Dataset
+https://www.kaggle.com/datasets/kartik2112/banking-dataset
+
+Women’s E-commerce Reviews (Sentiment dataset)
+https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews

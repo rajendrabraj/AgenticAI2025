@@ -1,0 +1,463 @@
+## Rajendra Bichu : Date : 29.04.2026 , Version 1.0 
+
+## Python Code for the Program and Assignment as below 
+## Customer Support — AI Support Resolution Agent  often receive diverse queries—from login issues and billing errors to technical problems. Manually analyzing each message, searching a ## knowledge base, generating a helpful response, and deciding whether to escalate takes time and is inconsistent across agents.
+
+
+##Goals and Objectives are as below  
+
+#Must refuse unsafe or policy-violating requests.
+#Must not fabricate policies.
+#Must escalate sensitive or unresolved cases.
+#Must not store personal data in logs.
+
+## I have used CrewAI and OpenAI to implement this assignment and Agent.
+
+## INSTALLATION  of packages
+
+# this is also covered in requirements.txt for all the packages to be installed
+
+## pip install crewai langchain openai pinecone-client 
+
+
+
+from crewai import Agent, Task, Crew
+
+import os
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+# Load environment variables
+load_dotenv()
+
+import logging
+import os
+
+## Warning control
+import warnings
+warnings.filterwarnings('ignore')
+
+
+import warnings
+warnings.filterwarnings('ignore')
+
+## LLM Integration
+
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+script_path = os.path.abspath(__file__)
+# Get the directory name from the script path
+script_dir = os.path.dirname(script_path)
+# Get the parent directory using os.pardir ('..')
+parent_directory = os.path.abspath(os.path.join(script_dir, os.pardir))
+logs_directory_path = os.path.join(parent_directory, "logs")
+print(f"Logs directory path: {logs_directory_path}")
+
+#Output Logging here.
+
+
+logging.basicConfig(
+    filename=os.path.join(logs_directory_path, "Customer_Support_LOG.log"),
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    level=logging.INFO
+)
+
+## PYTHON CODE FOR AGENTS
+## ============================================================================
+
+from crewai import Agent
+
+intent_agent = Agent(
+role=“Intent Classifier”,
+goal=“Identify customer intent and assign confidence score”,
+backstory=“Expert in NLP classification for customer support”,
+verbose=True
+)
+
+safety_agent = Agent(
+role=“Safety Guard”,
+goal=“Ensure compliance and block unsafe or policy violating queries”,
+backstory=“Compliance expert ensuring safe AI behavior”,
+verbose=True
+)
+
+retrieval_agent = Agent(
+role=“Knowledge Retriever”,
+goal=“Fetch accurate answers from internal knowledge base”,
+backstory=“Expert in semantic search and vector databases”,
+verbose=True
+)
+
+resolution_agent = Agent(
+role=“Resolution Generator”,
+goal=“Generate final response with explanation and confidence”,
+backstory=“Customer support specialist trained on SOPs”,
+verbose=True
+)
+
+escalation_agent = Agent(
+role=“Escalation Manager”,
+goal=“Escalate unresolved or sensitive queries to human agents”,
+backstory=“Customer experience manager”,
+verbose=True
+)
+
+audit_agent = Agent(
+role=“Audit Logger”,
+goal=“Log decisions without storing personal data”,
+backstory=“Compliance logging specialist”,
+verbose=True
+)
+
+## PYTHON CODE FOR TASKS
+## ============================================================================
+
+from crewai import Task
+
+intent_task = Task(
+description=“Classify user intent and assign confidence score”,
+agent=intent_agent
+)
+
+safety_task = Task(
+description=“Check for unsafe content and redact personal data”,
+agent=safety_agent
+)
+
+retrieval_task = Task(
+description=“Retrieve relevant documents from knowledge base”,
+agent=retrieval_agent
+)
+
+resolution_task = Task(
+description=“Generate final response using retrieved knowledge”,
+agent=resolution_agent
+)
+
+escalation_task = Task(
+description=“Determine if escalation to human is required”,
+agent=escalation_agent
+)
+
+audit_task = Task(
+description=“Log decision path safely without storing PII”,
+agent=audit_agent
+)
+
+## PYTHON CODE for executing the crew
+## ============================================================================
+
+
+from crewai import Crew
+
+support_crew = Crew(
+agents=[
+intent_agent,
+safety_agent,
+retrieval_agent,
+resolution_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+safety_task,
+retrieval_task,
+resolution_task,
+escalation_task,
+audit_task
+],
+verbose=True
+)
+
+logging.info("Crew Agent KickOFF First Time (Run #1) ")
+
+result = support_crew.kickoff(
+inputs={
+“query”: “I was charged twice for my subscription”
+}
+)
+
+
+print("\n--- Crew AI Agent  First SYSTEM RESPONSE Run #1 ---\n")
+logging.info("Crew Agent Executed Results as below \n : ")
+print(result)
+logging.info(f"Crew Agent Executed Logging Results : {result}")
+print("-" * 90)
+
+
+
+
+
+##================================================================================
+
+### LLM INTEGRATION OVERVIEW
+
+
+## PYTHON CODE FOR LLM SETUP
+
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(
+model=“gpt-4o-mini”,
+temperature=0.2
+)
+
+## Configure AGENTS WITH LLM
+
+from crewai import Agent
+
+print("\n--- Crew AI Agent  LLM Integrated to Agents and TASKS (START)  ---\n")
+logging.info("Crew AI Agent  LLM Integrated to Agents and TASKS (START) \n : ")
+
+intent_agent = Agent(
+role=“Intent Classifier”,
+goal=“Identify customer intent and assign confidence score”,
+backstory=“Expert in NLP classification for customer support”,
+verbose=True,
+llm=llm,
+
+)
+
+safety_agent = Agent(
+role=“Safety Guard”,
+goal=“Ensure compliance and block unsafe or policy violating queries”,
+backstory=“Compliance expert ensuring safe AI behavior”,
+llm=llm,
+verbose=True
+)
+
+retrieval_agent = Agent(
+role=“Knowledge Retriever”,
+goal=“Fetch accurate answers from internal knowledge base”,
+backstory=“Expert in semantic search and vector databases”,
+llm=llm,
+verbose=True
+)
+
+resolution_agent = Agent(
+role=“Resolution Generator”,
+goal=“Generate final response with explanation and confidence”,
+backstory=“Customer support specialist trained on SOPs”,
+llm=llm,
+verbose=True
+)
+
+escalation_agent = Agent(
+role=“Escalation Manager”,
+goal=“Escalate unresolved or sensitive queries to human agents”,
+backstory=“Customer experience manager”,
+llm=llm,
+verbose=True
+)
+
+audit_agent = Agent(
+role=“Audit Logger”,
+goal=“Log decisions without storing personal data”,
+backstory=“Compliance logging specialist”,
+llm=llm,
+verbose=True
+)
+
+
+print("\n--- Crew AI Agent  LLM Integrated to Agents and TASKS (END)  ---\n")
+logging.info("Crew AI Agent  LLM Integrated to Agents and TASKS (END) \n : ")
+
+
+## End for Agents ########
+
+
+## PROMPT STRATEGY DESIGN enable the agents with Prompts and proper Prompting.   We define  prompt strategies for the Resolution Agent.
+
+## PROMPT STRATEGY 1: BASIC PROMPT ,  Simple instruction without constraints.
+
+
+print("\n--- Crew AI Agent  PROMPTS Integrated to Agents and TASKS (START)  ---\n")
+logging.info("Crew AI Agent  PROMPTS Integrated  to Agents and TASKS (START) \n : ")
+
+
+
+basic_prompt = “””
+Answer the customer query clearly.
+
+Query: {query}
+“””
+
+## PROMPT STRATEGY 2: STRUCTURED PROMPT ,  Adds structure and reasoning guidance.
+
+structured_prompt = “””
+You are a customer support assistant.
+
+Steps:
+
+Understand the issue
+Use only provided knowledge
+Give clear resolution
+Query: {query}
+
+Provide:
+
+Answer
+Reason
+Confidence (low, medium, high)
+“””
+##  PROMPT STRATEGY 3: SAFETY-GROUNDED PROMPT ,  Strict enterprise-grade prompt.
+
+safe_prompt = “””
+You are a regulated customer support AI.
+
+Rules:
+
+Do not hallucinate policies
+Use only retrieved knowledge
+If unsure, say “I am not certain”
+If sensitive, escalate
+Do not include personal data
+Query: {query}
+
+Output format:
+Answer:
+Reasoning:
+Confidence:
+Escalation Required: Yes/No
+“””
+
+##  TASK MODIFICATION TO SUPPORT PROMPTS
+
+from crewai import Task
+
+resolution_task_basic = Task(
+description=basic_prompt,
+agent=resolution_agent
+)
+
+resolution_task_structured = Task(
+description=structured_prompt,
+agent=resolution_agent
+)
+
+resolution_task_safe = Task(
+description=safe_prompt,
+agent=resolution_agent
+)
+
+
+print("\n--- Crew AI Agent  PROMPTS Integrated to Agents and TASKS (END)  ---\n")
+logging.info("Crew AI Agent  PROMPTS Integrated  to Agents and TASKS (END ) \n : ")
+
+
+##  Execute the crew to check and run experiments across the Prompts to validate output 
+##   =====================================================================================
+
+
+from crewai import Crew
+
+def run_experiment(prompt_task, query):
+crew = Crew(
+agents=[
+intent_agent,
+safety_agent,
+retrieval_agent,
+resolution_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+safety_task,
+retrieval_task,
+prompt_task,
+escalation_task,
+audit_task
+],
+verbose=False
+)
+return crew.kickoff(inputs={“query”: query})
+
+
+
+
+
+
+
+
+##=====================================================================================
+
+
+##  TEST INPUT using the queries 
+
+query = “I was charged twice for my subscription”
+
+##   Execute and run for all the variants of multiple Prompts. 
+
+print("\n---Execute Crew AI Agent  PROMPTS Integrated to Agents and TASKS (START)  ---\n")
+logging.info("Execute Crew AI Agent  PROMPTS Integrated  to Agents and TASKS (START) \n : ")
+
+
+output_basic = run_experiment(resolution_task_basic, query)
+output_structured = run_experiment(resolution_task_structured, query)
+output_safe = run_experiment(resolution_task_safe, query)
+
+
+logging.info(f"Query Executed as input for Prompts : {query}")
+print("\n--- Crew AI Agent Executed with LLM and Multiple Prompts ---\n")
+print("-" * 90)
+print("-" * 90)
+print(“BASIC OUTPUT:”, output_basic)
+logging.info(f"BASIC OUTPUT Prompt Result : {output_basic}")
+print("-" * 90)
+print(“STRUCTURED OUTPUT:”, output_structured)
+logging.info(f"STRUCTURED OUTPUT Prompt Result : {output_structured}")
+print("-" * 90)
+print(“SAFE OUTPUT:”, output_safe)
+logging.info(f"SAFE OUTPUT Prompt Result : {output_safe}")
+print("-" * 90)
+
+print("\n---Execute Crew AI Agent  PROMPTS Integrated to Agents and TASKS (END)  ---\n")
+logging.info("Execute Crew AI Agent  PROMPTS Integrated  to Agents and TASKS (END) \n : ")
+
+
+
+##=====================================================================================
+
+
+## Integrate and test the workflow again the main Workflow 
+
+##    Replace/modify resolution_task with safe prompt version
+
+resolution_task = Task(
+description=safe_prompt,
+agent=resolution_agent
+)
+
+## Execute and Trigger the CrewAI workflow again. 
+
+support_crew = Crew(
+agents=[
+intent_agent,
+safety_agent,
+retrieval_agent,
+resolution_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+safety_task,
+retrieval_task,
+resolution_task,
+escalation_task,
+audit_task
+],
+verbose=True
+)
+
+result = support_crew.kickoff( inputs={“query”: “I was charged twice”} )
+
+print ("Executing the CrewAI Agent With Modifcation Run #3 ") 
+logging.info("Executing the CrewAI Agent With Modifcation Run #3 \n : ")
+print("-" * 90)
+print("\n--- Crew AI Agent  SYSTEM RESPONSE ---\n")
+print(result)
+print("-" * 90)
+
+

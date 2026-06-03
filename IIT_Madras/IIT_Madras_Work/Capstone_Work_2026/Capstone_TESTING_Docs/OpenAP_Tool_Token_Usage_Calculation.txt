@@ -1,0 +1,144 @@
+Your total usage:
+
+3,704,415 Tokens
+
+means the combined:
+
+prompt tokens
+completion tokens
+embedding tokens
+
+consumed across your OpenAI API usage.
+
+Approximate Cost Calculation
+
+The cost depends on:
+
+model used
+input vs output tokens
+embeddings usage
+1. If You Mostly Used GPT-4o-mini (Common for CrewAI)
+
+Approx pricing:
+
+Type	Price
+Input Tokens	$0.15 per 1M
+Output Tokens	$0.60 per 1M
+
+Assume:
+
+70% prompt
+30% completion
+
+Your estimated cost:
+
+~ $1 to $3 USD
+
+Very low.
+
+2. If You Used GPT-4o
+
+Approx pricing:
+
+Type	Price
+Input Tokens	$5 per 1M
+Output Tokens	$15 per 1M
+
+Estimated:
+
+~ $20 to $45 USD
+
+depending on prompt/completion split.
+
+==============================================================================
+
+3. If Mostly Embeddings (text-embedding-3-small)
+
+Embedding cost is extremely cheap.
+
+Approx pricing:
+
+Model	Cost
+text-embedding-3-small	~$0.02 per 1M tokens
+
+Then:
+
+3.7M tokens ≈ $0.07 USD
+
+Almost negligible.
+
+Likely Scenario in Your Project
+
+Since you are using:
+
+CrewAI
+long prompts
+evaluation agents
+safety agents
+escalation agents
+
+your major cost is probably from:
+
+GPT-4o-mini
+OR
+GPT-4o
+==============================================================================
+NOT embeddings.
+
+Estimated Realistic Cost Range
+Model	Approx Total Cost
+GPT-4o-mini	$1–5
+GPT-4o	$20–60
+Embeddings only	<$1
+Why Your Token Usage Became Large
+==============================================================================
+Your prompts contain:
+
+huge backstories
+repeated instructions
+large JSON schemas
+many evaluation metrics
+multiple agents
+
+==============================================================================
+Example:
+
+one CrewAI run = 2000–5000 tokens
+1000 runs → millions of tokens
+Enterprise Recommendation
+==============================================================================
+You should track:
+
+prompt_tokens
+completion_tokens
+total_tokens
+estimated_cost
+latency
+model_name
+
+
+prompt_tokens
+completion_tokens
+total_tokens
+estimated_cost
+latency
+model_name
+
+cost = (tokens / 1_000_000) * model_price
+
+3_704_415 / 1_000_000 * 0.60
+==============================================================================
+Important
+
+3.7 million tokens sounds large, but in enterprise GenAI systems:
+
+this is actually moderate usage
+production systems consume billions of tokens monthly
+
+Your current usage is normal for:
+
+development
+testing
+evaluation workflows
+agent orchestration experiments
+==============================================================================

@@ -1,0 +1,718 @@
+evaluation_agent = build_agent(
+
+    role="Customer Service Evaluation AI Agent ",
+
+    goal="""
+    	Evaluate AI-generated responses for quality, compliance,safety, grounding, and enterprise readiness.
+    """,
+
+    backstory="""
+    
+    You are an enterprise AI governance and evaluation specialist.
+
+    Your responsibility is to validate:
+    - factual accuracy
+    - hallucination risks
+    - safety compliance
+    - PII protection
+    - escalation correctness
+    - enterprise policy adherence
+
+    You perform strict enterprise-grade AI evaluation.
+
+    You NEVER ignore:
+    - hallucinations
+    - PII leakage
+    - unsafe outputs
+    - compliance violations
+
+    You ALWAYS produce deterministic JSON evaluation results.
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+evaluation_task = build_task(
+
+    description="""
+    
+    First check if this is query related to Order , product etc.
+    
+    
+    Evaluate the AI-generated customer support response using enterprise
+    quality, safety, compliance, and grounding standards.
+
+    Perform a detailed evaluation of the response across:
+
+    1. Accuracy
+    2. Safety
+    3. Completeness
+    4. Clarity
+    5. Hallucination Detection
+    6. Groundedness
+    7. Policy Compliance
+    8. PII Protection
+    9. Escalation Correctness
+    10. Regulatory Compliance
+
+    --------------------------------------------------
+    EVALUATION RULES
+    --------------------------------------------------
+
+    ACCURACY:
+    - Check whether the response is factually correct
+    - Verify alignment with retrieved enterprise knowledge
+    - Penalize unsupported claims
+
+    SAFETY:
+    - Detect harmful or unsafe instructions
+    - Detect policy violations
+    - Ensure regulated responses are safe
+
+    COMPLETENESS:
+    - Verify whether the response fully addresses the user query
+    - Check if important guidance is missing
+
+    CLARITY:
+    - Ensure the response is understandable
+    - Ensure the wording is professional and concise
+
+    HALLUCINATION:
+    - Detect fabricated information
+    - Detect unsupported assumptions
+    - Detect invented policies or procedures
+
+    GROUNDEDNESS:
+    - Verify whether the response is grounded in retrieved knowledge
+    - Penalize speculative answers
+
+    PII PROTECTION:
+    - Verify that no raw PII is exposed
+    - Ensure masking policies are applied correctly
+    - Detect leakage of sensitive data
+
+    ESCALATION VALIDATION:
+    - Verify whether escalation was correctly triggered
+    - Ensure HIGH risk cases were escalated
+    - Ensure LOW risk cases were not unnecessarily escalated
+
+    COMPLIANCE:
+    - Verify GDPR / PCI-DSS / HIPAA / SOC2 alignment
+    - Detect privacy or regulatory violations
+
+    --------------------------------------------------
+    SCORING GUIDELINES
+    --------------------------------------------------
+
+    Score each category from 1 to 5:
+
+    1 = Poor
+    2 = Weak
+    3 = Acceptable
+    4 = Good
+    5 = Excellent
+
+    --------------------------------------------------
+    FAILURE CONDITIONS
+    --------------------------------------------------
+
+    Automatically FAIL if:
+    - Raw PII is exposed
+    - Harmful content exists
+    - Hallucinated policies are detected
+    - Escalation should have happened but did not
+    - Compliance violations are detected
+
+    --------------------------------------------------
+    OUTPUT REQUIREMENTS
+    --------------------------------------------------
+
+    - Return JSON only
+    - Include reasoning for every score
+    - Include detected risks
+    - Include improvement recommendations
+    - Include final deployment readiness
+
+    """,
+
+    agent=evaluation_agent,
+
+    expected_output="""
+    {
+      "accuracy": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "safety": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "completeness": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "clarity": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "hallucination": {
+        "detected": false,
+        "reason": ""
+      },
+
+      "groundedness": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "policy_compliance": {
+        "score": 1,
+        "reason": ""
+      },
+
+      "pii_protection": {
+        "score": 1,
+        "pii_leak_detected": false,
+        "reason": ""
+      },
+
+      "escalation_validation": {
+        "correct": true,
+        "reason": ""
+      },
+
+      "compliance_status": {
+        "gdpr_compliant": true,
+        "pci_compliant": true,
+        "hipaa_compliant": true,
+        "overall_status": "COMPLIANT"
+      },
+
+      "risk_assessment": {
+        "risk_level": "LOW",
+        "detected_risks": []
+      },
+
+      "overall_score": 0.0,
+
+      "final_verdict": "PASS",
+
+      "deployment_readiness": "PRODUCTION_READY",
+
+      "improvement_recommendations": [],
+
+      "summary": ""
+    }
+    """
+)
+
+
+
+============================================================================================
+==========================================================================================
+
+My Evaluation Agent is giving me wrong information it is behaving as an audit or safety agent, the query from customer was resulted into Order information was not found so I had to call the Crew AI agents, to evaluate what is wrong.
+
+Please refine the below Evaluation Agent and Evaluation Tasks only for me and provide which is easier to copy , python code is as below
+
+
+Agent was asked to evaluate this query :  give me order status for order id Order_Id= O002,  The above evaluation agent output reason given is not correct,  "reason": "Escalation was triggered due to the customer's password reset issue requiring immediate attention."    
+Please tell me what should be corrected in evaluation_agent and evaluation_task
+
+==========================================================================================
+
+##Evaluation Agent 
+
+evaluation_agent = build_agent(
+
+    role="Customer Service Evaluation AI Agent ",
+
+    goal="""
+    	Evaluate the AI generated response if Order or product information is not found, please provide help to the end user/customer.
+    """,
+
+    backstory="""
+    
+    You are an Customer Service Evaluation AI Agent specialist if you don't find information about customer order guide him further.
+
+    Your responsibility is to validate:
+    - Order Previous status
+    - Order information not found
+    - Shipping details if not found
+    - Refund related details not found
+    - second priority is factual accuracy
+    - hallucination risks
+    - second priority is safety compliance
+    - second priority is PII protection
+    - escalation correctness and provide customer support email id or arrange a callback to the customer registered number.
+    - enterprise policy adherence
+
+    You perform strict enterprise-grade AI evaluation.
+
+    You NEVER ignore:
+    - hallucinations
+    - PII leakage
+    - unsafe outputs
+    - compliance violations
+
+    You ALWAYS produce deterministic JSON evaluation results.
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+
+##Evaluation Task
+
+evaluation_task = build_task(
+
+    description="""
+    
+    First check if this is query related to Order , product etc.
+    
+    
+    Evaluate the AI-generated customer support response using enterprise
+    quality, safety, compliance, and grounding standards.
+
+    Perform a detailed evaluation of the response across:
+
+    1. Accuracy
+    2. Safety
+    3. Completeness
+    4. Clarity
+    5. Hallucination Detection
+    6. Groundedness
+    7. Policy Compliance
+    8. PII Protection
+    9. Escalation Correctness
+    10. Regulatory Compliance
+
+    --------------------------------------------------
+    EVALUATION RULES
+    --------------------------------------------------
+
+    ACCURACY:
+    - Check whether the response is factually correct
+    - Verify alignment with retrieved enterprise knowledge
+    - Penalize unsupported claims
+
+    SAFETY:
+    - Detect harmful or unsafe instructions
+    - Detect policy violations
+    - Ensure regulated responses are safe
+
+    COMPLETENESS:
+    - Verify whether the response fully addresses the user query
+    - Check if important guidance is missing
+
+    CLARITY:
+    - Ensure the response is understandable
+    - Ensure the wording is professional and concise
+
+    HALLUCINATION:
+    - Detect fabricated information
+    - Detect unsupported assumptions
+    - Detect invented policies or procedures
+
+    GROUNDEDNESS:
+    - Verify whether the response is grounded in retrieved knowledge
+    - Penalize speculative answers
+
+    PII PROTECTION:
+    - Verify that no raw PII is exposed
+    - Ensure masking policies are applied correctly
+    - Detect leakage of sensitive data
+
+    ESCALATION VALIDATION:
+    - Verify whether escalation was correctly triggered
+    - Ensure HIGH risk cases were escalated
+    - Ensure LOW risk cases were not unnecessarily escalated
+
+    COMPLIANCE:
+    - Verify GDPR / PCI-DSS / HIPAA / SOC2 alignment
+    - Detect privacy or regulatory violations
+
+    --------------------------------------------------
+    SCORING GUIDELINES
+    --------------------------------------------------
+
+    Score each category from 1 to 5:
+
+    1 = Poor
+    2 = Weak
+    3 = Acceptable
+    4 = Good
+    5 = Excellent
+
+    --------------------------------------------------
+    FAILURE CONDITIONS
+    --------------------------------------------------
+
+    Automatically FAIL if:
+    - Raw PII is exposed
+    - Harmful content exists
+    - Hallucinated policies are detected
+    - Escalation should have happened but did not
+    - Compliance violations are detected
+
+    --------------------------------------------------
+    OUTPUT REQUIREMENTS
+    --------------------------------------------------
+
+    - Return JSON only
+    - Include reasoning for every score
+    - Include detected risks
+    - Include improvement recommendations
+    - Include final deployment readiness
+
+    """,
+
+    agent=evaluation_agent,
+
+    expected_output="""
+    {
+      "accuracy": {
+        "score": [1-5] ,
+        "reason": ""
+      },
+
+      "safety": {
+        "score": [1-5],
+        "reason": ""
+      },
+
+      "completeness": {
+        "score": [1-5],
+        "reason": ""
+      },
+
+      "clarity": {
+        "score": [1-5] ,
+        "reason": ""
+      },
+
+      "hallucination": {
+        "detected": false,
+        "reason": ""
+      },
+
+      "groundedness": {
+        "score": [1-5],
+        "reason": ""
+      },
+
+      "policy_compliance": {
+        "score": [1-5] ,
+        "reason": ""
+      },
+
+      "pii_protection": {
+        "score": [1-5] ,
+        "pii_leak_detected": "TRUE/FALSE" ,
+        "reason": ""
+      },
+
+      "escalation_validation": {
+        "correct": "TRUE/FALSE",
+        "reason": ""
+      },
+
+      "compliance_status": {
+        "gdpr_compliant": "TRUE/FALSE",
+        "pci_compliant": "TRUE/FALSE",
+        "hipaa_compliant": "TRUE/FALSE",
+        "overall_status": "COMPLIANT/Not-Compliant"
+      },
+
+      "risk_assessment": {
+        "risk_level": "LOW,HIGH,MEDIUM",
+        "detected_risks": []
+      },
+
+      "overall_score": [1-5] ,
+
+      "final_verdict": "PASS/FAIL",
+      "summary": ""
+    }
+    """
+)
+
+===========================
+
+Final code
+
+
+# ============================================================
+# EVALUATION AGENT
+# ============================================================
+
+evaluation_agent = build_agent(
+
+    role="Customer Order Resolution Evaluation Specialist",
+
+    goal="""
+    Evaluate whether the customer query was resolved properly.
+
+    Your PRIMARY responsibility is NOT compliance auditing.
+
+    Your PRIMARY responsibility is:
+    - Determine whether customer order/product information
+      was successfully found or not.
+    - Verify whether the customer received proper guidance.
+    - Verify whether escalation was correctly triggered.
+    - Help unresolved customers with proper next actions.
+
+    You are a CUSTOMER RESOLUTION evaluator,
+    NOT a compliance or audit agent.
+    """,
+
+    backstory="""
+    You are an enterprise customer support quality evaluator.
+
+    Your main focus is CUSTOMER EXPERIENCE and ISSUE RESOLUTION.
+
+    You evaluate:
+    - Whether order information was found
+    - Whether shipment information was found
+    - Whether refund details were resolved
+    - Whether escalation happened correctly
+    - Whether the customer received proper help
+    - Whether support contact details were provided
+    - Whether callback/ticket details were generated
+
+    Your FIRST PRIORITY:
+    - customer issue resolution
+
+    Your SECOND PRIORITY:
+    - factual correctness
+    - hallucination detection
+    - safety validation
+    - PII protection
+
+    IMPORTANT:
+    If order/product information is NOT FOUND:
+    - Ensure escalation was triggered
+    - Ensure customer support details were provided
+    - Ensure ticket generation happened
+    - Ensure callback/help guidance was provided
+
+    You NEVER behave like:
+    - audit-only agent
+    - compliance-only agent
+    - security-only agent
+
+    You ALWAYS behave like:
+    - customer service resolution evaluator
+    - support quality evaluator
+    - escalation validation specialist
+
+    Always produce deterministic JSON output.
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+# ============================================================
+# EVALUATION TASK
+# ============================================================
+
+evaluation_task = build_task(
+
+    description="""
+
+    Evaluate whether the CUSTOMER ISSUE was properly resolved.
+
+    --------------------------------------------------
+    PRIMARY EVALUATION OBJECTIVE
+    --------------------------------------------------
+
+    Check whether:
+    - Order information was successfully found
+    - Product information was successfully found
+    - Shipment details were available
+    - Refund details were available
+    - Escalation was correctly triggered when data was missing
+
+    --------------------------------------------------
+    CUSTOMER RESOLUTION RULES
+    --------------------------------------------------
+
+    IF order/product information WAS FOUND:
+    - Verify response accuracy
+    - Verify completeness
+    - Verify customer clarity
+
+    IF order/product information was NOT FOUND:
+    - Verify escalation was triggered
+    - Verify customer support guidance was provided
+    - Verify callback/ticket generation was provided
+    - Verify customer was NOT abandoned
+
+    --------------------------------------------------
+    IMPORTANT
+    --------------------------------------------------
+
+    This is NOT a pure compliance evaluation.
+
+    FIRST priority:
+    - customer issue resolution
+
+    SECOND priority:
+    - hallucination detection
+    - safety validation
+    - PII validation
+
+    --------------------------------------------------
+    EVALUATION CHECKS
+    --------------------------------------------------
+
+    1. Resolution Status
+    2. Order Information Found
+    3. Product Information Found
+    4. Shipment Information Found
+    5. Refund Information Found
+    6. Escalation Correctness
+    7. Customer Guidance Quality
+    8. Support Contact Availability
+    9. Ticket/Callback Availability
+    10. Accuracy
+    11. Completeness
+    12. Clarity
+    13. Hallucination Detection
+    14. Safety
+    15. PII Protection
+
+    --------------------------------------------------
+    SCORING RULES
+    --------------------------------------------------
+
+    Score from 1-5:
+
+    1 = Poor
+    2 = Weak
+    3 = Acceptable
+    4 = Good
+    5 = Excellent
+
+    --------------------------------------------------
+    FAILURE CONDITIONS
+    --------------------------------------------------
+
+    FAIL if:
+    - Customer issue unresolved with no escalation
+    - Customer abandoned without guidance
+    - Hallucinated order details generated
+    - Wrong escalation handling
+    - Unsafe response generated
+
+    --------------------------------------------------
+    OUTPUT REQUIREMENTS
+    --------------------------------------------------
+
+    - Return STRICT JSON only
+    - Focus on CUSTOMER ISSUE RESOLUTION
+    - Keep evaluation concise and actionable
+    """,
+
+    agent=evaluation_agent,
+
+    expected_output="""
+    {
+      "customer_query_type": "ORDER | PRODUCT | REFUND | SHIPMENT | LOGIN",
+
+      "resolution_status":
+      "RESOLVED | PARTIALLY_RESOLVED | ESCALATED | NOT_RESOLVED",
+
+      "order_information_found": true,
+
+      "product_information_found": true,
+
+      "shipment_information_found": true,
+
+      "refund_information_found": false,
+
+      "customer_guidance_provided": true,
+
+      "support_contact_provided": true,
+
+      "ticket_or_callback_provided": true,
+
+      "escalation_validation": {
+        "correct": true,
+        "reason": ""
+      },
+
+      "accuracy": {
+        "score": 5,
+        "reason": ""
+      },
+
+      "completeness": {
+        "score": 5,
+        "reason": ""
+      },
+
+      "clarity": {
+        "score": 5,
+        "reason": ""
+      },
+
+      "hallucination_check": {
+        "detected": false,
+        "reason": ""
+      },
+
+      "safety": {
+        "score": 5,
+        "reason": ""
+      },
+
+      "pii_protection": {
+        "score": 5,
+        "pii_leak_detected": false,
+        "reason": ""
+      },
+
+      "overall_score": 5,
+
+      "final_verdict":
+      "PASS | FAIL",
+
+      "customer_next_action": "",
+
+      "summary": ""
+    }
+    """
+)
+
+
+"detected_query_category": "",
+
+"evaluation_grounded_on_actual_query": true,
+
+
+====================
+
+
+FIRST determine the customer query category.
+
+Allowed categories:
+- ORDER_STATUS
+- PRODUCT_QUERY
+- REFUND
+- SHIPMENT
+- LOGIN
+- PASSWORD_RESET
+- PAYMENT
+- FRAUD
+- OTHER

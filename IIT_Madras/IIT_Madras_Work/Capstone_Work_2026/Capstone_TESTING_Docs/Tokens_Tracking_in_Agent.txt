@@ -1,0 +1,158 @@
+import json
+
+from crewai import Agent, Task, Crew
+from langchain_openai import ChatOpenAI
+from langchain.callbacks import get_openai_callback
+
+
+# =========================================================
+# STEP 1 : PINECONE RESPONSE
+# =========================================================
+
+pinecone_response = {
+"retrieved_order_id": "O1001",
+"shipment_status": "DELIVERED",
+"refund_status": "NONE",
+"customer_email": "john.doe@test.com"
+}
+
+
+# =========================================================
+# STEP 2 : JSON -> STRING
+# =========================================================
+
+response_string = json.dumps(
+pinecone_response,
+separators=(",", ":")
+)
+
+
+# =========================================================
+# STEP 3 : USER QUERY
+# =========================================================
+
+query = "Check shipment status for order O1001"
+
+
+# =========================================================
+# STEP 4 : LLM CONFIG
+# =========================================================
+
+llm = ChatOpenAI(
+model="gpt-4.1-mini",
+temperature=0,
+max_tokens=120
+)
+
+
+# =========================================================
+# STEP 5 : AUDIT AGENT
+# =========================================================
+
+audit_agent = Agent(
+role="Audit Agent",
+goal="Detect PII, compliance risks and hallucinations",
+backstory="Security and compliance audit specialist.",
+verbose=False,
+memory=False,
+allow_delegation=False,
+llm=llm
+)
+
+
+# =========================================================
+# STEP 6 : AUDIT TASK
+# =========================================================
+
+audit_task = Task(
+description=f"""
+Query:
+{query}
+
+Retrieved JSON Data:
+{response_string}
+
+Perform:
+1. PII detection
+2. Compliance check
+3. Hallucination detection
+
+Hallucination Rule:
+If output contains information NOT present
+in query or retrieved JSON -> hallucination YES
+
+Return JSON only:
+{{
+"pii_found": true/false,
+"pii_types": [],
+"risk_level": "LOW/MEDIUM/HIGH",
+"compliance_status": "PASS/FAIL",
+"hallucination": "YES/NO"
+}}
+""",
+expected_output="Audit JSON",
+agent=audit_agent
+)
+
+
+# =========================================================
+# STEP 7 : CREW EXECUTION + TOKEN TRACKING
+# =========================================================
+
+crew = Crew(
+agents=[audit_agent],
+tasks=[audit_task],
+verbose=False
+)
+
+with get_openai_callback() as cb:
+
+result = crew.kickoff()
+
+print("\n===== AUDIT RESULT =====")
+print(result)
+
+print("\n===== TOKEN USAGE =====")
+
+print(f"Prompt Tokens : {cb.prompt_tokens}")
+print(f"Completion Tokens : {cb.completion_tokens}")
+print(f"Total Tokens : {cb.total_tokens}")
+print(f"Total Cost (USD) : ${cb.total_cost:.6f}")
+
+
+# =========================================================
+# STEP 8 : OPTIONAL PARSE OUTPUT
+# =========================================================
+
+try:
+parsed_result = json.loads(str(result))
+
+print("\n===== HALLUCINATION STATUS =====")
+print(parsed_result.get("hallucination"))
+
+except Exception as e:
+print("Unable to parse result:", e)
+
+
+
+=================================
+
+
+import json
+
+crew_ai.kickoff(
+    inputs={
+        "query": query,
+        "response": json.dumps(response_json)
+    }
+)
+
+
+Tasks:
+
+Customer Query:
+{query}
+
+Knowledge Base Response:
+{response}
+============================================

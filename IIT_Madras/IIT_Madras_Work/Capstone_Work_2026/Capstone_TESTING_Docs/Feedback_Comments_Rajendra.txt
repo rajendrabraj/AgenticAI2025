@@ -1,0 +1,5 @@
+Comments
+The scenario is stated clearly in code headers and the business area is appropriate for the capstone. However, there is no separate problem framing artefact showing persona, workflow, assumptions, constraints, success criteria, and edge cases in a structured industry format.
+Rajendra :   I have given the Problem Statement and details of Agent and Personas in the word document.
+
+==============================

@@ -1,0 +1,12 @@
+        
+Option #1 : Order Status Enquiry           
+Option #2 : Order Shipping Status Enquiry           
+Option #3 : Order Refund Status Enquiry           
+Option #4 : Products purchased by User           
+Option #5 : Orders placed by User           
+Option #6 : Billing Details Query           
+Option #7 : Login Related Issues           
+Option #8 : Password Related Issues           
+Option #9  : REFUND POLICY            
+Option #10 : CANCELLATION POLICY           
+Option #11 : Exit or Quit           

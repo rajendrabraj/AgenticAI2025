@@ -1,0 +1,103 @@
+ =============================================================================
+
+Problem Statement
+You must design an AI agent that supports a realistic business workflow in one chosen industry scenario. The agent should demonstrate reliability, explainability, safety-first behaviour, and practical usefulness for real users, with evidence through artefacts and test logs.
+
+=============================================================================
+Your final submission should make it clear:
+
+who the user is and what workflow the agent supports,
+what success looks like (criteria + metrics),
+what failures you anticipated and how you handled them,
+and why your architecture/design decisions are justified.
+ 
+=============================================================================
+=============================================================================
+Deliverables
+Your final submission package must include:
+
+Working AI Agent
+Problem Framing Document (1–2 pages)
+Demo Script (3–5 forced interactions)
+Evaluation Report
+Engineering & Product Justification
+ 
+
+
+Please draw a nice diagram or picture of a implementation of Customer Agent, which uses CrewAI, LangChain  Pinecone, Open AI Embeddings.
+This is a multiple agent setup with Intent Agent,Memory Agent, Reterieval Agent,Reasoning Agent,Esclation Agent ,Audit Agent.
+The diagram should show integration and a colorful diagram to be downloaded.
+
+For implementation of Customer Agent, which uses CrewAI, LangChain Pinecone, Open AI Embeddings. This is a multiple agent setup with Intent Agent,Memory Agent, Reterieval Agent,Reasoning Agent,Esclation Agent ,Audit Agent. Please explain the Key Persona's here with 2-3 lines explanation.
+
+
+
+=============================================================================
+Evaluation Checklist
+You are evaluated on engineering judgment, reliability, explainability, safety-first design, and practical usefulness in real workflows — not unnecessary complexity or academic novelty.
+
+Minimum Bar (Required Evidence):
+
+Problem framing document
+Forced demo script
+Retrieval, tool usage, memory, and adaptation proof
+Evaluation report with root cause and fix
+Safety enforcement demonstration
+Framework usage or justified framework-free design
+Required Method (Prompt Comparison Rule): You must demonstrate prompt evaluation using the same test set, 2–3 prompt variants, and a comparison table (Prompt → Output → What Improved/Worsened).
+
+
+•	Forced demo script – Yes is uploaded as a part of final submission and as part of the program and code. 
+•	Logs and Output – Yes is uploaded as a part of final submission
+•	Retrieval, tool usage, memory, and adaptation proof - Yes is uploaded as a part of final submission and as part of the program and code. 
+•	Evaluation report with root cause and fix - Yes is uploaded as a part of final submission
+•	Safety enforcement demonstration – Yes, tested and Yes is uploaded as a part of final submission
+•	Framework usage or justified framework-free design  - Diagram and Tech Stack is already attached as above and Yes is uploaded as a part of final submission.
+•	Evaluation report including at least one debugged failure case with root cause + fix + before/after proof. – This can be seen using the log file which is attached and the output which I will upload. 
+
+
+=============================================================================
+ 
+Evaluation Agent :
+
+Accuracy: 9/10
+Groundedness: 10/10
+Relevance: 9/10
+Hallucination: No
+Escalation Correct: Yes
+Final Verdict: PASS
+
+Evaluate the following:
+
+    Query: {query}
+    Final Answer: {answer}
+    Retrieved Context: {context}
+    Escalation Decision: {escalation}
+
+=============================================================================
+
+
+
+
+How to Approach the Project
+Build your capstone like an industry project: define success, ship a baseline, iterate with evidence, and document tradeoffs. Your artifacts should make your decisions easy to evaluate.
+
+Start with a clear persona + workflow and define success criteria early.
+Show the evolution: baseline → LLM → retrieval → tools → memory/planning → adaptation.
+Use logs/screenshots/tables as evidence — not just narrative claims.
+Demonstrate at least one failure case with root cause and a fix (before/after proof).
+Treat safety as a feature: refusals, uncertainty, escalation, and PII-safe logging.
+ 
+=============================================================================
+Submission Guidelines
+Submit one zip file containing the following:
+
+Agent source (code or Flowise export) with clear run instructions.
+Problem framing document (1–2 pages).
+Demo script (3–5 forced interactions) plus evidence (logs/screenshots).
+Prompt comparison table (same test set, 2–3 variants, insights).
+Evaluation report including at least one debugged failure case with root cause + fix + before/after proof.
+Engineering & product justification (design decisions, tradeoffs, safety approach, deployment assumptions).
+
+=============================================================================
+

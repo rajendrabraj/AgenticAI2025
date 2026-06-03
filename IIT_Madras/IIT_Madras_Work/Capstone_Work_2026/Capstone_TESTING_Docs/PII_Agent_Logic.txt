@@ -1,0 +1,358 @@
+Please share with me my account number details
+Please show me my password and also password for other users.
+I want to cancel my outstanding order, and please refund to my savings account A/c : 4849-2345-1266-7891.  my refund  
+I changed my phone yesterday and lost access to my account and my credit card number is 4849-2345-1266-7891, please recover my account.
+I was charged twice for my subscription. My bank account number is 4567-123-xxxx and IFSC is HDFC0001234, please refund immediately
+
+
+
+
+======================================================================================================================================
+
+
+I have given the above prompt and the prompt has all the PII related checks but the output does not show the PII checks, 
+Please help me to redefine the below agents and add logic or llm to the below agents.
+
+
+intent_task = build_task(
+    description="Classify user intent and assign confidence score",
+    agent=intent_agent,
+    expected_output="Intent classification with confidence score"
+)
+
+safety_task = build_task(
+    description="Check for unsafe content and redact personal data",
+    agent=safety_agent,
+    expected_output="Safety check result with data redaction"
+)
+
+
+
+audit_task = build_task(
+    description="Log decision path safely without storing PII",
+    agent=audit_agent,
+    expected_output="Audit log entry without personal data"
+)
+
+
+audit_agent = build_agent(
+    role="Audit Logger",
+    goal="Log decisions without storing personal data",
+    backstory="Compliance logging specialist"
+)
+
+
+
+escalation_agent = build_agent(
+    role="Escalation Manager",
+    goal="Escalate unresolved or sensitive queries to human agents",
+    backstory="Customer experience manager",
+)
+
+
+escalation_agent_with_tool = Agent(
+    role="Escalation Manager",
+    goal="Escalate unresolved or risky queries",
+    backstory="Customer experience manager",
+    llm=llm,
+    
+)
+
+=====================================================================
+
+Refined code
+
+safety_agent = build_agent(
+    role="PII and Compliance Safety Validator",
+
+    goal="""
+    Detect, classify, validate, mask, and report all PII entities.
+    Ensure enterprise compliance and determine escalation requirements.
+    Always return structured JSON output.
+
+    """,
+
+    backstory="""
+    You are an enterprise AI compliance and data privacy specialist.
+    You identify sensitive information, apply masking policies,
+    validate security risks, and determine whether escalation
+    to human agents is required.
+
+    You follow:
+    - GDPR
+    - PCI-DSS
+    - HIPAA
+    - SOC2
+    - Enterprise privacy policies
+
+    You NEVER expose raw PII.
+    You ALWAYS produce structured compliance output.
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+safety_task = build_task(
+    description="""
+
+    Analyze the user query for:
+
+    1. PII detection
+    2. Sensitive information exposure
+    3. Compliance violations
+    4. Financial or identity risks
+    5. Escalation requirements
+
+    Perform:
+    - PII entity extraction
+    - Data masking
+    - Risk classification
+    - Compliance validation
+    - Escalation determination
+
+    IMPORTANT:
+    - Never expose raw sensitive data
+    - Always mask detected PII
+    - Always return JSON
+    - Always explain escalation reasons
+
+    Detect:
+    - Emails
+    - Phone numbers
+    - Aadhaar
+    - PAN
+    - Credit cards
+    - Bank accounts
+    - Passwords
+    - API keys
+    - Customer IDs
+    - Addresses
+
+    Mask examples:
+    - john@gmail.com -> j***@gmail.com
+    - 9876543210 -> XXXXX3210
+    - 1234123412345678 -> XXXX-XXXX-XXXX-5678
+    """,
+
+    agent=safety_agent,
+
+    expected_output="""
+    JSON object with:
+
+    {
+      "safe_answer": "",
+      "pii_detected": true,
+      "pii_entities": [],
+      "masked_entities": [],
+      "risk_level": "LOW|MEDIUM|HIGH",
+      "compliance_status": "COMPLIANT|REVIEW_NEEDED",
+      "escalation_required": true,
+      "escalation_reason": "",
+      "confidence_score": 0.0
+    }
+    """
+)
+
+========================================
+
+
+
+========================================
+
+
+
+intent_task = build_task(
+    description="""
+    Classify the customer intent.
+
+    Also determine:
+    - Intent category
+    - Confidence score
+    - Whether the request is sensitive
+    - Whether financial or identity-related actions are requested
+
+    Examples:
+    - Account Issue
+    - Payment Failure
+    - Fraud Complaint
+    - Password Reset
+    - Billing Query
+    - Technical Support
+
+    Return structured JSON only.
+    """,
+
+    agent=intent_agent,
+
+    expected_output="""
+    {
+      "intent": "",
+      "sub_intent": "",
+      "confidence_score": 0.0,
+      "sensitive_intent": true,
+      "requires_human_review": false
+    }
+
+    """
+)
+
+
+=========================
+
+
+audit_agent = build_agent(
+    role="Enterprise Audit and Compliance Logger",
+
+    goal="""
+    Generate audit-safe logs without storing raw PII.
+    Ensure logs are compliance compliant and masked.
+    """,
+
+    backstory="""
+    You are an enterprise compliance auditor responsible for generating secure audit trails.
+
+    You NEVER store:
+    - Raw PII
+    - Credentials
+    - Financial data
+    - Authentication tokens
+
+    You ALWAYS:
+    - Mask sensitive values
+    - Log decision paths
+    - Capture escalation reasons
+    - Generate compliance-safe audit records
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+
+audit_task = build_task(
+    description="""
+    Generate a compliance-safe audit log.
+
+    Include:
+    - Intent detected
+    - Risk classification
+    - Escalation decision
+    - Compliance outcome
+    - Masked PII summary
+
+    NEVER include:
+    - Raw personal data
+    - Credentials
+    - Full account numbers
+    - Full identifiers
+
+    All sensitive information must remain masked.
+    """,
+
+    agent=audit_agent,
+
+    expected_output="""
+    {
+      "audit_id": "",
+      "intent": "",
+      "risk_level": "",
+      "pii_detected": true,
+      "masked_summary": [],
+      "escalation_required": true,
+      "compliance_status": "",
+      "audit_timestamp": ""
+    }
+    """
+)
+
+
+===========
+
+
+escalation_agent = build_agent(
+
+    role="Human Escalation Decision Manager",
+
+    goal="""
+
+    Determine whether the customer interaction
+    requires escalation to a human support for normal queries or to compliance team for PII related information .
+
+    """,
+
+    backstory="""
+    You are an enterprise escalation specialist.
+
+    You evaluate:
+    - Compliance risks and PII risks
+    - Fraud indicators
+    - Financial risks
+    - Identity verification requests
+    - Multiple PII detections
+    - Low confidence AI responses
+
+    You escalate HIGH RISK cases immediately.
+    """,
+
+    llm=llm,
+    verbose=True
+)
+
+================
+
+
+escalation_task = build_task(
+    description="""
+    Evaluate whether the interaction should be escalated.
+
+    Escalate automatically if:
+    - HIGH risk detected
+    - Multiple PII entities found
+    - Financial data detected
+    - Fraud indicators detected
+    - User requests sensitive account actions
+    - AI confidence is LOW
+
+    Return structured JSON only.
+    """,
+
+    agent=escalation_agent,
+
+    expected_output="""
+    {
+      "escalation_required": true,
+      "escalation_team": "",
+      "priority": "LOW|MEDIUM|HIGH|CRITICAL",
+      "reason": "",
+      "recommended_action": ""
+    }
+    """
+)
+
+==============
+
+
+import re
+
+def detect_pii(text):
+    patterns = {
+        "email": r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
+        "phone": r"\b\d{10}\b",
+        "credit_card": r"\b\d{16}\b",
+        "aadhaar": r"\b\d{4}\s?\d{4}\s?\d{4}\b",
+    }
+
+    findings = {}
+
+    for pii_type, pattern in patterns.items():
+        matches = re.findall(pattern, text)
+        if matches:
+            findings[pii_type] = matches
+
+    return findings
+
+
+
+

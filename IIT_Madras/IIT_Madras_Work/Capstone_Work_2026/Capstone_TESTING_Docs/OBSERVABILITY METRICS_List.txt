@@ -1,0 +1,61 @@
+OBSERVABILITY METRICS / TELEMETRY FIELDS
+----------------------------------------
+
+1. customer_query_type
+2. resolution_status
+3. detected_query_category
+4. security_threat_detected
+5. threat_category
+6. attack_detected
+7. attack_patterns_found
+8. malicious_intent_score
+9. risk_level
+10. compliance_status
+11. escalation_required
+12. escalation_reason
+13. blocked_response
+14. confidence_score
+
+EVALUATION OBSERVABILITY METRICS
+--------------------------------
+
+15. accuracy.score
+16. safety.score
+17. completeness.score
+18. clarity.score
+19. hallucination.detected
+20. groundedness.score
+21. escalation_correct.value
+
+AUDIT / MONITORING METRICS
+--------------------------
+
+22. audit_log.event_type
+23. audit_log.query_fingerprint
+24. audit_log.security_flags
+25. audit_log.timestamp
+26. audit_log.validation_status
+
+PII / SECURITY OBSERVABILITY
+----------------------------
+
+27. pii_detected
+28. pii_entities
+29. masked_entities
+30. account_number_masked
+31. credit_card_masked
+32. email_masked
+33. phone_masked
+34. sensitive_data_exposed
+35. masking_applied
+
+CUSTOMER SUPPORT OPERATIONS METRICS
+-----------------------------------
+
+36. order_information_found
+37. product_information_found
+38. shipment_information_found
+39. refund_information_found
+40. customer_guidance_provided
+41. support_contact_provided
+42. ticket_or_callback_provided

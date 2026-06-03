@@ -1,0 +1,454 @@
+
+## ============================================================================
+
+
+## Python Code for the Program 
+## Customer Support — AI Support Resolution Agent  often receive diverse queries—from login issues and billing errors to technical problems. Manually analyzing each message, searching a ## knowledge base, generating a helpful response, and deciding whether to escalate takes time and is inconsistent across agents.
+
+## Rajendra Bichu : Date : 29.04.2026 , Version 1.0 , Objectives are as below. 
+
+##Goals and Objectives are as below : 
+
+
+#Must refuse unsafe or policy-violating requests.
+#Must not fabricate policies.
+#Must escalate sensitive or unresolved cases.
+#Must not store personal data in logs.
+
+
+##  Agent Features which this program covers 
+
+## This program covers :   Feedback capture and storage,  Behaviour adaptation based on feedback,  Before vs after comparison,  Smarter agents and tasks with adaptive logic
+
+
+
+## ============================================================================
+
+
+## Warning control
+import warnings
+warnings.filterwarnings('ignore')
+
+from crewai import Agent, Task, Crew
+
+import os
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+# Load environment variables
+load_dotenv()
+
+import warnings
+warnings.filterwarnings('ignore')
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+
+## PYTHON CODE FOR AGENTS
+## ============================================================================
+
+## INSTALLATION  of packages
+
+# this is also covered in requirements.txt for all the packages to be installed
+
+## pip install crewai langchain openai pinecone-client
+
+## INSTALLATION  of packages
+
+
+from crewai import Agent, Task, Crew
+from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
+from langchain.tools import Tool
+import pinecone
+
+## LLM Setup 
+
+llm = ChatOpenAI(
+model=“gpt-4o-mini”,
+temperature=0.2
+)
+
+##PINECONE SETUP
+
+pinecone.init(
+api_key=“YOUR_PINECONE_API_KEY”,
+environment=“us-east-1”
+)
+
+index_name = “support-kb”
+
+if index_name not in pinecone.list_indexes():
+pinecone.create_index(index_name, dimension=1536)
+
+
+## Add Embedding for PineCone 
+
+embeddings = OpenAIEmbeddings()
+
+vector_store = Pinecone.from_existing_index(
+index_name=index_name,
+embedding=embeddings
+)
+
+## ============================================================================
+## DOCUMENT INGESTION
+
+
+documents = [
+“Refund policy: Users can request refund within 7 days of duplicate charge.”,
+“Subscription billing issues require transaction verification.”,
+“Escalate technical issues unresolved within 24 hours.”,
+“Never share personal or sensitive data.”
+]
+
+vector_store.add_texts(documents)
+
+
+## ============================================================================
+
+## RETRIEVAL FUNCTION
+
+def retrieve_docs(query):
+docs = vector_store.similarity_search(query, k=3)
+return [doc.page_content for doc in docs]
+
+## ============================================================================
+
+## add the memory functions 
+
+short_term_memory = ConversationBufferMemory(
+memory_key=“chat_history”,
+return_messages=True
+)
+
+long_term_memory = []
+feedback_store = []
+
+## ============================================================================
+
+## add the memory functions and feeback functions
+
+def save_to_long_term_memory(query, response):
+long_term_memory.append({
+“query”: query,
+“response”: response
+})
+
+def get_long_term_context():
+history = “”
+for item in long_term_memory[-5:]:
+history += “User: “ + item[“query”] + “\n”
+history += “AI: “ + item[“response”] + “\n”
+return history
+
+def store_feedback(query, response, rating, comment):
+feedback_store.append({
+“query”: query,
+“response”: response,
+“rating”: rating,
+“comment”: comment
+})
+
+def get_feedback_summary():
+negative_patterns = []
+for item in feedback_store[-10:]:
+if item[“rating”] < 3:
+negative_patterns.append(item[“query”])
+return “\n”.join(negative_patterns)
+
+def reset_memory():
+short_term_memory.clear()
+long_term_memory.clear()
+feedback_store.clear()
+
+## ============================================================================
+
+
+
+## Define the Tools Knowledge and escalation Tools 
+
+def knowledge_tool_func(query):
+docs = retrieve_docs(query)
+if len(docs) == 0:
+return “No relevant information found”
+return “\n”.join(docs)
+
+def escalation_tool_func(query):
+return “Escalation triggered for: “ + query
+
+knowledge_tool = Tool(
+name=“KnowledgeBaseSearch”,
+func=knowledge_tool_func,
+description=“Search KB using embeddings”
+)
+
+escalation_tool = Tool(
+name=“EscalationTool”,
+func=escalation_tool_func,
+description=“Escalate to human agent”
+)
+
+tools = [knowledge_tool, escalation_tool]
+
+## ============================================================================
+
+
+## Define the Multi Step Prompting 
+
+adaptive_prompt = “””
+You are an adaptive AI support agent.
+
+Follow steps:
+
+Understand query
+Check memory context
+Check past negative feedback patterns
+Retrieve knowledge
+Adjust response style based on feedback
+Decide escalation
+Rules:
+
+If similar queries had bad feedback → be more cautious
+If repeated confusion → provide clearer explanation
+If missing info → say “No relevant information found”
+Do not hallucinate
+Query: {query}
+
+Memory:
+{memory}
+
+Past Negative Feedback:
+{feedback}
+
+Available Tools:
+{tools}
+
+Output:
+Plan:
+Answer:
+Reasoning:
+Tool Used:
+Confidence:
+Escalation:
+“””
+
+## Define the Agents with Right Tools to be called
+
+intent_agent = Agent(
+role=“Intent Classifier”,
+goal=“Understand intent with context and feedback awareness”,
+llm=llm,
+verbose=True
+)
+
+memory_agent = Agent(
+role=“Memory Manager”,
+goal=“Provide conversation and feedback context”,
+llm=llm,
+verbose=True
+)
+
+## Execute by assigning the right Tool 
+
+
+retrieval_agent = Agent(
+role=“Retriever”,
+goal=“Fetch knowledge using embeddings”,
+tools=[knowledge_tool],
+verbose=True
+)
+
+adaptive_reasoning_agent = Agent(
+role=“Adaptive Reasoner”,
+goal=“Generate response using reasoning, memory, and feedback”,
+llm=llm,
+tools=tools,
+verbose=True
+)
+
+## Execute by assigning the right Tool 
+
+escalation_agent = Agent(
+role=“Escalation Manager”,
+goal=“Escalate when needed”,
+tools=[escalation_tool],
+llm=llm,
+verbose=True
+)
+
+audit_agent = Agent(
+role=“Audit Logger”,
+goal=“Log decisions safely”,
+verbose=True
+)
+
+TASKS
+
+intent_task = Task(
+description=“Identify intent and risk level”,
+agent=intent_agent
+)
+
+memory_task = Task(
+description=“Fetch memory and feedback context”,
+agent=memory_agent
+)
+
+retrieval_task = Task(
+description=“Retrieve knowledge using KnowledgeBaseSearch tool”,
+agent=retrieval_agent
+)
+
+adaptive_reasoning_task = Task(
+description=adaptive_prompt,
+agent=adaptive_reasoning_agent
+)
+
+escalation_task = Task(
+description=“Decide escalation using EscalationTool”,
+agent=escalation_agent
+)
+
+audit_task = Task(
+description=“Log full decision path without PII”,
+agent=audit_agent
+)
+
+## Define the Crew Tasks..
+
+
+support_crew = Crew(
+agents=[
+intent_agent,
+memory_agent,
+retrieval_agent,
+adaptive_reasoning_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+memory_task,
+retrieval_task,
+adaptive_reasoning_task,
+escalation_task,
+audit_task
+],
+verbose=True
+)
+
+
+## Execute by assigning the memory to the context and feedback loop
+
+def run_conversation(query):
+memory_context = get_long_term_context()
+feedback_context = get_feedback_summary()
+
+result = support_crew.kickoff(inputs={
+"query": query,
+"memory": memory_context,
+"feedback": feedback_context
+})
+
+short_term_memory.save_context(
+{"input": query},
+{"output": str(result)}
+)
+
+save_to_long_term_memory(query, str(result))
+return result
+##=====================================================================================================
+## Check for the Before and After Feedback for testing purpose. 
+
+response_before = run_conversation(“I was charged twice”)
+print("-" * 90)
+print(“BEFORE FEEDBACK:”, response_before)
+print("-" * 90)
+
+
+## TEst and add with -ve Feedback 
+
+store_feedback(
+query=“I was charged twice”,
+response=response_before,
+rating=2,
+comment=“Response was unclear and did not explain refund process”
+)
+
+SIMULATE AFTER FEEDBACK
+
+response_after = run_conversation(“I was charged twice”)
+print("-" * 90)
+print(“AFTER FEEDBACK:”, response_after)
+print("-" * 90)
+
+##=====================================================================================================
+
+
+
+
+## Safeguarding logic 
+
+MAX_TOOL_CALLS = 2
+
+def safe_tool_usage(query):
+attempts = 0
+
+while attempts < MAX_TOOL_CALLS:
+result = knowledge_tool_func(query)
+if “No relevant” not in result:
+return result
+attempts += 1
+return escalation_tool_func(query)
+
+## ================================================================
+
+=============================================================================
+
+EXPECTED BEHAVIOURAL CHANGE
+
+Before feedback:
+Generic response
+Less explanation
+
+After feedback:
+More detailed explanation
+Clear refund steps
+Higher clarity
+Better confidence handling
+
+ADAPTATION LOGIC
+
+If similar query had low rating:
+Agent increases explanation depth
+
+If repeated confusion:
+Agent simplifies response
+
+If negative feedback exists:
+Agent avoids previous response style
+=============================================================================
+FAILURE HANDLING
+
+If feedback shows repeated dissatisfaction:
+Force escalation
+
+If no KB result:
+Return safe fallback
+
+If tool misuse detected:
+Stop and escalate
+=============================================================================
+
+
+
+FINAL SUMMARY
+
+Feedback loop successfully integrated
+Agent adapts behaviour dynamically
+Memory + feedback improves response quality
+System evolves over time like real support teams
+Demonstrates clear before vs after improvement
+
+=============================================================================

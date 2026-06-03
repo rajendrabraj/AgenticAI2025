@@ -1,0 +1,43 @@
+# Install:
+# pip install langchain langchain-pinecone langchain-openai pinecone
+
+from pinecone import Pinecone, ServerlessSpec
+from langchain_pinecone import PineconeVectorStore
+from langchain_openai import OpenAIEmbeddings
+
+# Initialize Pinecone client
+pc = Pinecone(api_key=pinecone_api_key)
+
+index_name = "support-kb"
+
+# Create index if it doesn't exist
+if index_name not in [i.name for i in pc.list_indexes()]:
+    pc.create_index(
+        name=index_name,
+        dimension=1536,
+        metric="cosine",
+        spec=ServerlessSpec(
+            cloud="aws",
+            region="us-east-1"
+        )
+    )
+
+# Connect to index
+index = pc.Index(index_name)
+
+# Initialize embeddings
+embeddings = OpenAIEmbeddings()
+
+# Create vector store
+vector_store = PineconeVectorStore(index=index, embedding=embeddings)
+
+# Sample documents
+documents = [
+    "Refund policy: Users can request refund within 7 days of duplicate charge.",
+    "Subscription billing issues can be resolved by verifying transaction ID.",
+    "Technical issues should be escalated if unresolved within 24 hours.",
+    "Personal data must never be shared with unauthorized users."
+]
+
+# Add documents
+vector_store.add_texts(documents)

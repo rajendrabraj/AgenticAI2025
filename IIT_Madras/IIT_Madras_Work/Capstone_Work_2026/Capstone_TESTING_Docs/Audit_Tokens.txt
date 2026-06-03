@@ -1,0 +1,93 @@
+# Compact JSON string (token optimized)
+response_string = json.dumps(
+pinecone_response,
+separators=(",", ":")
+)
+
+print("\n===== JSON AS STRING =====")
+print(response_string)
+
+========
+
+
+ =========================================================
+# STEP 3 : USER QUERY
+# =========================================================
+
+query = "Check shipment status for order O1001"
+
+
+# =========================================================
+# STEP 4 : LLM CONFIG
+# =========================================================
+
+llm = ChatOpenAI(
+model="gpt-4.1-mini",
+temperature=0,
+max_tokens=120
+)
+
+
+# =========================================================
+# STEP 5 : AUDIT AGENT
+# =========================================================
+
+audit_agent = Agent(
+role="Audit Agent",
+goal="Detect PII and compliance risks",
+backstory="Efficient compliance and security auditor.",
+verbose=False,
+memory=False,
+allow_delegation=False,
+llm=llm
+)
+
+
+
+audit_task = Task(
+description=f"""
+Query:
+{query}
+
+Retrieved Data:
+{response_string}
+
+Analyze:
+1. PII
+2. Sensitive data
+3. Compliance risk
+
+Return JSON only:
+{{
+"pii_found": true/false,
+"pii_types": [],
+"risk_level": "LOW/MEDIUM/HIGH",
+"compliance_status": "PASS/FAIL"
+}}
+""",
+expected_output="Audit JSON",
+agent=audit_agent
+)
+
+
+# =========================================================
+# STEP 7 : CREW EXECUTION
+# =========================================================
+
+crew = Crew(
+agents=[audit_agent],
+tasks=[audit_task],
+verbose=False
+)
+
+result = crew.kickoff()
+
+
+# =========================================================
+# STEP 8 : FINAL OUTPUT
+# =========================================================
+
+print("\n===== AUDIT RESULT =====")
+print(result)
+
+

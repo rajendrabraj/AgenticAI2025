@@ -1,0 +1,8 @@
+# Compact JSON string (token optimized)
+response_string = json.dumps(
+pinecone_response,
+separators=(",", ":")
+)
+
+print("\n===== JSON AS STRING =====")
+print(response_string)

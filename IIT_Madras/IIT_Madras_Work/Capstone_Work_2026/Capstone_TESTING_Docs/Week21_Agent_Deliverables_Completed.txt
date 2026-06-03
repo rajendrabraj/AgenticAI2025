@@ -1,0 +1,143 @@
+Please find the Capstone assignment Approach document which has everything related to the assignment, list of programs document, python files , log and output files.
+
+
+ =============================================================================
+
+Problem Statement
+You must design an AI agent that supports a realistic business workflow in one chosen industry scenario. The agent should demonstrate reliability, explainability, safety-first behaviour, and practical usefulness for real users, with evidence through artefacts and test logs.
+
+=============================================================================
+Your final submission should make it clear:
+
+who the user is and what workflow the agent supports,
+what success looks like (criteria + metrics),
+what failures you anticipated and how you handled them,
+and why your architecture/design decisions are justified.
+ 
+=============================================================================
+=============================================================================
+Deliverables
+Your final submission package must include:
+
+Working AI Agent
+Problem Framing Document (1–2 pages)
+Demo Script (3–5 forced interactions)
+Evaluation Report
+Engineering & Product Justification
+ 
+
+
+Please draw a nice diagram or picture of a implementation of Customer Agent, which uses CrewAI, LangChain  Pinecone, Open AI Embeddings.
+This is a multiple agent setup with Intent Agent,Memory Agent, Reterieval Agent,Reasoning Agent,Esclation Agent ,Audit Agent.
+The diagram should show integration and a colorful diagram to be downloaded.
+
+For implementation of Customer Agent, which uses CrewAI, LangChain Pinecone, Open AI Embeddings. This is a multiple agent setup with Intent Agent,Memory Agent, Reterieval Agent,Reasoning Agent,Esclation Agent ,Audit Agent. Please explain the Key Persona's here with 2-3 lines explanation.
+
+
+
+=============================================================================
+Evaluation Checklist
+You are evaluated on engineering judgment, reliability, explainability, safety-first design, and practical usefulness in real workflows — not unnecessary complexity or academic novelty.
+
+Minimum Bar (Required Evidence):
+
+Problem framing document
+Forced demo script
+Retrieval, tool usage, memory, and adaptation proof
+Evaluation report with root cause and fix
+Safety enforcement demonstration
+Framework usage or justified framework-free design
+Required Method (Prompt Comparison Rule): You must demonstrate prompt evaluation using the same test set, 2–3 prompt variants, and a comparison table (Prompt → Output → What Improved/Worsened).
+
+
+•	Forced demo script – Yes is uploaded as a part of final submission and as part of the program and code. 
+•	Logs and Output – Yes is uploaded as a part of final submission
+•	Retrieval, tool usage, memory, and adaptation proof - Yes is uploaded as a part of final submission and as part of the program and code. 
+•	Evaluation report with root cause and fix - Yes is uploaded as a part of final submission
+•	Safety enforcement demonstration – Yes, tested and Yes is uploaded as a part of final submission
+•	Framework usage or justified framework-free design  - Diagram and Tech Stack is already attached as above and Yes is uploaded as a part of final submission.
+•	Evaluation report including at least one debugged failure case with root cause + fix + before/after proof. – This can be seen using the log file which is attached and the output which I will upload. 
+
+
+=============================================================================
+ 
+Evaluation Agent :
+
+Accuracy: 9/10
+Groundedness: 10/10
+Relevance: 9/10
+Hallucination: No
+Escalation Correct: Yes
+Final Verdict: PASS
+
+Evaluate the following:
+
+    Query: {query}
+    Final Answer: {answer}
+    Retrieved Context: {context}
+    Escalation Decision: {escalation}
+
+=============================================================================
+
+
+
+
+How to Approach the Project
+Build your capstone like an industry project: define success, ship a baseline, iterate with evidence, and document tradeoffs. Your artifacts should make your decisions easy to evaluate.
+
+Start with a clear persona + workflow and define success criteria early.
+Show the evolution: baseline → LLM → retrieval → tools → memory/planning → adaptation.
+Use logs/screenshots/tables as evidence — not just narrative claims.
+Demonstrate at least one failure case with root cause and a fix (before/after proof).
+Treat safety as a feature: refusals, uncertainty, escalation, and PII-safe logging.
+ 
+=============================================================================
+
+
+CrewAI lets specialized agents (planner, coder, reviewer, tester) collaborate on complex coding tasks efficiently.
+It improves code quality through role-based task separation and automated reviews.
+Parallel agent execution speeds up debugging, testing, and feature development.
+Built-in orchestration, memory, and tool usage simplify multi-agent workflow management.
+It is flexible, lightweight, and easier to scale compared to many multi-agent frameworks
+
+=============================================================================
+
+
+Intent Task
+Identifies the user’s intent from the input query and assigns a confidence score for accuracy.
+Helps route the request to the appropriate workflow or downstream processing agent.
+Safety Task
+Scans user input for unsafe, harmful, or policy-violating content before processing.
+Detects and redacts sensitive personal information (PII) to ensure secure handling.
+Retrieval Task
+Fetches relevant documents and contextual information from the knowledge base.
+Ensures the response generation process is grounded in accurate and domain-specific data.
+Resolution Task with Tools
+Uses tools and external knowledge sources to generate context-aware resolutions.
+Retrieves supporting information from the knowledge base or vector database when required.
+Resolution Task
+Generates the final user-facing response using retrieved knowledge and context.
+Provides clear explanations and accurate resolutions tailored to the user query.
+Escalation Task
+Evaluates whether the issue requires intervention from a human support agent.
+Produces an escalation decision along with reasoning for transparency and traceability.
+Audit Task
+Records the decision flow and processing steps for compliance and monitoring purposes.
+Ensures logs are stored securely without retaining any personal or sensitive information.
+Evaluation Task
+Assesses the generated response across multiple quality dimensions such as accuracy, safety, completeness, clarity, and policy compliance.
+Produces a structured evaluation summary with category-wise scores and an overall performance rating.
+=============================================================================
+
+
+Submission Guidelines
+Submit one zip file containing the following:
+
+Agent source (code or Flowise export) with clear run instructions.
+Problem framing document (1–2 pages).
+Demo script (3–5 forced interactions) plus evidence (logs/screenshots).
+Prompt comparison table (same test set, 2–3 variants, insights).
+Evaluation report including at least one debugged failure case with root cause + fix + before/after proof.
+Engineering & product justification (design decisions, tradeoffs, safety approach, deployment assumptions).
+
+=============================================================================

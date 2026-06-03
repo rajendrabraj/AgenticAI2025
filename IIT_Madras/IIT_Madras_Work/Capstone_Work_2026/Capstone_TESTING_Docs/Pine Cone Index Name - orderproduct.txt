@@ -1,0 +1,29 @@
+Pine Cone Index Name - orderproductdata
+
+Host - https://orderproductdata-yiy5ibb.svc.aped-4627-b74a.pinecone.io4
+
+model is text-embedding-small
+
+File name is = Product_Order_Customer_Data.csv
+
+Pine_cone_API_KEY = "4lSvCNuLMwSRBcfRGnU1fjgzOaDLV7E6PF7K0T1TLAA"
+
+
+
+pip install pandas pinecone openai tqdm
+
+give me order status about P00001 product and provide product_id, Order_Status ,  Shippment_Status ,user_name as details
+
+when i call this function result = search_knowledge_base(query)  and it shows me json string as "status": "NOT_FOUND" , I want to call another function call_agent(query)
+give me 2-3  lines of python code
+
+
+import json
+
+result = search_knowledge_base(query)
+
+if json.loads(result).get("status") == "NOT_FOUND":
+    result = call_agent(query)
+
+
+query = "give me order status for order id Order_Id= O002"

@@ -1,0 +1,107 @@
+My agent is a customer support ecommerce  AI agent and I want to make it smarter when a user asks query about Order status , refund , order status,
+New product information by providing the name, the Intent agent should be smarter to provide properly output. 
+
+User may ask questions like :
+
+
+
+intent_agent_with_tools = build_agent(
+    role="Intent Classifier",
+    goal="Identify customer intent and assign confidence score",
+    backstory="Expert in NLP classification for customer support"
+    
+)
+
+@tool
+def knowledge_base_tool(query: str) -> str:
+    """Search internal knowledge base for accurate answers."""    
+    print("Inside Knowledge Base Tool successfully.")
+    logging.info("Inside Knowledge Base Tool successfully.")
+    results_knowledge_base = search_knowledge_base_records(query)
+    print(f"Retrieved documents: {results_knowledge_base}")
+    logging.info(f"Retrieved documents: {results_knowledge_base}")
+    return "\n".join(results_knowledge_base)
+
+@tool
+def escalation_tool(query: str) -> str:
+    """Escalate query to human agent when needed."""
+    return "Escalation triggered for query: " + query
+
+
+
+
+My safe prompt has this section is this correct will it call the both the tools function as below which has code , please refine my safe_prompt_with_tools so that it uses the tools while the agent is trigerred. 
+
+@tool
+def knowledge_base_tool(query: str) -> str:
+@tool
+def escalation_tool(query: str) -> str:
+
+Task is defined as below :
+
+resolution_task_with_tools  = build_task(
+    description=safe_prompt_with_tools,
+    agent=resolution_agent,
+    expected_output="Relevant documents retrieved from knowledge base or Vector database"
+)
+
+--------------------------
+
+Prompt is as below please refine my safe_prompt_with_tools so that it uses the tools while the agent is trigerred. 
+
+
+safe_prompt_with_tools = """
+You are a customer support AI.
+
+You have access to the following tools:
+- knowledge_tool: Search internal knowledge base for accurate answers
+- escalation_tool: Escalate the query to a human agent when necessary
+
+---
+Query: {query}
+Tools : knowledge_base_tool, escalation_tool
+---
+
+
+Rules:
+
+RULES:
+
+1. For factual or support-related queries:
+   - ALWAYS call `knowledge_tool` first.
+
+2. After using `knowledge_tool`:
+   - If relevant information is found → answer using it.
+   - If NO relevant information is found → respond with:
+     "No relevant information found"
+     AND call `escalation_tool`.
+
+3. Call `escalation_tool` immediately if:
+   - The query is sensitive (legal, financial risk, personal data)
+   - The query requires human judgment
+   - Confidence in the answer is low
+
+4. DO NOT hallucinate.
+5. DO NOT make up answers.
+6. Use only tool outputs to answer factual queries.
+
+
+---
+Query: {query}
+Tools : knowledge_base_tool, escalation_tool
+---
+
+Available Tools:
+- KnowledgeBaseSearch: Search internal knowledge base for accurate answers
+- EscalationTool: Escalate query to human agent when needed
+
+Output format (STRICT):
+
+Answer: <final answer to the user or "No relevant information found">
+Reasoning: <brief explanation of what you did>
+Tool Used: <knowledge_tool / escalation_tool / none>
+Confidence: <high / medium / low>
+Escalation Required: <yes / no>
+
+"""
+

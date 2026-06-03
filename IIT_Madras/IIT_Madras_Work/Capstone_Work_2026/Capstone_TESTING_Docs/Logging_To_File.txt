@@ -1,0 +1,76 @@
+## Add Output to a TEXT File 
+
+def append_to_chatbot_file(response_json):
+
+    file = open(OUTPUT_FILE, "a", encoding="utf-8")
+    json_output = json.dumps(response_json, indent=4)
+    
+    file.write(json_output + "\n\n")
+
+    file.close()
+
+    return "SUCCESS"
+
+
+def append_to_chatbot_file_string(response_string):
+    # Handle CrewOutput objects by extracting raw output
+    if hasattr(response_string, 'raw'):
+        response_text = response_string.raw
+    else:
+        response_text = str(response_string)
+
+    file = open(OUTPUT_FILE, "a", encoding="utf-8")
+
+    file.write(response_text + "\n\n")
+
+    file.close()
+
+    return "SUCCESS"
+
+
+
+
+=================================================================================================================
+
+    lstr_plain_string = "========================AI CHAT BOT SHIPMENT QUERY======================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+
+
+    lstr_plain_string = "AI CHATBOT  :  RESULTS of KnowledgeBASE   :  " + query
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)
+    append_to_chatbot_file(response_string)     
+    lstr_plain_string = "=========================================================="
+    append_to_chatbot_file_string(lstr_plain_string)  
+
+
+
+    ## Copy the results to Output File
+    append_to_chatbot_file_string(final_Evaluation_response) 
+
+
+  ## Copy the results to Output File
+    append_to_chatbot_file_string(final_escalation_response)       
+
+
+  lstr_plain_string = "=================AI CHAT BOT ORDER QUERY(Completed)======================="
+    append_to_chatbot_file_string(lstr_plain_string) 
+
+
+  end_time =  str(datetime.now())
+    append_to_chatbot_file_string(end_time)    
+
+
+
+lstr_plain_string = start_time + " :  AI CHAT BOT ORDER QUERY : " + query   
+
+
+end_time =  str(datetime.now())    
+lstr_plain_string = end_time + " :  AI CHAT BOT ORDER QUERY COMPLETED : " + query   
+
+
+give me shipment status and shipment tracking for Order_Id = 0003
+
+

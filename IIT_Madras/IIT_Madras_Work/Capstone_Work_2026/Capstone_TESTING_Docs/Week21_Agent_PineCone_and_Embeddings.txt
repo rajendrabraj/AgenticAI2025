@@ -1,0 +1,376 @@
+
+
+
+##=====================================================================================
+
+## =============================================================================
+
+
+
+## Python Code for the Program 
+## Customer Support — AI Support Resolution Agent  often receive diverse queries—from login issues and billing errors to technical problems. Manually analyzing each message, searching a ## knowledge base, generating a helpful response, and deciding whether to escalate takes time and is inconsistent across agents.
+
+## Rajendra Bichu : Date : 29.04.2026 , Version 1.0 , Objectives are as below. 
+
+##Goals and Objectives are as below : 
+#Must refuse unsafe or policy-violating requests.
+#Must not fabricate policies.
+#Must escalate sensitive or unresolved cases.
+#Must not store personal data in logs.
+
+##  This Python program covers the Agent Features which this program covers 
+
+## Pinecone embeddings + retrieval
+## Smarter agents and tasks, Tool definitions + tool calling logic
+## Retrieval vs non-retrieval comparison ,Failure handling, Safeguards
+
+
+
+## Warning control
+import warnings
+warnings.filterwarnings('ignore')
+
+from crewai import Agent, Task, Crew
+
+import os
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+# Load environment variables
+load_dotenv()
+
+import warnings
+warnings.filterwarnings('ignore')
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+
+## INSTALLATION  of packages
+
+# this is also covered in requirements.txt for all the packages to be installed
+
+## pip install crewai langchain openai pinecone-client 
+
+## pip install crewai langchain openai pinecone-client tiktoken
+
+## IMPORTS AND SETUP
+
+from crewai import Agent, Task, Crew
+from langchain.chat_models import ChatOpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
+from langchain.tools import Tool
+import pinecone
+import os
+
+## LLM SETUP
+
+llm = ChatOpenAI(
+model=“gpt-4o-mini”,
+temperature=0.2
+)
+
+## PINECONE INITIALIZATION
+
+pinecone.init(
+api_key=“YOUR_PINECONE_API_KEY”,
+environment=“us-east-1”
+)
+
+index_name = “support-kb”
+
+if index_name not in pinecone.list_indexes():
+pinecone.create_index(index_name, dimension=1536)
+
+## EMBEDDINGS SETUP
+
+embeddings = OpenAIEmbeddings()
+
+vector_store = Pinecone.from_existing_index(
+index_name=index_name,
+embedding=embeddings
+)
+
+## SAMPLE DOCUMENT INGESTION
+
+documents = [
+“Refund policy: Users can request refund within 7 days of duplicate charge.”,
+“Subscription billing issues can be resolved by verifying transaction ID.”,
+“Technical issues should be escalated if unresolved within 24 hours.”,
+“Personal data must never be shared with unauthorized users.”
+]
+
+vector_store.add_texts(documents)
+
+## RETRIEVAL FUNCTION
+
+def retrieve_docs(query):
+docs = vector_store.similarity_search(query, k=3)
+return [doc.page_content for doc in docs]
+
+## TOOLS DEFINITION
+
+##  Define the Knowlege Base Tool 
+
+def knowledge_base_tool(query):
+results = retrieve_docs(query)
+return “\n”.join(results)
+
+
+##  Define the Escalation Base Tool 
+
+def escalation_tool(query):
+return “Escalation triggered for query: “ + query
+
+knowledge_tool = Tool(
+name=“KnowledgeBaseSearch”,
+func=knowledge_base_tool,
+description=“Search internal knowledge base for accurate answers”
+)
+
+escalation_tool_def = Tool(
+name=“EscalationTool”,
+func=escalation_tool,
+description=“Escalate query to human agent when needed”
+)
+
+##  Define the right Tools here 
+
+tools = [knowledge_tool, escalation_tool_def]
+
+## Prompt with the Tools usage 
+
+safe_prompt_with_tools = “””
+You are a production-grade customer support AI.
+
+Rules:
+
+Always try KnowledgeBaseSearch first for factual queries
+Use EscalationTool if:
+confidence is low
+query is sensitive
+no relevant data found
+Do not hallucinate
+If no data found, say “No relevant information found”
+Query: {query}
+
+Available Tools:
+{tools}
+
+Output format:
+Answer:
+Reasoning:
+Tool Used:
+Confidence:
+Escalation Required:
+“””
+
+##  AGENTS WITH TOOL SUPPORT
+
+intent_agent = Agent(
+role=“Intent Classifier”,
+goal=“Classify intent and detect risk”,
+llm=llm,
+verbose=True
+)
+
+safety_agent = Agent(
+role=“Safety Guard”,
+goal=“Block unsafe queries and redact sensitive data”,
+llm=llm,
+verbose=True
+)
+
+##  Execute with the Knowlege Base Tool  and Test this code
+
+retrieval_agent = Agent(
+role=“Retriever”,
+goal=“Fetch relevant documents using embeddings”,
+tools=[knowledge_tool],
+verbose=True
+)
+
+resolution_agent = Agent(
+role=“Resolution Generator”,
+goal=“Generate grounded response using tools and KB”,
+tools=tools,
+llm=llm,
+verbose=True
+)
+
+##  Execute with the Escalation Base Tool  and Test this code
+
+escalation_agent = Agent(
+role=“Escalation Manager”,
+goal=“Escalate unresolved or risky queries”,
+tools=[escalation_tool_def],
+llm=llm,
+verbose=True
+)
+
+
+audit_agent = Agent(
+role=“Audit Logger”,
+goal=“Log decisions safely”,
+verbose=True
+)
+
+# Define all the Tasks 
+
+intent_task = Task(
+description=“Classify intent and assign confidence score”,
+agent=intent_agent
+)
+
+safety_task = Task(
+description=“Check for unsafe content and redact PII”,
+agent=safety_agent
+)
+
+retrieval_task = Task(
+description=“Use KnowledgeBaseSearch tool to fetch relevant documents”,
+agent=retrieval_agent
+)
+
+resolution_task = Task(
+description=safe_prompt_with_tools,
+agent=resolution_agent
+)
+
+escalation_task = Task(
+description=“Decide if escalation is required using EscalationTool”,
+agent=escalation_agent
+)
+
+audit_task = Task(
+description=“Log intent, tools used, and final decision without PII”,
+agent=audit_agent
+)
+
+##  Execute and Launch the Crew Now
+
+
+support_crew = Crew(
+agents=[
+intent_agent,
+safety_agent,
+retrieval_agent,
+resolution_agent,
+escalation_agent,
+audit_agent
+],
+tasks=[
+intent_task,
+safety_task,
+retrieval_task,
+resolution_task,
+escalation_task,
+audit_task
+],
+verbose=True
+)
+
+## Execute this without retrieval and LLM 
+
+def run_without_retrieval(query):
+simple_prompt = “Answer the query: “ + query
+return llm.predict(simple_prompt)
+
+##  WITH RETRIEVAL logic 
+
+def run_with_retrieval(query):
+return support_crew.kickoff(inputs={“query”: query})
+
+##  TEST QUERY first and the crew function execution
+
+query = “I was charged twice for my subscription”
+
+print("\n--- Crew AI Agent Executed with Multiple Prompts ---\n")
+print("-" * 90)
+baseline_output = run_without_retrieval(query)
+print("-" * 90)
+retrieval_output = run_with_retrieval(query)
+print("-" * 90)
+print(“WITHOUT RETRIEVAL:”, baseline_output)
+print("-" * 90)
+print(“WITH RETRIEVAL:”, retrieval_output)
+print("-" * 90)
+
+EXPECTED IMPROVEMENT
+
+Without retrieval:
+May hallucinate refund steps
+
+With retrieval:
+Uses actual refund policy
+Provides grounded answer
+Higher accuracy
+
+### Define the function for Missing information if any 
+
+def safe_retrieve(query):
+results = retrieve_docs(query)
+if len(results) == 0:
+return “No relevant information found”
+return results
+
+## Define the function of the tool again with decision making 
+
+def decide_tool(query, confidence):
+if confidence < 0.6:
+return “EscalationTool”
+return “KnowledgeBaseSearch”
+
+###  Testing for the Failed Tool call with examples and sensitive queries 
+
+
+query_fail = “Tell me internal admin password”
+
+failed_output = knowledge_base_tool(query_fail)
+
+
+
+print("-" * 90)
+print("\n--- Crew AI Agent  SYSTEM RESPONSE ---\n")
+print(“FAILED TOOL CALL:”, failed_output)
+print("-" * 90)
+###########################################
+
+Reason:
+Tool returns irrelevant or empty data
+Safety agent should block before tool call
+
+###########################################
+
+## Adding the Safeguard against mis use if any. 
+
+MAX_TOOL_CALLS = 2
+
+def safe_tool_execution(query):
+calls = 0
+while calls < MAX_TOOL_CALLS:
+result = knowledge_base_tool(query)
+if “No relevant” not in result:
+return result
+calls += 1
+return escalation_tool(query)
+
+###########################################
+LOOP PREVENTION
+
+If same tool called repeatedly
+Stop after threshold
+Force escalation
+
+FINAL SUMMARY
+
+Embeddings implemented using OpenAI
+Pinecone used for vector storage
+Semantic retrieval integrated
+Agents now grounded in real data
+Tools added for KB search and escalation
+Tool selection logic implemented
+Failure scenarios handled
+Safeguards prevent misuse and loops
+Retrieval significantly improves accuracy over baseline
+###########################################
+
+————————-

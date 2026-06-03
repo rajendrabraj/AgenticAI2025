@@ -1,0 +1,83 @@
+Hello Shiju and Asha,
+
+
+Appreciate your efforts to review my assignment by Nikhil.  There areas are below where I feel I can score higher. I have few comments here which can provide some clarity and would like to submit the assignment documents, code and log once again.
+
+How can I do this kindly let me know, as I need to attempt to improve the scoring once again. 
+
+====================================================================================================================================
+Problem Framing & Domain Understanding (5/10)
+
+Reviewer Comments
+The scenario is stated clearly in code headers and the business area is appropriate for the capstone. However, there is no separate problem framing artefact showing persona, workflow, assumptions, constraints, success criteria, and edge cases in a structured industry format.
+
+Rajendra Comments  :   
+
+Document Reference : Capstone_Project_Rajendra_Bichu.docx, I hope you have checked the document which has all the details Personas, Agent, Tasks, Approach, Streamlit(extra efforts),success criteria ,screenshots of outputs wherever applicable this is a complete document. Is there any template if needs to be filled, do let me know. 
+
+
+====================================================================================================================================
+
+
+Python Foundations & Baseline Prototype  (4/5)
+
+Reviewer Comments
+The learner has substantial Python work, modular functions, and multiple runnable scripts. The main weakness is duplication across files and lack of one clean baseline version with clearly documented limitations.
+
+Rajendra Comments  :   I have used modular programming to execute multiple programs this was mentioned in my word document on the approach chosen  , as I have attached files and each program what it does you may have thought that there is no clean BaselineVersion. I have also used Streamlit which calls the multiple programs or functions. If you look at my List_of_Programs.doc I have submitted each program and tested it separately.  Also given as a list in the Document Reference : Capstone_Project_Rajendra_Bichu.docx (Page #14) 
+
+The run_progarms call the other programs and I tested it using this approach as I was learning and testing this. , if needed I can only submit just one clean code and which calls other functions. Please let me know. 
+
+====================================================================================================================================
+
+
+LLM Integration & Prompt Design  (9/15) 
+
+Comments : 
+LLM integration is real and prompt variants are present in code. The score is held back because prompt testing is not presented as the required same-test-set comparison table, and some outputs are inconsistent or mismatched to the billing scenario.
+
+Rajendra : I will re-run again and provide the Prompt Testing outcome with specific billing queries as inputs once again. 
+
+====================================================================================================================================
+
+
+
+====================================================================================================================================
+Tool-Using Agent Implementation (7/15) 
+
+Reviewer Comments
+Two tools are defined and the learner attempts loop control with MAX_TOOL_CALLS, which is a useful safeguard start. But the proof that the agent is actually choosing and using tools correctly is weak, and much of the behavior appears prompt-driven rather than reliably tool-driven.
+
+Rajendra Comments  :  It is prompt driven as I had used multiple prompts to test as that was mentioned in the document.  I can modify the program to test this again and provide output/outcome.  
+
+
+========================================================================================================================
+Agent Architecture, Planning & Memory  (7/15) 
+
+Reviewer Comments
+Clear multi-agent architecture using CrewAI, which is a valid framework choice. Planning is mostly fixed sequential orchestration, and memory is not cleanly managed as a support conversation state; it stores prior evaluation summaries and grows token usage heavily.
+
+
+Rajendra Comments  :  Let me try to review the program once again, run again and provide the logs . 
+========================================================================================================================
+
+
+Safety, Evaluation & Governance (9/15) 
+
+Reviewer Comments
+The strongest capstone requirement is direct safety enforcement, and the evidence suggests the system often evaluates its own weak answer after the fact instead of refusing or safely routing up front. There is also no clear PII-masking function comparable to the requirement
+
+Rajendra Comments  :  Let me try to review the program once again, run again and provide the logs which show evidence about PII and Safety . 
+
+========================================================================================================================
+
+
+Embeddings & Semantic Retrieval (RAG)  (6/10)
+
+Reviewer Comments
+The learner implemented embeddings, Pinecone fallback, and a retrieval function, which is a good technical effort. The evidence is weakened by the tiny hardcoded knowledge base and by logs showing retrieval of clearly irrelevant “XYZ Widget” content for a billing query. 
+
+Rajendra Comments  :  This was shown in the earlier log as I was testing , I have later tested with more detailed queries. I can explain if required.  I have used multiple queries to execute if required I can run it again and provide another log , earlier log was testing which shows "XYZ" , now this records is not available. If required I can execute once again and provide evidence. 
+
+===================================================================================================================================
+
