@@ -1,0 +1,12 @@
+Files Attached
+
+Log - log Files and Output Files
+SRC - Source Code of the Agents and run_Crew_ChatBot is the main file
+app.py - is the fun file for FAST API deployment app
+AI_Agent_Capstone_Project_Problem_Statement.DOC/PDF - This contains the Problem Statement
+AI_Agent_Capstone_Project_Problem_Statement.DOC/PDF - This contains the Tech Stack, Inputs , Output, Agent Flow, Metics, FAST API and all the relevant information
+requirements.txt - Is the Standard file for python packages
+search_knowledge_base.py - Program to query the Pinecone Database for data.
+agents*.py - These are all agent files which are called from the run_Crew_ChatBot program
+AI_CHATBOT_OUTPUT - This is the OUTPUT and contains all the execution log information.
+FAST_API_OUTPUT - This has the FAST_API output execution log which is also in the AI_CHATBOT_OUTPUT

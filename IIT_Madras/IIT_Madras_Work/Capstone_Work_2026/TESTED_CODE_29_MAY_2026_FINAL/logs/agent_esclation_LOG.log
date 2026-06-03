@@ -1,0 +1,582 @@
+2026-05-22 14:26:53,197 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 14:26:53,198 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 14:27:17,930 | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-22 14:27:19,410 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"SUCCESS\", \"total_records\": 1, \"data\": [{\"Order_Id\": \"O015\", \"product_name\": \"Portronics Konnect L\", \"Customer_Name\": \"Rahul\", \"Product_ID\": \"P00015\", \"Order_Status\": \"Shipped\", \"Refund_Status\": \"Shipped\", \"Shipment_Status\": \"Shipped\", \"Shipment_Tracking_Number\": \"AWBP-IND-000015\"}]}"
+2026-05-22 14:27:19,414 | INFO | Calling Escalation Agent Now for query give me order status for order id Order_Id= O015
+2026-05-22 14:27:32,529 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 14:27:32,538 | INFO | OpenAI API usage: {'prompt_tokens': 1678, 'completion_tokens': 386, 'total_tokens': 2064}
+2026-05-22 14:27:32,585 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "ORDER",
+  "resolution_status": "RESOLVED",
+  "order_information_found": "TRUE",
+  "product_information_found": "TRUE",
+  "shipment_information_found": "TRUE",
+  "refund_information_found": "TRUE",
+  "customer_guidance_provided": "NOT_REQUIRED",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "ORDER_STATUS",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "FALSE",
+  "escalation_category": "",
+  "escalation_team": "",
+  "priority": "LOW",
+  "reason": "The order status was successfully retrieved from the provided data.",
+  "detected_issue_type": "NOT_FOUND",
+  "recommended_action": "No escalation needed; customer can track their order using the provided tracking number.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-123456",
+  "customer_callback_required": false,
+  "callback_status": "NOT_REQUIRED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-000-0001",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "Customer can track their order using the tracking number AWBP-IND-000015.",
+    "For further inquiries, contact customer support via email or toll-free number."
+  ],
+  "compliance_safe": true
+}
+```
+2026-05-22 14:29:07,338 | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-22 14:29:08,876 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"NOT_FOUND\", \"Ticket Number \": \"TICKET2362\", \"Expected SLA\": \"24_HOURS\", \"callback status\": \"SCHEDULED\", \"Ticket Status\": \"I have raised a Ticket for your request, please check your email\", \"User Guidance\": \"One of the Customer support Enginner will reach out to you soon.\", \"message\": \"Information is not received for the Question Asked .Please contact 24x7 customer support 1800-0011-011 or email to customer_care@support.com\"}"
+2026-05-22 14:29:08,877 | INFO | Calling Escalation Agent Now for query give me order status for order id Order_Id= 1245678901
+2026-05-22 14:29:18,976 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 14:29:18,981 | INFO | OpenAI API usage: {'prompt_tokens': 3749, 'completion_tokens': 387, 'total_tokens': 4136}
+2026-05-22 14:29:19,012 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "ORDER",
+  "resolution_status": "NOT_RESOLVED",
+  "order_information_found": "FALSE",
+  "product_information_found": "FALSE",
+  "shipment_information_found": "FALSE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "YES",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "YES",
+  "detected_query_category": "ORDER_STATUS",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Customer Support Team",
+  "priority": "HIGH",
+  "reason": "The order status was not found, requiring immediate escalation to customer support.",
+  "detected_issue_type": "ORDER_NOT_FOUND",
+  "recommended_action": "Escalate to customer support for further investigation.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET2362",
+  "customer_callback_required": true,
+  "callback_status": "SCHEDULED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-000-0001",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A customer support engineer will reach out to you soon regarding your order status.",
+    "Please check your email for updates on your ticket."
+  ],
+  "compliance_safe": true
+}
+```
+2026-05-22 16:30:26,138 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 16:30:26,139 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 16:32:17,359 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"NOT_FOUND\", \"message\": \"No searchable field found. Use Order_Id, product_id, or user_name in the query.\"}"
+2026-05-22 16:32:17,360 | INFO | Calling Escalation Agent Now for query I have login related issues please help
+2026-05-22 16:32:29,319 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 16:32:29,328 | INFO | OpenAI API usage: {'prompt_tokens': 1582, 'completion_tokens': 377, 'total_tokens': 1959}
+2026-05-22 16:32:29,358 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "LOGIN",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "FALSE",
+  "product_information_found": "FALSE",
+  "shipment_information_found": "FALSE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "NO",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "LOGIN_ISSUE",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Human Customer Support Team",
+  "priority": "HIGH",
+  "reason": "Login related issues require immediate attention.",
+  "detected_issue_type": "LOGIN_ISSUE",
+  "recommended_action": "Customer should be contacted for further assistance.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-123456",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-0011-011",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A support representative will reach out to assist with the login issue.",
+    "Please check your email for further instructions."
+  ],
+  "compliance_safe": true
+}
+```
+2026-05-22 16:33:03,346 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"NOT_FOUND\", \"message\": \"No searchable field found. Use Order_Id, product_id, or user_name in the query.\"}"
+2026-05-22 16:33:03,346 | INFO | Calling Escalation Agent Now for query I have password related issues , please reset my password , user is Rajendra
+2026-05-22 16:33:18,875 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 16:33:18,876 | INFO | OpenAI API usage: {'prompt_tokens': 3550, 'completion_tokens': 384, 'total_tokens': 3934}
+2026-05-22 16:33:18,902 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "LOGIN",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "FALSE",
+  "product_information_found": "FALSE",
+  "shipment_information_found": "FALSE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "NO",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "LOGIN_ISSUE",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Human Customer Support Team",
+  "priority": "HIGH",
+  "reason": "Password reset request requires immediate attention due to login issues.",
+  "detected_issue_type": "LOGIN_ISSUE",
+  "recommended_action": "Customer should be contacted for further assistance with password reset.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-789012",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-0011-011",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A support representative will reach out to assist with the password reset.",
+    "Please check your email for further instructions."
+  ],
+  "compliance_safe": true
+}
+```
+2026-05-22 16:46:35,891 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 16:46:35,892 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 16:46:41,894 | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-22 16:46:43,704 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"SUCCESS\", \"total_records\": 1, \"data\": [{\"Order_Id\": \"O015\", \"product_name\": \"Portronics Konnect L\", \"Customer_Name\": \"Rahul\", \"Product_ID\": \"P00015\", \"Order_Status\": \"Shipped\", \"Refund_Status\": \"Shipped\", \"Shipment_Status\": \"Shipped\", \"Shipment_Tracking_Number\": \"AWBP-IND-000015\"}]}"
+2026-05-22 16:46:43,704 | INFO | Calling Escalation Agent Now for query give me shipment status and shipment tracking for order id Order_Id= O015
+2026-05-22 16:46:54,947 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 16:46:54,958 | INFO | OpenAI API usage: {'prompt_tokens': 1681, 'completion_tokens': 344, 'total_tokens': 2025}
+2026-05-22 16:46:54,992 | INFO | Escalation Agent :  Check  Result : {
+  "customer_query_type": "SHIPMENT",
+  "resolution_status": "RESOLVED",
+  "order_information_found": "TRUE",
+  "product_information_found": "TRUE",
+  "shipment_information_found": "TRUE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "NOT_REQUIRED",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "SHIPMENT",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "FALSE",
+  "escalation_category": "",
+  "escalation_team": "",
+  "priority": "LOW",
+  "reason": "The query is resolved with the provided shipment status and tracking information.",
+  "detected_issue_type": "NOT_FOUND",
+  "recommended_action": "No further action required as the shipment status is confirmed.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-123456",
+  "customer_callback_required": false,
+  "callback_status": "NOT_REQUIRED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-000-0001",
+    "support_hours": "24x7"
+  },
+  "next_steps": [],
+  "compliance_safe": true
+}
+2026-05-22 16:47:59,152 | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-22 16:48:00,721 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"SUCCESS\", \"total_records\": 1, \"data\": [{\"Order_Id\": \"O015\", \"product_name\": \"Portronics Konnect L\", \"Customer_Name\": \"Rahul\", \"Product_ID\": \"P00015\", \"Order_Status\": \"Shipped\", \"Refund_Status\": \"Shipped\", \"Shipment_Status\": \"Shipped\", \"Shipment_Tracking_Number\": \"AWBP-IND-000015\"}]}"
+2026-05-22 16:48:00,721 | INFO | Calling Escalation Agent Now for query give me refund status for  order id Order_Id= O015
+2026-05-22 16:48:14,494 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-22 16:48:14,495 | INFO | OpenAI API usage: {'prompt_tokens': 3705, 'completion_tokens': 386, 'total_tokens': 4091}
+2026-05-22 16:48:14,537 | INFO | Escalation Agent :  Check  Result : {
+  "customer_query_type": "REFUND",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "TRUE",
+  "product_information_found": "TRUE",
+  "shipment_information_found": "TRUE",
+  "refund_information_found": "TRUE",
+  "customer_guidance_provided": "NOT_REQUIRED",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "REFUND",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number ": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Refund Operations",
+  "priority": "HIGH",
+  "reason": "The query involves a refund status request which requires immediate escalation.",
+  "detected_issue_type": "REFUND_ISSUE",
+  "recommended_action": "A support ticket has been generated for the refund status request.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-789012",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-000-0001",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "You will receive a callback from our Refund Operations team within the next 24 hours.",
+    "Please have your order details ready for verification."
+  ],
+  "compliance_safe": true
+}
+2026-05-22 17:00:02,650 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:00:02,651 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:01:14,148 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:01:14,149 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:04:05,071 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:04:05,072 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:39:36,435 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:39:36,436 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:43:06,515 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:43:06,516 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:46:42,153 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:46:42,156 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 17:50:57,167 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 17:50:57,169 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 18:28:25,993 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 18:28:25,995 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 18:36:17,141 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 18:36:17,142 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-22 18:52:48,045 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-22 18:52:48,046 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 09:33:52,506 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 09:33:52,509 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 09:34:47,810 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 09:34:47,811 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 10:01:00,496 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 10:01:00,498 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 10:12:02,113 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 10:12:02,115 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 12:35:43,653 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 12:35:43,655 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 13:01:03,821 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 13:01:03,822 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 18:45:33,528 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 18:45:33,529 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-23 19:27:56,993 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-23 19:27:56,994 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 09:57:43,901 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 09:57:43,905 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 10:03:46,116 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 10:03:46,117 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 10:19:00,060 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 10:19:00,061 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 10:43:00,450 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 10:43:00,451 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 10:53:19,812 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 10:53:19,815 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 11:15:26,288 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 11:15:26,289 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 12:45:32,997 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 12:45:32,998 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 12:58:13,784 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 12:58:13,786 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 13:09:30,088 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 13:09:30,089 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 13:13:58,716 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 13:13:58,717 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-24 13:26:12,596 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-24 13:26:12,597 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-25 11:50:06,298 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-25 11:50:06,301 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-25 12:20:23,724 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-25 12:20:23,725 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-25 15:06:13,012 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-25 15:06:13,013 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-25 15:51:57,566 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-25 15:51:57,568 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-25 15:52:07,993 | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-25 15:52:09,842 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"SUCCESS\", \"total_records\": 1, \"data\": [{\"Order_Id\": \"O007\", \"product_name\": \"boAt Micro USB 55 Ta\", \"Customer_Name\": \"Pavan\", \"Product_ID\": \"P00007\", \"Order_Status\": \"Shipped\", \"Refund_Status\": \"Shipped\", \"Shipment_Status\": \"Shipped\", \"Shipment_Tracking_Number\": \"AWBP-IND-000007\"}]}"
+2026-05-25 15:52:09,843 | INFO | Calling Escalation Agent Now for query give me refund status for Order_Id= O007
+2026-05-25 15:52:30,013 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:52:30,023 | INFO | OpenAI API usage: {'prompt_tokens': 1678, 'completion_tokens': 618, 'total_tokens': 2296}
+2026-05-25 15:52:30,040 | INFO | Escalation Agent : Total Tokens Used = 0
+2026-05-25 15:52:30,040 | INFO | Escalation Agent  : Prompt Tokens = 0
+2026-05-25 15:52:30,040 | INFO | Escalation Agent  : Completion Tokens = 0
+2026-05-25 15:52:30,040 | INFO | Escalation Agent Token Usage : {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}
+2026-05-25 15:52:30,041 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "REFUND",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "TRUE",
+  "product_information_found": "TRUE",
+  "shipment_information_found": "TRUE",
+  "refund_information_found": "TRUE",
+  "customer_guidance_provided": "NOT_REQUIRED",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "YES",
+  "detected_query_category": "REFUND_STATUS",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Refund Operations",
+  "priority": "HIGH",
+  "reason": "Customer requested refund status for an order, which is a refund-related query.",
+  "detected_issue_type": "REFUND_ISSUE",
+  "recommended_action": "Escalate to Refund Operations for further assistance.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-123456",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-0011-011",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A support representative will contact you within 24 hours regarding your refund status.",
+    "Please keep your order details handy for reference."
+  ],
+  "compliance_safe": true,
+  "evaluation_metrics": {
+    "accuracy": {
+      "score": 5,
+      "reason": "The evaluation accurately reflects the customer's query and the response data."
+    },
+    "safety": {
+      "score": 5,
+      "reason": "No sensitive information was exposed in the response."
+    },
+    "completeness": {
+      "score": 5,
+      "reason": "All required fields and information were provided."
+    },
+    "clarity": {
+      "score": 5,
+      "reason": "The response is clear and easy to understand."
+    },
+    "hallucination": {
+      "detected": false,
+      "reason": "No fabricated information was included."
+    },
+    "groundedness": {
+      "score": 5,
+      "reason": "The response is based on the actual customer query and data provided."
+    },
+    "escalation_correct": {
+      "value": "TRUE",
+      "reason": "The escalation is appropriate based on the refund-related query."
+    },
+    "confidence_score": 9
+  }
+}
+```
+2026-05-25 15:52:36,847 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"NOT_FOUND\", \"message\": \"No searchable field found. Use Order_Id, product_id, or user_name in the query.\"}"
+2026-05-25 15:52:36,847 | INFO | Calling Escalation Agent Now for query I have login issues to the system please help me
+2026-05-25 15:53:07,222 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:53:07,223 | INFO | OpenAI API usage: {'prompt_tokens': 3883, 'completion_tokens': 615, 'total_tokens': 4498}
+2026-05-25 15:53:07,240 | INFO | Escalation Agent : Total Tokens Used = 0
+2026-05-25 15:53:07,240 | INFO | Escalation Agent  : Prompt Tokens = 0
+2026-05-25 15:53:07,240 | INFO | Escalation Agent  : Completion Tokens = 0
+2026-05-25 15:53:07,240 | INFO | Escalation Agent Token Usage : {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}
+2026-05-25 15:53:07,241 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "LOGIN",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "FALSE",
+  "product_information_found": "FALSE",
+  "shipment_information_found": "FALSE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "NO",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "LOGIN_ISSUE",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Technical Support",
+  "priority": "HIGH",
+  "reason": "Customer is experiencing login issues, which requires immediate attention.",
+  "detected_issue_type": "LOGIN_ISSUE",
+  "recommended_action": "Escalate to Technical Support for resolution.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-789012",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-0011-011",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A technical support representative will reach out to you within 24 hours to assist with your login issues.",
+    "Please ensure you have your account details ready for verification."
+  ],
+  "compliance_safe": true,
+  "evaluation_metrics": {
+    "accuracy": {
+      "score": 5,
+      "reason": "The evaluation accurately reflects the customer's login issue."
+    },
+    "safety": {
+      "score": 5,
+      "reason": "No sensitive information was exposed in the response."
+    },
+    "completeness": {
+      "score": 5,
+      "reason": "All required fields and information were provided."
+    },
+    "clarity": {
+      "score": 5,
+      "reason": "The response is clear and easy to understand."
+    },
+    "hallucination": {
+      "detected": false,
+      "reason": "No fabricated information was included."
+    },
+    "groundedness": {
+      "score": 5,
+      "reason": "The response is based on the actual customer query and data provided."
+    },
+    "escalation_correct": {
+      "value": "TRUE",
+      "reason": "The escalation is appropriate based on the login-related query."
+    },
+    "confidence_score": 9
+  }
+}
+```
+2026-05-25 15:53:27,728 | INFO | Escalation Agent : Search KnowledgeBase Response : "{\"status\": \"NOT_FOUND\", \"message\": \"No searchable field found. Use Order_Id, product_id, or user_name in the query.\"}"
+2026-05-25 15:53:27,728 | INFO | Calling Escalation Agent Now for query I have password related issues
+2026-05-25 15:53:42,892 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:53:42,896 | INFO | OpenAI API usage: {'prompt_tokens': 6075, 'completion_tokens': 617, 'total_tokens': 6692}
+2026-05-25 15:53:42,912 | INFO | Escalation Agent : Total Tokens Used = 0
+2026-05-25 15:53:42,913 | INFO | Escalation Agent  : Prompt Tokens = 0
+2026-05-25 15:53:42,913 | INFO | Escalation Agent  : Completion Tokens = 0
+2026-05-25 15:53:42,913 | INFO | Escalation Agent Token Usage : {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}
+2026-05-25 15:53:42,914 | INFO | Escalation Agent :  Check  Result : ```json
+{
+  "customer_query_type": "PASSWORD RELATED",
+  "resolution_status": "ESCALATED",
+  "order_information_found": "FALSE",
+  "product_information_found": "FALSE",
+  "shipment_information_found": "FALSE",
+  "refund_information_found": "FALSE",
+  "customer_guidance_provided": "NO",
+  "support_contact_provided": "TRUE",
+  "ticket_or_callback_provided": "NO",
+  "detected_query_category": "PASSWORD_ISSUE",
+  "evaluation_grounded_on_actual_query": "TRUE",
+  "customer_support_email": "customer_care@support.com",
+  "Toll Free Number": "1800-0011-011",
+  "escalation_required": "TRUE",
+  "escalation_category": "CUSTOMER_SUPPORT",
+  "escalation_team": "Technical Support",
+  "priority": "HIGH",
+  "reason": "Customer is experiencing password-related issues, which requires immediate attention.",
+  "detected_issue_type": "LOGIN_ISSUE",
+  "recommended_action": "Escalate to Technical Support for resolution.",
+  "ticket_generated": true,
+  "ticket_id": "TICKET-345678",
+  "customer_callback_required": true,
+  "callback_status": "REQUESTED",
+  "expected_sla": "24_HOURS",
+  "customer_support_contact": {
+    "support_email": "customer_care@support.com",
+    "toll_free_number": "1800-0011-011",
+    "support_hours": "24x7"
+  },
+  "next_steps": [
+    "A technical support representative will reach out to you within 24 hours to assist with your password issues.",
+    "Please ensure you have your account details ready for verification."
+  ],
+  "compliance_safe": true,
+  "evaluation_metrics": {
+    "accuracy": {
+      "score": 5,
+      "reason": "The evaluation accurately reflects the customer's password issue."
+    },
+    "safety": {
+      "score": 5,
+      "reason": "No sensitive information was exposed in the response."
+    },
+    "completeness": {
+      "score": 5,
+      "reason": "All required fields and information were provided."
+    },
+    "clarity": {
+      "score": 5,
+      "reason": "The response is clear and easy to understand."
+    },
+    "hallucination": {
+      "detected": false,
+      "reason": "No fabricated information was included."
+    },
+    "groundedness": {
+      "score": 5,
+      "reason": "The response is based on the actual customer query and data provided."
+    },
+    "escalation_correct": {
+      "value": "TRUE",
+      "reason": "The escalation is appropriate based on the password-related query."
+    },
+    "confidence_score": 9
+  }
+}
+```
+2026-05-25 16:36:52,038 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-25 16:36:52,039 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-27 11:22:40,162 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-27 11:22:40,164 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-28 18:58:19,707 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-28 18:58:19,708 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-28 19:12:55,654 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-28 19:12:55,655 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-28 19:30:15,629 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-28 19:30:15,630 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-28 19:35:27,938 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-28 19:35:27,939 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-28 19:48:36,621 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-28 19:48:36,623 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-29 10:22:19,922 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-29 10:22:19,923 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-29 10:34:06,078 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-29 10:34:06,079 | WARNING | python-dotenv could not parse statement starting at line 25
+2026-05-29 10:49:12,907 | WARNING | python-dotenv could not parse statement starting at line 8
+2026-05-29 10:49:12,909 | WARNING | python-dotenv could not parse statement starting at line 25

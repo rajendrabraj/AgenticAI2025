@@ -1,0 +1,152 @@
+2026-05-23 11:29:26,682 | INFO | Calling Tool Execution  Agent Now for query Show me Refund Policy
+2026-05-23 11:29:32,316 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:29:32,332 | INFO | OpenAI API usage: {'prompt_tokens': 1061, 'completion_tokens': 324, 'total_tokens': 1385}
+2026-05-23 11:29:36,623 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:29:36,632 | INFO | OpenAI API usage: {'prompt_tokens': 1264, 'completion_tokens': 355, 'total_tokens': 1619}
+2026-05-23 11:29:36,678 | INFO | Tool Execution  Check  Result : ```
+{
+  "customer_query_type": "REFUND POLICY",
+  "tool_called": "show_refund_policy",
+  "policy_information_provided": "TRUE",
+  "response": "Customers can request a refund within 7 days of product delivery. Refunds are applicable only for damaged, defective, or incorrect products. Products must be returned in original condition with packaging intact. Refund requests are reviewed within 2 business days. Approved refunds are processed within 5-7 business days. Shipping charges are non-refundable unless the issue was caused by the seller. Refunds will be credited to the original payment method. Digital products and gift cards are non-refundable. Cancellation refunds may take additional processing time depending on the bank. For refund disputes, customers may contact customer support for escalation.",
+  "support_contact_provided": "TRUE",
+  "support_contact": {
+    "email": "customer_care@support.com",
+    "phone": "1800-0011-011"
+  },
+  "accuracy": {
+    "score": 5,
+    "reason": "The policy information provided is accurate and directly from the tool."
+  },
+  "completeness": {
+    "score": 5,
+    "reason": "All relevant aspects of the refund policy are covered."
+  },
+  "clarity": {
+    "score": 5,
+    "reason": "The response is clear and easy to understand."
+  },
+  "hallucination_check": {
+    "detected": false,
+    "reason": "No hallucinated information was provided."
+  },
+  "overall_score": 5,
+  "confidence": "HIGH",
+  "final_verdict": "PASS",
+  "final_status": "SUCCESS"
+}
+```
+2026-05-23 11:30:06,182 | INFO | Calling Tool Execution  Agent Now for query Show me Cancellation Policy 
+2026-05-23 11:30:10,557 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:30:10,559 | INFO | OpenAI API usage: {'prompt_tokens': 2683, 'completion_tokens': 163, 'total_tokens': 2846}
+2026-05-23 11:30:15,759 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:30:15,760 | INFO | OpenAI API usage: {'prompt_tokens': 2871, 'completion_tokens': 340, 'total_tokens': 3211}
+2026-05-23 11:30:15,802 | INFO | Tool Execution  Check  Result : ```
+{
+  "customer_query_type": "CANCELLATION POLICY",
+  "tool_called": "show_cancellation_policy",
+  "policy_information_provided": "TRUE",
+  "response": "Customers can cancel orders before the product is shipped. Orders already shipped cannot be cancelled directly. Cancellation requests can be submitted through the customer portal. Refunds for cancelled orders are processed after cancellation approval. Some products may not be eligible for cancellation due to seller restrictions. Bulk or customized orders may incur cancellation charges. Cancellation confirmation will be sent via email or SMS. Payment gateway charges may not be refundable in certain cases. Failed or duplicate orders are automatically cancelled and refunded. Customers can contact support for urgent cancellation assistance.",
+  "support_contact_provided": "TRUE",
+  "support_contact": {
+    "email": "customer_care@support.com",
+    "phone": "1800-0011-011"
+  },
+  "accuracy": {
+    "score": 5,
+    "reason": "The policy information provided is accurate and directly from the tool."
+  },
+  "completeness": {
+    "score": 5,
+    "reason": "All relevant aspects of the cancellation policy are covered."
+  },
+  "clarity": {
+    "score": 5,
+    "reason": "The response is clear and easy to understand."
+  },
+  "hallucination_check": {
+    "detected": false,
+    "reason": "No hallucinated information was provided."
+  },
+  "overall_score": 5,
+  "confidence": "HIGH",
+  "final_verdict": "PASS",
+  "final_status": "SUCCESS"
+}
+```
+2026-05-23 11:39:30,162 | INFO | Calling Tool Execution  Agent Now for query Show me Refund Policy
+2026-05-23 11:39:35,395 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:39:35,412 | INFO | OpenAI API usage: {'prompt_tokens': 1061, 'completion_tokens': 299, 'total_tokens': 1360}
+2026-05-23 11:39:40,661 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:39:40,667 | INFO | OpenAI API usage: {'prompt_tokens': 1264, 'completion_tokens': 383, 'total_tokens': 1647}
+2026-05-23 11:39:40,705 | INFO | Tool Execution  Check  Result : ```
+{
+  "customer_query_type": "REFUND POLICY",
+  "tool_called": "show_refund_policy",
+  "policy_information_provided": "TRUE",
+  "response": "1. Customers can request a refund within 7 days of product delivery. 2. Refunds are applicable only for damaged, defective, or incorrect products. 3. Products must be returned in original condition with packaging intact. 4. Refund requests are reviewed within 2 business days. 5. Approved refunds are processed within 5-7 business days. 6. Shipping charges are non-refundable unless the issue was caused by the seller. 7. Refunds will be credited to the original payment method. 8. Digital products and gift cards are non-refundable. 9. Cancellation refunds may take additional processing time depending on the bank. 10. For refund disputes, customers may contact customer support for escalation.",
+  "support_contact_provided": "TRUE",
+  "support_contact": {
+    "email": "customer_care@support.com",
+    "phone": "1800-0011-011"
+  },
+  "accuracy": {
+    "score": 5,
+    "reason": "The policy information provided is accurate and directly from the tool."
+  },
+  "completeness": {
+    "score": 5,
+    "reason": "All relevant aspects of the refund policy are covered."
+  },
+  "clarity": {
+    "score": 5,
+    "reason": "The response is clear and easy to understand."
+  },
+  "hallucination_check": {
+    "detected": false,
+    "reason": "No fabricated information was provided."
+  },
+  "overall_score": 5,
+  "confidence": "HIGH",
+  "final_verdict": "PASS",
+  "final_status": "SUCCESS"
+}
+```
+2026-05-23 11:39:43,181 | INFO | Calling Tool Execution  Agent Now for query Show me Cancellation Policy 
+2026-05-23 11:39:46,022 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:39:46,025 | INFO | OpenAI API usage: {'prompt_tokens': 2711, 'completion_tokens': 165, 'total_tokens': 2876}
+2026-05-23 11:39:51,612 | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-23 11:39:51,617 | INFO | OpenAI API usage: {'prompt_tokens': 2899, 'completion_tokens': 368, 'total_tokens': 3267}
+2026-05-23 11:39:51,662 | INFO | Tool Execution  Check  Result : ```
+{
+  "customer_query_type": "CANCELLATION POLICY",
+  "tool_called": "show_cancellation_policy",
+  "policy_information_provided": "TRUE",
+  "response": "1. Customers can cancel orders before the product is shipped. 2. Orders already shipped cannot be cancelled directly. 3. Cancellation requests can be submitted through the customer portal. 4. Refunds for cancelled orders are processed after cancellation approval. 5. Some products may not be eligible for cancellation due to seller restrictions. 6. Bulk or customized orders may incur cancellation charges. 7. Cancellation confirmation will be sent via email or SMS. 8. Payment gateway charges may not be refundable in certain cases. 9. Failed or duplicate orders are automatically cancelled and refunded. 10. Customers can contact support for urgent cancellation assistance.",
+  "support_contact_provided": "TRUE",
+  "support_contact": {
+    "email": "customer_care@support.com",
+    "phone": "1800-0011-011"
+  },
+  "accuracy": {
+    "score": 5,
+    "reason": "The policy information provided is accurate and directly from the tool."
+  },
+  "completeness": {
+    "score": 5,
+    "reason": "All relevant aspects of the cancellation policy are covered."
+  },
+  "clarity": {
+    "score": 5,
+    "reason": "The response is clear and easy to understand."
+  },
+  "hallucination_check": {
+    "detected": false,
+    "reason": "No fabricated information was provided."
+  },
+  "overall_score": 5,
+  "confidence": "HIGH",
+  "final_verdict": "PASS",
+  "final_status": "SUCCESS"
+}
+```
