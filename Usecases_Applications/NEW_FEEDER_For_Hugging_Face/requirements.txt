@@ -1,0 +1,12 @@
+pandas
+feedparser
+beautifulsoup4
+requests
+lxml
+gradio
+feedparser
+pandas
+matplotlib
+lxml
+beautifulsoup4
+requests
