@@ -1,4 +1,4 @@
-# AgenticAI - Agents & Beyond.
+# AgenticAI - Agents & Agentic Frameworks.
 
 **AI , Generative AI and Agentic Repository and Github**
 
