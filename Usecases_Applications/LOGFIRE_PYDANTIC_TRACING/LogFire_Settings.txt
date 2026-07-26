@@ -1,0 +1,366 @@
+GITHUB  : https://github.com/d-hackmt/Langsmith-Tracing
+
+GITHUB : https://github.com/d-hackmt/Nemo-Guardrails
+
+GITHUB :   https://github.com/d-hackmt/Pydantic-Logfire
+
+LANGSMITH : https://docs.langchain.com/langsmith/home
+
+CHECK MY YOUTUBE : https://www.youtube.com/@dhackmt
+
+LETS CONNECT ON LINKDIN : https://www.linkedin.com/in/dhackmt/
+
+Nemo Guard Rails
+
+GITHUB : https://github.com/d-hackmt/Nemo-Guardrails
+
+
+CHECK MY YOUTUBE : https://www.youtube.com/@dhackmt
+
+LETS CONNECT ON LINKDIN : https://www.linkedin.com/in/dhackmt/
+
+
+GROQ : https://console.groq.com/home
+
+GEMINI : https://aistudio.google.com/api-keys
+
+SERPER :  https://serper.dev/dashboard
+
+=======================================================================================
+
+Log fire Token
+
+https://logfire-us.pydantic.dev/aiwthraj/starter-project/settings/setup
+
+LOGFIRE_TOKEN="pylf_v2_us_1eb884d8-60e0-472b-914b-c8a255585513_qRSMnh0499SZ0RyPBCdvZYxhYFt3TJHdp5KHdg2XGthb"
+
+uv run logfire auth
+
+
+
+
+
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> uv run logfire auth
+
+Welcome to Logfire! 🔥
+Before you can send data to Logfire, we need to authenticate you.
+
+Logfire is available in multiple data regions. Please select one:
+1. US (GCP region: us-east4)
+2. EU (GCP region: europe-west4)
+Selected region [1/2]: 1
+Press Enter to open logfire-us.pydantic.dev in your browser...
+
+Please open https://logfire-us.pydantic.dev/auth/device/Yree4tVysr7VONw0Csb-3l0Z3Fj-bC3WnUwuqmaashE in your browser to authenticate if it hasn't already.
+Waiting for you to authenticate with Logfire...
+Successfully authenticated!
+
+Your Logfire credentials are stored in C:\Users\Windows\.logfire\default.toml
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> 
+
+
+logfire projects use udemy-logfire
+
+
+
+Welcome to Logfire! 🔥
+Before you can send data to Logfire, we need to authenticate you.
+
+Logfire is available in multiple data regions. Please select one:
+1. US (GCP region: us-east4)
+2. EU (GCP region: europe-west4)
+Selected region [1/2]: 1
+Press Enter to open logfire-us.pydantic.dev in your browser...
+
+Please open https://logfire-us.pydantic.dev/auth/device/Yree4tVysr7VONw0Csb-3l0Z3Fj-bC3WnUwuqmaashE in your browser to authenticate if it hasn't already.
+Waiting for you to authenticate with Logfire...
+Successfully authenticated!
+
+Your Logfire credentials are stored in C:\Users\Windows\.logfire\default.toml
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> logfire projects use udemy-logfire
+No projects with name `udemy-logfire` found for the current user. Choose from all projects? [y/n] (y): y
+Please select one of the following projects by number (requires the 'write_token' permission):
+1. aiwthraj/starter-project
+ [1] (1): 1
+Project configured successfully. You will be able to view it at: https://logfire-us.pydantic.dev/aiwthraj/starter-project
+PS C:\Rajendra_2015\AgenticAI_Programs\Agentic_Batch2> 
+
+
+=============================================
+
+Test code now
+
+import logfire
+
+logfire.configure()
+logfire.info('Hello, {place}!', place='UDEMY')
+
+
+logfire.configure(
+    token=os.getenv("LOGFIRE_TOKEN"),
+    service_name="llm-observability-course"
+)
+
+
+logfire.info("notebook_started",
+            part="PART 1 - BASICS",
+            instructer = "Rajendra",
+            tool = "Pydantic Logfire"
+            )
+
+
+
+with logfire.span("data_processing_simulation", dataset="llm_course", rows=1000):
+    logfire.info("step_started", step=1, action="loading data")
+    time.sleep(0.3)
+
+    logfire.info("step_started", step=2, action="transforming", columns=12)
+    time.sleep(0.2)
+
+    logfire.info("step_started", step=3, action="saving results", output="/tmp/out.csv")
+
+=====================================================================================================
+
+
+from pydantic import BaseModel
+from typing import Optional
+
+# MOCK DATA nOT REAL DATA
+
+class LLMRequest(BaseModel):
+    user_id: str
+    session_id: str
+    query: str
+    model: str
+    temperature: float = 0.7
+    max_tokens: Optional[int] = None
+
+
+class LLMResponse(BaseModel):
+    answer: str
+    input_tokens: int
+    output_tokens: int
+    latency_ms: float
+    model_used: str    
+
+
+# ── Simulate logging a real LLM request/response ──────────────────────────
+request = LLMRequest(
+    user_id="priya",
+    session_id="sess_abc123",
+    query="What is Retrieval-Augmented Generation?",
+    model="llama-3.3-70b-versatile",
+    max_tokens=500
+)
+
+with logfire.span("llm_CALL",
+                  user_id = request.user_id,
+                  session_id = request.session_id,
+                  model_used = request.model):
+    logfire.info("request_received" , **request.model_dump())
+    
+    time.sleep(0.1)
+
+    response = LLMResponse(
+        answer="RAG is a technique that retrieves relevant documents...",
+        input_tokens=18,
+        output_tokens=120,
+        latency_ms=342.5,
+        model_used="llama-3.3-70b-versatile"
+    )
+    logfire.info("response_sent", **response.model_dump())
+
+
+print(response)
+
+=====================================================================================================
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+
+logfire.instrument_openai()
+
+llm_groq = ChatOpenAI(
+    base_url= "https://api.groq.com/openai/v1",
+    api_key=os.getenv("GROQ_API_KEY"),
+    model = "llama-3.3-70b-versatile",
+    temperature=0.3
+)
+
+# Make a call — watch the trace appear in the dashboard automatically
+print("Calling Groq (llama-3.3-70b)…")
+response = llm_groq.invoke([
+    HumanMessage(content="Explain what an observability 'span' is, in exactly 2 sentences.")
+])
+
+print(response.content)
+
+
+=====================================================================================================
+
+# Gemini's OpenAI-compatible endpoint (no extra setup needed)
+llm_gemini = ChatOpenAI(
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    api_key=os.getenv("GEMINI_API_KEY"),
+    model="gemini-2.5-flash-lite",
+    temperature=0.3
+)
+
+
+print("Calling Gemini (gemini-2.5-flash-lite)…")
+try:
+    response = llm_gemini.invoke([
+        HumanMessage(content="Explain what an observability 'trace' is, in exactly 2 sentences.")
+    ])
+    print(f"\n🔵 Gemini Response:\n{response.content}")
+except Exception as e:
+    print(f"⚠️  Gemini call failed: {e}")
+    print("    Check your GEMINI_API_KEY in .env")
+
+
+=====================================================================================================
+
+query = "What is the difference between RAG and fine-tuning? Give 3 bullet points."
+
+with logfire.span("model_comparison", query=query, num_models=2):
+
+    # ── Groq ─────────────────────────────────────────────────────────────
+    with logfire.span("groq_call", model="llama-3.3-70b-versatile", provider="groq"):
+        t0 = time.time()
+        r_groq = llm_groq.invoke([HumanMessage(content=query)])
+        groq_ms = round((time.time() - t0) * 1000, 1)
+        logfire.info("groq_done", latency_ms=groq_ms, answer_len=len(r_groq.content))
+
+    # ── Gemini ────────────────────────────────────────────────────────────
+    with logfire.span("gemini_call", model="gemini-2.5-flash-lite", provider="google"):
+        t0 = time.time()
+        try:
+            r_gemini = llm_gemini.invoke([HumanMessage(content=query)])
+            gemini_ms = round((time.time() - t0) * 1000, 1)
+            logfire.info("gemini_done", latency_ms=gemini_ms, answer_len=len(r_gemini.content))
+            gemini_answer = r_gemini.content
+        except Exception as e:
+            logfire.warning("gemini_failed", error=str(e))
+            gemini_ms = 0
+            gemini_answer = f"[Error: {e}]"
+
+# ── Print results ─────────────────────────────────────────────────────────
+print(f"🟢 Groq ({groq_ms}ms):\n{r_groq.content}")
+print(f"\n🔵 Gemini ({gemini_ms}ms):\n{gemini_answer}")
+
+
+=====================================================================================================
+
+
+from langchain.agents import create_agent
+from langchain.tools import tool
+from langchain_core.messages import HumanMessage, ToolMessage, AIMessage
+
+
+# ── Retriever as a plain Python tool ──────────────────────────────────────
+@tool
+def search_knowledge_base(query: str) -> str:
+    """Search the knowledge base for LLM production topics: RAG, guardrails,
+    gateways, observability, evaluations, and fine-tuning."""
+    docs = vectorstore.similarity_search(query, k=2)
+    return "\n\n".join(
+        f"[{d.metadata['topic']}] {d.page_content}" for d in docs
+    )
+
+
+agent = create_agent(
+    model=llm_groq,
+    tools=[search_knowledge_base],
+    system_prompt=(
+        "You are a helpful assistant. Use search_knowledge_base for any question "
+        "about LLM production topics. Answer directly for general knowledge questions."
+    )
+)
+
+# ── Traced agent runner ────────────────────────────────────────────────────
+def run_agent(question: str, user_id: str = "anonymous"):
+    with logfire.span("agent_run", question=question, user_id=user_id):
+        result = agent.invoke({"messages": [HumanMessage(content=question)]})
+
+        # Last message may be a ToolMessage or an AIMessage with empty content
+        # — iterate backwards to find the last AIMessage with actual text
+        last_ai = next(
+            (m for m in reversed(result["messages"]) if isinstance(m, AIMessage)),
+            None
+        )
+        answer    = last_ai.text if last_ai else ""
+        used_tool = any(isinstance(m, ToolMessage) for m in result["messages"])
+
+        logfire.info("agent_done", used_tool=used_tool, answer_length=len(answer))
+        return answer, used_tool
+
+
+# ── Test ───────────────────────────────────────────────────────────────────
+queries = [
+    ("What is LLM observability and which tools provide it?", "priya"),
+    ("How do LLM guardrails work?",  "bhavesh"),
+    ("What is the capital of France?", "kunal"),
+]
+
+
+for q, uid in queries:
+    print(f"{'='*55}")
+    answer, used_tool = run_agent(q, user_id=uid)
+    print(f"Q: {q}")
+    print(f"Tool used: {used_tool}  {'← retrieved from KB' if used_tool else '← answered directly'}")
+    print(f"A: {answer[:300]}")
+
+
+
+=====================================================================================================
+
+
+
+=====================================================================================================
+
+
+
+=====================================================================================================
+
+
+
+=====================================================================================================
+
+
+
+
+
+==============================================================
+
+Project
+A Project groups related traces. Set via LANGSMITH_PROJECT=my-project. Use separate projects for dev, staging, and production.
+
+@traceable
+The @traceable decorator makes any custom Python function appear in the trace tree, just like a LangChain object. It intercepts the function call, wraps it in a Run, and sends it to LangSmith.
+
+=============================================
+
+CHECK MY YOUTUBE : https://www.youtube.com/@dhackmt
+
+LETS CONNECT ON LINKDIN : https://www.linkedin.com/in/dhackmt/
+
+Nemo Guard Rails
+
+GITHUB : https://github.com/d-hackmt/Nemo-Guardrails
+
+
+CHECK MY YOUTUBE : https://www.youtube.com/@dhackmt
+
+LETS CONNECT ON LINKDIN : https://www.linkedin.com/in/dhackmt/
+
+
+=============================================
+export OPENAI_API_KEY="your-openai-api-key"
+
+export LANGSMITH_API_KEY="xxxxxxxxx"
+export LANGSMITH_TRACING="true"
+export LANGSMITH_PROJECT="demo-tracing"
+
+=============================================
+
+
