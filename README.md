@@ -233,8 +233,10 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_WorkFlows
 ---
 
 ---
-##  **Observability using Langsmith and Pydantic LogFire**
 
+# 🔭 **Observability using Langsmith and Pydantic LogFire**
+
+---
 
 # 🔭 Pydantic Logfire — Production LLM Observability : Pydanic  LogFire Tracing
 
