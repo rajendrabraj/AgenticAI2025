@@ -1,3 +1,7 @@
+## July 2026
+## This program will fire the queries against the models and output can be seen in the logfire dashboard.
+
+
 from dotenv import load_dotenv
 load_dotenv()
 

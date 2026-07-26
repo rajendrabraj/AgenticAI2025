@@ -1,3 +1,7 @@
+## July 2026
+## This program will fire the queries against the models and output can be seen in the logfire dashboard.
+
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -68,11 +72,11 @@ logfire.configure(
     service_name="llm-observability-course"
 )
 
-logfire.info("notebook_started",
-            part="PART 1 - BASICS",
-            instructer = "Rajendra",
-            tool = "Pydantic Logfire"
-            )
+# logfire.info("notebook_started",
+#             part="PART 1 - BASICS",
+#             instructer = "Rajendra",
+#             tool = "Pydantic Logfire"
+#             )
 
 
 from langchain_openai import ChatOpenAI
@@ -97,49 +101,54 @@ response = llm_groq.invoke([
 print(response.content)
 
 
-# # Gemini's OpenAI-compatible endpoint (no extra setup needed)
-# llm_gemini = ChatOpenAI(
-#     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-#     api_key=os.getenv("GEMINI_API_KEY"),
-#     model="gemini-2.0-flash",
-#     temperature=0.3
-# )
+# Gemini's OpenAI-compatible endpoint (no extra setup needed)
+llm_gemini = ChatOpenAI(
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    api_key=os.getenv("GEMINI_API_KEY"),
+    model="gemini-2.0-flash",
+    temperature=0.3
+)
 
 
-# print("Calling Gemini (gemini-2.0-flash)…")
-# try:
-#     response = llm_gemini.invoke([
-#         HumanMessage(content="Explain what an observability 'trace' is, in exactly 2 sentences.")
-#     ])
-#     print(f"\n🔵 Gemini Response:\n{response.content}")
-# except Exception as e:
-#     print(f"⚠️  Gemini call failed: {e}")
-#     print("    Check your GEMINI_API_KEY in .env")
+print("Calling Gemini (gemini-2.0-flash)…")
+try:
+    response = llm_gemini.invoke([
+        HumanMessage(content="Explain what an observability 'trace' is, in exactly 2 sentences.")
+    ])
+    print(f"\n🔵 Gemini Response:\n{response.content}")
+except Exception as e:
+    print(f"⚠️  Gemini call failed: {e}")
+    print("    Check your GEMINI_API_KEY in .env")
+
+
+## Groq Model
 
 query = "What is the difference between RAG and fine-tuning? Give 3 bullet points."
 
-with logfire.span("model_comparison", query=query, num_models=2):
+# with logfire.span("model_comparison", query=query, num_models=2):
 
-    # ── Groq ─────────────────────────────────────────────────────────────
-    with logfire.span("groq_call", model="llama-3.3-70b-versatile", provider="groq"):
-        t0 = time.time()
-        r_groq = llm_groq.invoke([HumanMessage(content=query)])
-        groq_ms = round((time.time() - t0) * 1000, 1)
-        logfire.info("groq_done", latency_ms=groq_ms, answer_len=len(r_groq.content))
+#     # ── Groq ─────────────────────────────────────────────────────────────
+#     with logfire.span("groq_call", model="llama-3.3-70b-versatile", provider="groq"):
+#         t0 = time.time()
+#         r_groq = llm_groq.invoke([HumanMessage(content=query)])
+#         groq_ms = round((time.time() - t0) * 1000, 1)
+#         logfire.info("groq_done", latency_ms=groq_ms, answer_len=len(r_groq.content))
 
-    # ── Gemini ────────────────────────────────────────────────────────────
-    with logfire.span("gemini_call", model="gemini-2.5-flash-lite", provider="google"):
-        t0 = time.time()
-        try:
-            r_gemini = llm_gemini.invoke([HumanMessage(content=query)])
-            gemini_ms = round((time.time() - t0) * 1000, 1)
-            logfire.info("gemini_done", latency_ms=gemini_ms, answer_len=len(r_gemini.content))
-            gemini_answer = r_gemini.content
-        except Exception as e:
-            logfire.warning("gemini_failed", error=str(e))
-            gemini_ms = 0
-            gemini_answer = f"[Error: {e}]"
+# ── Gemini ────────────────────────────────────────────────────────────
+with logfire.span("gemini_call", model="gemini-2.5-flash-lite", provider="google"):
+    t0 = time.time()
+    try:
+        r_gemini = llm_gemini.invoke([HumanMessage(content=query)])
+        gemini_ms = round((time.time() - t0) * 1000, 1)
+        logfire.info("gemini_done", latency_ms=gemini_ms, answer_len=len(r_gemini.content))
+        gemini_answer = r_gemini.content
+    except Exception as e:
+        logfire.warning("gemini_failed", error=str(e))
+        gemini_ms = 0
+        gemini_answer = f"[Error: {e}]"
 
-# ── Print results ─────────────────────────────────────────────────────────
-print(f"🟢 Groq ({groq_ms}ms):\n{r_groq.content}")
+# # ── Print results ─────────────────────────────────────────────────────────
+# print(f"🟢 Groq ({groq_ms}ms):\n{r_groq.content}")
+
+
 print(f"\n🔵 Gemini ({gemini_ms}ms):\n{gemini_answer}")

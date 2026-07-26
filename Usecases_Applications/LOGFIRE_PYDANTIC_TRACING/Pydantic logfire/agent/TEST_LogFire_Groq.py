@@ -1,3 +1,7 @@
+
+## July 2026
+## This program will fire the queries against the models and output can be seen in the logfire dashboard.
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -68,11 +72,11 @@ logfire.configure(
     service_name="llm-observability-course"
 )
 
-logfire.info("notebook_started",
-            part="PART 1 - BASICS",
-            instructer = "Rajendra",
-            tool = "Pydantic Logfire"
-            )
+# logfire.info("notebook_started",
+#             part="PART 1 - BASICS",
+#             instructer = "Rajendra",
+#             tool = "Pydantic Logfire"
+#             )
 
 
 from langchain_openai import ChatOpenAI
@@ -127,19 +131,21 @@ with logfire.span("model_comparison", query=query, num_models=2):
         groq_ms = round((time.time() - t0) * 1000, 1)
         logfire.info("groq_done", latency_ms=groq_ms, answer_len=len(r_groq.content))
 
-    # ── Gemini ────────────────────────────────────────────────────────────
-    with logfire.span("gemini_call", model="gemini-2.5-flash-lite", provider="google"):
-        t0 = time.time()
-        try:
-            r_gemini = llm_gemini.invoke([HumanMessage(content=query)])
-            gemini_ms = round((time.time() - t0) * 1000, 1)
-            logfire.info("gemini_done", latency_ms=gemini_ms, answer_len=len(r_gemini.content))
-            gemini_answer = r_gemini.content
-        except Exception as e:
-            logfire.warning("gemini_failed", error=str(e))
-            gemini_ms = 0
-            gemini_answer = f"[Error: {e}]"
+    # # ── Gemini ────────────────────────────────────────────────────────────
+    # with logfire.span("gemini_call", model="gemini-2.5-flash-lite", provider="google"):
+    #     t0 = time.time()
+    #     try:
+    #         r_gemini = llm_gemini.invoke([HumanMessage(content=query)])
+    #         gemini_ms = round((time.time() - t0) * 1000, 1)
+    #         logfire.info("gemini_done", latency_ms=gemini_ms, answer_len=len(r_gemini.content))
+    #         gemini_answer = r_gemini.content
+    #     except Exception as e:
+    #         logfire.warning("gemini_failed", error=str(e))
+    #         gemini_ms = 0
+    #         gemini_answer = f"[Error: {e}]"
 
 # ── Print results ─────────────────────────────────────────────────────────
 print(f"🟢 Groq ({groq_ms}ms):\n{r_groq.content}")
-print(f"\n🔵 Gemini ({gemini_ms}ms):\n{gemini_answer}")
+
+
+# print(f"\n🔵 Gemini ({gemini_ms}ms):\n{gemini_answer}")
