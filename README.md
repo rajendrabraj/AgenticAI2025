@@ -236,7 +236,7 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_WorkFlows
 ##  **Observability using Langsmith and Pydantic LogFire**
 
 
-# 🔭 Pydantic Logfire — Production LLM Observability :Pydanic  LogFire Tracing
+# 🔭 Pydantic Logfire — Production LLM Observability : Pydanic  LogFire Tracing
 
 > 📌 **Keep your Logfire dashboard open in a browser tab** — you'll see events appear in real time as each cell runs.
 
@@ -252,7 +252,7 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/Usecases_Applications/LO
 
 ---
 
-##  Langsmith Tracing
+# 🔭  Langsmith Tracing
 
 LangSmith Tracing lets you monitor and visualize every step of your LLM application's execution. It helps you debug prompts, inspect model inputs and outputs, track tool and agent behavior, and identify errors or performance bottlenecks. This makes it easier to optimize, evaluate, and improve AI applications.
 
