@@ -232,6 +232,37 @@ https://github.com/rajendrabraj/AgenticAI2025/tree/main/n8n_WorkFlows
 
 ---
 
+---
+##  **Observability using Langsmith and Pydantic LogFire**
+
+
+# 🔭 Pydantic Logfire — Production LLM Observability :Pydanic  LogFire Tracing
+
+> 📌 **Keep your Logfire dashboard open in a browser tab** — you'll see events appear in real time as each cell runs.
+
+**Stack:**
+- `Logfire` — Python-native observability (built on OpenTelemetry)
+- `Groq (llama-3.3-70b)` + `Gemini (gemini-2.5-flash-lite)` — two providers, one dashboard
+- `FAISS` + `Gemini text-embedding (gemini-embedding-2-preview)` — API-based vector search
+- `LangChain` + `LangGraph` — RAG orchestration and ReAct agent
+
+Use cases and examples tested as below : 
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/Usecases_Applications/LOGFIRE_PYDANTIC_TRACING
+
+---
+
+##  Langsmith Tracing
+
+LangSmith Tracing lets you monitor and visualize every step of your LLM application's execution. It helps you debug prompts, inspect model inputs and outputs, track tool and agent behavior, and identify errors or performance bottlenecks. This makes it easier to optimize, evaluate, and improve AI applications.
+
+Use cases and examples tested as below : 
+
+https://github.com/rajendrabraj/AgenticAI2025/tree/main/Usecases_Applications/Tracing_Langsmith
+
+
+---
+
 ##  **🤝Know About me**
 
 Seasoned Leader with 2 decades of experience in leading large scale digital transformation programs, technology modernization, and regulatory initiatives across
